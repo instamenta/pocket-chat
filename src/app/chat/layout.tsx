@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Layout({ children }: { children: React.ReactNode}) {
   return (
-    <div className="h-screen w-full">
+    <div className="h-full w-full">
 
       {children}
     </div>

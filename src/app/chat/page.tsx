@@ -11,6 +11,7 @@ export default function Chat() {
 	};
 
 	return (<>
+			{/* Searchbar */}
 			<div className="w-full py-4 px-6">
 				<div
 					className={`bg-blue-50 w-full drop-shadow-lg border-t-gray-300 border-t rounded-xl flex flex-row justify-around transition-all ${
@@ -33,23 +34,31 @@ export default function Chat() {
 					</button>
 				</div>
 			</div>
-			<section className="w-full bg-gray-white py-3 px-5 flex flex-row overflow-x-auto scrollbar-sm">
-				<div className="flex-none mr-4 last:mr-0">
-					<div
-						className="bg-blue-500 w-12 h-12 rounded-full flex justify-center items-center align-middle">
+
+			{/* Sidescroll */}
+			<section className="w-full bg-gray-white py-3 px-5 flex flex-row overflow-x-auto scrollbar-sm border-b-2">
+
+				{/* Add Story Button */}
+				<div className="flex-none w-12 h-12 mr-4 last:mr-0">
+					<div className="bg-blue-500 w-12 h-12 rounded-full flex justify-center items-center align-middle">
 						<svg xmlns="http://www.w3.org/2000/svg"
 						     viewBox="0 0 24 24"
 						     fill="none"
 						     stroke="white"
-						     strokeWidth="2"
+						     strokeWidth="1.8"
 						     strokeLinecap="round"
 						     strokeLinejoin="round"
-						     className="feather feather-plus">
+						     className="feather feather-plus"
+						     width="30"
+						     height="30">
 							<line x1="12" y1="5" x2="12" y2="19"></line>
 							<line x1="5" y1="12" x2="19" y2="12"></line>
 						</svg>
 					</div>
+					<p className="w-12 pt-2 text-xs font-medium text-center text-gray-600 truncate capitalize">You</p>
 				</div>
+
+				{/* Sidescroll Accounts */}
 				<div className="flex-none mr-4 last:mr-0 w-14 flex flex-col justify-center items-center">
 					<div className="border-2 border-white outline outline-blue-500 bg-green-400 w-12 h-12 rounded-full"/>
 					<p className="w-16 pt-2 text-xs font-medium text-center text-gray-600 truncate capitalize">Jam</p>
@@ -82,13 +91,204 @@ export default function Chat() {
 					<div className="border-2 border-white outline outline-blue-500 bg-green-400 w-12 h-12 rounded-full"/>
 					<p className="w-16 pt-2 text-xs font-medium text-center text-gray-600 truncate capitalize">Anatahuan</p>
 				</div>
-
 			</section>
 
+			{/* Chats Section*/}
+			<section className="bg-white pt-4 w-full overflow-y-auto max-h-[calc(100vh-253px)] ">
 
-			<div className='bg-black w-full h-full'>
+				{/* Chat Box */}
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
 
-			</div>
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+
+				<div className="w-full flex px-5 py-3">
+					<div className="rounded-full bg-blue-500 h-16 aspect-square border-2 border-white outline outline-blue-500"/>
+					<div className="ml-4 w-full h-full pt-2">
+						<label className="capitalize text-lg font-mono">somehting fabolous</label>
+						<p className="text-sm font-normal text-gray-500">The last message send by this person</p>
+					</div>
+					<div className="w-24 pt-3">
+						<p className="font-light w-full text-right text-xs text-nowrap">5:30 PM</p>
+						<p className="font-ling w-full text-right text-nowrap pt-2 text-blue-500">* *</p>
+					</div>
+				</div>
+
+			</section>
 		</>
 	)
 }
