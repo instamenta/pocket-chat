@@ -2,14 +2,14 @@
 
 export const Footer = () => {
   return (
-    <footer className="bg-slate-200 w-full border-t-4 border-cyan-800">
-      <div className="mx-auto pt-6 w-full max-w-screen-xl">
-        <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
+    <footer className="w-full border-t-4 border-cyan-800 bg-slate-200">
+      <div className="mx-auto w-full max-w-screen-xl pt-6">
+        <div className="grid grid-cols-2 gap-8 px-4 py-6 md:grid-cols-4 lg:py-8">
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase ">
+            <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 ">
               Company
             </h2>
-            <ul className="text-gray-500 font-medium">
+            <ul className="font-medium text-gray-500">
               <li className="mb-4">
                 <a href="#" className=" hover:underline">
                   About
@@ -33,10 +33,10 @@ export const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
+            <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900">
               Help center
             </h2>
-            <ul className="text-gray-500  font-medium">
+            <ul className="font-medium  text-gray-500">
               <li className="mb-4">
                 <a href="#" className="hover:underline">
                   Discord Server
@@ -60,10 +60,10 @@ export const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase ">
+            <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 ">
               Legal
             </h2>
-            <ul className="text-gray-500  font-medium">
+            <ul className="font-medium  text-gray-500">
               <li className="mb-4">
                 <a href="#" className="hover:underline">
                   Privacy Policy
@@ -82,10 +82,10 @@ export const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase ">
+            <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900 ">
               Download
             </h2>
-            <ul className="text-gray-500  font-medium">
+            <ul className="font-medium  text-gray-500">
               <li className="mb-4">
                 <a href="#" className="hover:underline">
                   iOS
@@ -109,15 +109,15 @@ export const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="bg-cyan-900 shadow-gray-900 px-4 py-6 md:flex md:items-center md:justify-between">
+        <div className="bg-cyan-900 px-4 py-6 shadow-gray-900 md:flex md:items-center md:justify-between">
           <span className="text-sm text-gray-100  sm:text-center">
             © 2023 <a href="https://flowbite.com/">Chatter™</a>. All Rights
             Reserved.
           </span>
-          <div className="flex justify-center mt-4 sm:justify-center md:mt-0 space-x-5 rtl:space-x-reverse">
+          <div className="mt-4 flex justify-center space-x-5 rtl:space-x-reverse sm:justify-center md:mt-0">
             <a href="#" className="text-white hover:text-gray-900 ">
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -133,7 +133,7 @@ export const Footer = () => {
             </a>
             <a href="#" className="text-white hover:text-gray-900 ">
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -145,7 +145,7 @@ export const Footer = () => {
             </a>
             <a href="#" className="text-white hover:text-gray-900 ">
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -161,7 +161,7 @@ export const Footer = () => {
             </a>
             <a href="#" className="text-white hover:text-gray-900">
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -177,7 +177,7 @@ export const Footer = () => {
             </a>
             <a href="#" className="text-white hover:text-gray-900">
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
