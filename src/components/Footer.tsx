@@ -1,3 +1,5 @@
+'use client';
+
 export const Footer = () => {
   return (
     <footer className="bg-slate-200 w-full border-t-4 border-cyan-800">

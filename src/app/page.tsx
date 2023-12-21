@@ -1,10 +1,12 @@
-"use server";
+'use server';
 
-import Footer from "@/components/Footer";
-import React from "react";
+import Footer from '@/components/Footer';
+import React from 'react';
+import Navbar from '@/components/Navbar';
 
 export default async function Home() {
 	return (<>
+      <Navbar />
 			<main className="flex min-h-screen flex-col items-center justify-between">
 				{/* Hero Section */}
 				<section className="w-full">
@@ -12,7 +14,7 @@ export default async function Home() {
 						className="shadow-md border-t-2 h-1/2 round-xxxl flex items-start flex-col p-16 object-contain bg-right bg-no-repeat "
 						style={{
 							backgroundImage:
-								"url(https://static.velvetcache.org/pages/2018/06/13/party-gopher/dancing-gopher.gif)",
+								'url(https://static.velvetcache.org/pages/2018/06/13/party-gopher/dancing-gopher.gif)',
 						}}
 					>
 						<div className="w-3/5 border-t-gray-200 border-t-2">
