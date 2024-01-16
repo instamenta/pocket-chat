@@ -3,11 +3,17 @@
 import React from 'react';
 
 const initialState = [
-  { sender: 'sender', text: '1000000' },
-  { sender: 'user', text: '2000000' },
+  {
+    sender: 'sender',
+    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type an'
+  },
+  {
+    sender: 'user',
+    text: ' has survived not only five centuries, but also the leap into electronic typesetting, remaining essential'
+  },
   { sender: 'sender', text: '300000010000001000000100000010000001000000100000010000001000000' },
   { sender: 'sender', text: '4000000' },
-  { sender: 'sender', text: '5000000' },
+  { sender: 'sender', text: '\'Content here, content here\', making' },
   { sender: 'user', text: '6000000' },
   { sender: 'sender', text: '7000000' },
   { sender: 'sender', text: '8000000' },
@@ -15,53 +21,53 @@ const initialState = [
   { sender: 'sender', text: '8000000' },
   { sender: 'sender', text: '8000000' },
   { sender: 'sender', text: '8000000' },
+  {
+    sender: 'sender',
+    text: 't is a long established fact that a reader will be distracted by the readable content of a page when looking at its '
+  },
   { sender: 'sender', text: '8000000' },
-  { sender: 'sender', text: '8000000' },
-  { sender: 'sender', text: '8000000' },
+  {
+    sender: 'sender',
+    text: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock,'
+  },
   { sender: 'sender', text: '8000000' },
   { sender: 'sender', text: '8000000' },
   { sender: 'sender', text: '11208000000' }
 ];
 
-export default function Chat() {
+interface Message {
+  sender: string;
+  text: string;
+}
+
+export default function Chat(): React.JSX.Element {
   const [text, setText] = React.useState<string>('');
-  const [messages, setMessages] = React.useState(initialState);
+  const [messages, setMessages] = React.useState<Message[]>(initialState);
 
   const textRef = React.useRef<HTMLTextAreaElement>(null);
-  const chatContainerRef = React.useRef(null);
+  const chatContainerRef = React.useRef<HTMLDivElement>(null);
 
   const handleScroll = () => {
-    const chatContainer = chatContainerRef.current;
-    const isAtBottom = chatContainer.scrollHeight - chatContainer.scrollTop === chatContainer.clientHeight;
-
-    !isAtBottom ? chatContainer.style.overflowY = 'hidden' : chatContainer.style.overflowY = 'auto';
+    const $el = chatContainerRef.current;
+    if (!$el) return;
+    const isElementAtBottom = $el.scrollHeight - $el.scrollTop === $el.clientHeight;
+    !isElementAtBottom ? ($el.style.overflowY = 'hidden') : ($el.style.overflowY = 'auto');
   };
 
   React.useEffect(() => {
-    const chatContainer = chatContainerRef.current;
-    chatContainer.scrollTop = chatContainer.scrollHeight;
+    const $el = chatContainerRef.current;
+    if ($el) $el.scrollTop = $el.scrollHeight;
   }, [messages]);
-
-
-  React.useEffect(() => {
-    const textarea = textRef.current;
-    textarea!.style.height = 'auto';
-    textarea!.style.height = textarea!.scrollHeight + 'px';
-  }, [text]);
-
-  React.useEffect(() => {
-    const chatContainer = chatContainerRef.current;
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-  }, []);
 
   return (
     <>
       {/* Navigation Container*/}
-      <nav
-        className="flex h-full w-full flex-row justify-between rounded-b-3xl border-gray-300 px-5 py-5 pt-6 shadow-xl">
+      <nav className="flex h-full w-full flex-row justify-between rounded-b-3xl
+                      border-gray-300 px-5 py-5 pt-6 shadow-xl border-b-4"
+      >
         {/* Information Navigation Container */}
-        <div className="flex flex-row">
-          <div className="mx-6 flex h-full flex-row content-center items-center">
+        <div className="flex flex-row" style={{ width: '75%' }}>
+          <div className="ml-6 flex h-full flex-row content-center items-center">
             <svg
               className="transition-transform hover:-translate-x-3 hover:scale-x-150 hover:scale-y-125"
               xmlns="http://www.w3.org/2000/svg"
@@ -75,16 +81,16 @@ export default function Chat() {
             <div className="ml-4 h-12 w-12 rounded-full bg-red-950" />
           </div>
 
-          <div className="mr-6 flex  w-full flex-col">
-            <p className="text-nowrap font-bold text-gray-800">
-              Sebastian Dragovich the{' '}
+          <div className="flex pl-4 w-full truncate flex-col">
+            <p className="truncate font-bold text-gray-800">
+              Sebastininian Dragovich The Second
             </p>
             <p className="font-normal text-blue-500">Active</p>
           </div>
         </div>
 
         {/* Operations Icons Navigation Container */}
-        <div className="m-auto flex flex-row gap-3 pl-6">
+        <div className="m-auto flex flex-row pl-6 gap-4">
           {/* Video Chat Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -109,17 +115,22 @@ export default function Chat() {
       </nav>
 
       {/* CHAT MESSAGES SECTION */}
-      <section className="flex max-h-screen w-full bg-blue-100" style={{ height: 'calc(100vh - 195px)' }}
+      <section className="flex max-h-screen w-full bg-blue-100" style={{ height: 'calc(100vh - 183px)' }}
                ref={chatContainerRef}
                onScroll={handleScroll}
       >
-        <article className="overflow-y-scroll flex flex-col-reverse p-6 w-full text-pretty">
+        <article className="overflow-y-scroll flex flex-col-reverse p-6 w-full scrollbar-xs">
           {messages.map((message, index) => (
-            <div className={`mb-3 ${message.sender === 'user' ? 'self-start' : 'self-end'}`} key={index}>
-              <div className={`bg-white px-3 py-1.5 rounded-2xl ${
+            <div style={{ maxWidth: '70%' }}
+                 key={index}
+                 className={`mb-3 ${message.sender === 'user' ? 'self-start' : 'self-end'}`}
+            >
+              <div className={`bg-white px-4 pt-2 pb-4 rounded-2xl ${
                 message.sender === 'user' ? 'rounded-br-none' : 'rounded-bl-none'}`}
               >
-                <span className="min-w-0">{message.text}</span>
+                <span className="break-words">
+                  {message.text}
+                </span>
               </div>
             </div>
 
@@ -164,3 +175,14 @@ export default function Chat() {
     </>
   );
 }
+
+// React.useEffect(() => {
+//   const textarea = textRef.current;
+//   textarea!.style.height = 'auto';
+//   textarea!.style.height = textarea!.scrollHeight + 'px';
+// }, [text]);
+//
+// React.useEffect(() => {
+//   const $el = chatContainerRef.current;
+//   $el.scrollTop = $el.scrollHeight;
+// }, []);
