@@ -15,7 +15,7 @@ export default function Chat() {
     <>
       <Navbar />
       {/* Searchbar */}
-      <div className="w-full px-6 py-4">
+      <div className="w-full px-6 py-1">
         <div
           className={`flex w-full flex-row justify-around rounded-xl border-t border-t-gray-300 bg-blue-50 
         drop-shadow-lg transition-all ${
@@ -95,7 +95,7 @@ export default function Chat() {
       </section>
 
       {/* Chats Section*/}
-      <section className="max-h-[calc(100vh-257px)] w-full overflow-y-auto bg-white pt-4 ">
+      <section className="max-h-[calc(100vh-257px)] w-full overflow-y-auto bg-white pt-4 scrollbar-xs">
         {/* Chat Box */}
         {[
           {
