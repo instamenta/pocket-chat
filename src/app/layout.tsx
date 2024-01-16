@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" className="h-screen">
         <body className={inter.className}>{children}</body>
       </html>
     </ClerkProvider>

@@ -5,16 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/chat/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/[id]/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/chat/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +53,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "/home/user/.nvm/versions/node/v20.5.0/bin/node",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.General",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.JavaScript",
     "ts.external.directory.path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots/node_modules/typescript/lib"
   }
 }]]></component>
@@ -80,7 +77,13 @@
       <workItem from="1703108321180" duration="3961000" />
       <workItem from="1703151197348" duration="883000" />
       <workItem from="1703155440529" duration="16000" />
-      <workItem from="1703187068207" duration="6943000" />
+      <workItem from="1703187068207" duration="6958000" />
+      <workItem from="1703225574225" duration="74000" />
+      <workItem from="1703350406048" duration="6987000" />
+      <workItem from="1703748246281" duration="23000" />
+      <workItem from="1703977080518" duration="1270000" />
+      <workItem from="1704183458834" duration="63000" />
+      <workItem from="1705438605807" duration="2037000" />
     </task>
     <servers />
   </component>
