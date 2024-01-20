@@ -1,7 +1,7 @@
 'use server';
 
-import Footer from '@/components/Footer';
 import React from 'react';
+import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 
 export default async function Home() {
@@ -40,7 +40,7 @@ export default async function Home() {
               <h1 className="title-font mb-2 text-2xl font-semibold text-gray-900 sm:text-4xl">
                 Trusted by experts
               </h1>
-              <p className="text-pretty w-full leading-relaxed text-gray-500 lg:w-1/2">
+              <p className="w-full text-pretty leading-relaxed text-gray-500 lg:w-1/2">
                 Working with professionals since 2021 to make the web a better
                 place.
               </p>

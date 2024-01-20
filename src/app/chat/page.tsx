@@ -95,7 +95,7 @@ export default function Chat() {
       </section>
 
       {/* Chats Section*/}
-      <section className="max-h-[calc(100vh-257px)] w-full overflow-y-auto bg-white pt-4 scrollbar-xs">
+      <section className="scrollbar-xs max-h-[calc(100vh-257px)] w-full overflow-y-auto bg-white pt-4">
         {/* Chat Box */}
         {[
           {
@@ -206,11 +206,11 @@ export default function Chat() {
               </p>
             </div>
             <div className="w-24 pt-3">
-              <p className="text-nowrap w-full text-right text-xs font-light">
+              <p className="w-full text-nowrap text-right text-xs font-light">
                 {item.time}
               </p>
               <p
-                className={`font-ling text-nowrap w-full pt-2 text-right ${
+                className={`font-ling w-full text-nowrap pt-2 text-right ${
                   item.missedCount <= 4 ? 'text-blue-500' : 'text-blue-300'
                 }`}
               >
