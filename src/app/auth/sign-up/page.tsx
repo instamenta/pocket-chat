@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { REST } from '@/variables';
 
 interface I_FormState {
   firstName: string;
@@ -131,10 +132,37 @@ export default function SignUp(): React.JSX.Element {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateForm()) {
-      console.log('Form submitted:', formState);
+    console.log('IN');
+
+    if (!validateForm()) {
+      console.log('Invalid form:', formState);
+      return;
+    }
+
+    const { username, password, email, lastName, firstName } = formState;
+
+    let init: RequestInit = {};
+    try {
+      init = {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password, email, lastName, firstName }) as BodyInit
+      };
+    } catch (error) {
+      return console.error('Failed to JSON stringify body, Error:', error);
+    }
+
+    console.log(init);
+
+    try {
+      const response = await fetch(REST.SIGN_UP, init);
+
+      if (!response.ok) return console.error(`HTTP error! Status: ${response.status}`);
+    } catch (error) {
+      console.error('Error:', error);
     }
   };
 

@@ -1,9 +1,10 @@
 'use client';
 
 import React from 'react';
+import { REST } from '@/variables';
 
 interface I_FormState {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -12,10 +13,7 @@ export default function SignIn(): React.JSX.Element {
     Partial<I_FormState>
   >({});
 
-  const [formState, setFormState] = React.useState<I_FormState>({
-    email: '',
-    password: ''
-  });
+  const [formState, setFormState] = React.useState<I_FormState>({ username: '', password: '' });
 
   type T_InputFields = Array<{
     name: keyof I_FormState;
@@ -24,7 +22,7 @@ export default function SignIn(): React.JSX.Element {
   }>;
 
   const inputFields: T_InputFields = [
-    { name: 'email', placeholder: 'Email', type: 'email' },
+    { name: 'username', placeholder: 'Username', type: 'text' },
     { name: 'password', placeholder: 'Password', type: 'password' }
   ];
 
@@ -41,15 +39,15 @@ export default function SignIn(): React.JSX.Element {
     }
 
     switch (fieldName) {
-      case 'email':
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email)
+      case 'username':
+        formState.username.length < 3 || formState.username.length > 32
           ? setValidationErrors((prevErrors) => ({
             ...prevErrors,
-            email: 'Invalid email address'
+            username: 'Username must be between 3 and 32 characters'
           }))
           : setValidationErrors((prevErrors) => ({
             ...prevErrors,
-            email: undefined
+            username: undefined
           }));
         break;
       case 'password':
@@ -68,20 +66,49 @@ export default function SignIn(): React.JSX.Element {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateForm()) console.log('Form submitted:', formState);
-    
+
+    if (!validateForm()) {
+      return console.log('Invalid form:', formState);;
+    }
+
+    const { password, username } = formState;
+
+    let init: RequestInit = {};
+    try {
+      init = {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }) as BodyInit
+      };
+    } catch (error) {
+      return console.error('Failed to JSON stringify body, Error:', error);
+    }
+
+    console.log(init);
+
+    try {
+      const response = await fetch(REST.SIGN_IN, init);
+
+      if (!response.ok) return console.error(`HTTP error! Status: ${response.status}`);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const validateForm = () => {
     const errors: Partial<I_FormState> & { termsAndConditions?: string } = {};
 
-    // Email
-    if (formState.email.trim() === '') {
-      errors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email)) {
-      errors.email = 'Invalid email address';
+    // Username
+    if (formState.username.trim() === '') {
+      errors.username = 'Username is required';
+    } else if (
+      formState.username.length < 3 ||
+      formState.username.length > 32
+    ) {
+      errors.username = 'Username must be between 3 and 32 characters';
     }
 
     // Password

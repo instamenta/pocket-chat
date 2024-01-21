@@ -1,7 +1,7 @@
-const API_URL = 'https://localhost:3002/api'
+const API_URL = 'http://localhost:3002/api'
   , USER_ENDPOINT = API_URL + '/user'
-  , SIGN_IN = USER_ENDPOINT + '/sign-in'
-  , SIGN_UP = USER_ENDPOINT + '/sign-up'
+  , SIGN_IN = new URL(USER_ENDPOINT + '/sign-in')
+  , SIGN_UP = new URL(USER_ENDPOINT + '/sign-up')
 ;
 
 const REST = {
@@ -11,7 +11,13 @@ const REST = {
   SIGN_UP
 };
 
-const Variables = { REST };
+const JWT = {
+  TOKEN_NAME: 'X-Authorization-Token'
+};
+
+const Variables = { REST, JWT };
+
+export { REST };
 
 export default Variables;
 
