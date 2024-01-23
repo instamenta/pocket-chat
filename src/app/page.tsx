@@ -15,7 +15,7 @@ export default async function Home() {
             className="round-xxxl flex h-1/2 flex-col items-start border-t-2 bg-right bg-no-repeat object-contain p-16 shadow-md "
             style={{
               backgroundImage:
-                'url(https://static.velvetcache.org/pages/2018/06/13/party-gopher/dancing-gopher.gif)',
+                'url(https://static.velvetcache.org/pages/2018/06/13/party-gopher/dancing-gopher.gif)'
             }}
           >
             <div className="w-3/5 border-t-2 border-t-gray-200">
@@ -50,7 +50,8 @@ export default async function Home() {
             <div className="-m-4 flex flex-wrap">
               <div className="p-4 md:w-1/2 xl:w-1/3">
                 <div className="rounded-lg border border-gray-300 bg-white p-6">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
+                  <div
+                    className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
                     <svg
                       fill="none"
                       stroke="currentColor"
@@ -76,7 +77,8 @@ export default async function Home() {
               {/* Content Card */}
               <div className="p-4 md:w-1/2 xl:w-1/3">
                 <div className="rounded-lg border border-gray-300 bg-white p-6">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
+                  <div
+                    className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
                     <svg
                       fill="none"
                       stroke="currentColor"
@@ -104,7 +106,8 @@ export default async function Home() {
               {/* Content Card */}
               <div className="p-4 md:w-1/2 xl:w-1/3">
                 <div className="rounded-lg border border-gray-300 bg-white p-6">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
+                  <div
+                    className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
                     <svg
                       fill="none"
                       stroke="currentColor"
@@ -131,7 +134,8 @@ export default async function Home() {
               {/* Content Card */}
               <div className="p-4 md:w-1/2 xl:w-1/3">
                 <div className="rounded-lg border border-gray-300 bg-white p-6">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
+                  <div
+                    className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
                     <svg
                       fill="none"
                       stroke="currentColor"
@@ -157,7 +161,8 @@ export default async function Home() {
               {/* Content Card */}
               <div className="p-4 md:w-1/2 xl:w-1/3">
                 <div className="rounded-lg border border-gray-300 bg-white p-6">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
+                  <div
+                    className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
                     <svg
                       fill="none"
                       stroke="currentColor"
@@ -183,7 +188,8 @@ export default async function Home() {
               {/* Content Card */}
               <div className="p-4 md:w-1/2 xl:w-1/3">
                 <div className="rounded-lg border border-gray-300 bg-white p-6">
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
+                  <div
+                    className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
                     <svg
                       fill="none"
                       stroke="currentColor"

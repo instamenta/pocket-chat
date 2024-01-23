@@ -8,7 +8,7 @@ export default function Authenticate(): React.JSX.Element {
     <form
       className="mx-14 -mt-60 rounded-3xl border-2 border-slate-900 bg-white px-5 pb-6 pt-8 shadow-2xl">
       <h2 className="pl-5 pb-1 text-2xl font-medium text-slate-600">Welcome </h2>
-      <h3 className="pl-5 text-slate-400">Haven't seen this one before did you?</h3>
+      <h3 className="pl-5 text-slate-400">Haven&apos;t seen this one before did you?</h3>
 
       {/* Action Button Container */}
       <div className="flex flex-col  text-2xl w-full justify-center pt-8 gap-5 font-medium">

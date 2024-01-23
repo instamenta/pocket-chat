@@ -12,11 +12,13 @@
     "form": "npm run lint-fix && npm run format"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.17.19",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.17.20",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

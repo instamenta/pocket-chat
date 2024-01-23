@@ -5,7 +5,7 @@ import React from 'react';
 const initialState = [
   {
     sender: 'sender',
-    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type an",
+    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type an',
   },
   {
     sender: 'user',
@@ -16,7 +16,7 @@ const initialState = [
     text: '300000010000001000000100000010000001000000100000010000001000000',
   },
   { sender: 'sender', text: '4000000' },
-  { sender: 'sender', text: "'Content here, content here', making" },
+  { sender: 'sender', text: '\'Content here, content here\', making' },
   { sender: 'user', text: '6000000' },
   { sender: 'sender', text: '7000000' },
   { sender: 'sender', text: '8000000' },
