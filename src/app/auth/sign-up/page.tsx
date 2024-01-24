@@ -12,6 +12,8 @@ interface I_FormState {
   confirmPassword: string;
 }
 
+// TODO: JUMP BETWEEN SIGN IN AND SIGN UP FROM FORM AND ADD <--- BUTTON
+
 export default function SignUp(): React.JSX.Element {
   const [acceptedTerms, setAcceptedTerms] = React.useState<boolean>(false);
 

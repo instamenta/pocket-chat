@@ -93,6 +93,8 @@ export default function SignIn(): React.JSX.Element {
       const response = await fetch(REST.SIGN_IN, init);
 
       if (!response.ok) return console.error(`HTTP error! Status: ${response.status}`);
+
+      window.location.href = '/';
     } catch (error) {
       console.error('Error:', error);
     }
