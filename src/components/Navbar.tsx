@@ -1,16 +1,22 @@
 'use client';
 
 import React from 'react';
+import { extractAuthToken, removeAuthToken } from '@/lib';
 
 const Navbar = () => {
   const [cookie, setCookie] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    const data = document.cookie.split('; ')
-      .find(c => c.startsWith('X-Authorization-Token='));
-
-    if (data) setCookie(data.slice('X-Authorization-Token='.length));
+    const data = extractAuthToken();
+    if (data) setCookie(data);
   }, []);
+
+  const handleLogout = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    removeAuthToken();
+    window.location.href = '/';
+  };
+
   return (
     <nav className="mb-3 border-b-cyan-700 bg-white p-4 drop-shadow-xl transition-all  hover:bg-slate-100">
       {/*border-b-4 hover:border-b-8*/}
@@ -21,17 +27,38 @@ const Navbar = () => {
         </div>
         <div className="flex flex-row items-center space-x-4 text-gray-800">
           {/* NAVBAR ITEMS */}
-          {cookie ? (<>
-            <a href="/chat" className="hover:text-black hover:underline">Chat</a>
-          </>) : (<>
-            <a href="/auth/sign-in" className="hover:text-black hover:underline">Sign In</a>
-            <a href="/auth/sign-up" className="hover:text-black hover:underline">Sign Up</a>
-          </>)}
-
+          {cookie ? (
+            <>
+              <a href="/chat" className="hover:text-black hover:underline">
+                Chat
+              </a>
+              <button onClick={handleLogout} className="hover:text-black hover:underline">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <a
+                href="/auth/sign-in"
+                className="hover:text-black hover:underline"
+              >
+                Sign In
+              </a>
+              <a
+                href="/auth/sign-up"
+                className="hover:text-black hover:underline"
+              >
+                Sign Up
+              </a>
+            </>
+          )}
 
           {/* AUTH ACTION BUTTON */}
-          <div className={`h-9 w-9 rounded-full shadow-lg shadow-gray-400 ${
-            cookie ? 'bg-green-500' : 'bg-red-500'}`}></div>
+          <div
+            className={`h-9 w-9 rounded-full shadow-lg shadow-gray-400 ${
+              cookie ? 'bg-green-500' : 'bg-red-500'
+            }`}
+          ></div>
         </div>
       </div>
     </nav>

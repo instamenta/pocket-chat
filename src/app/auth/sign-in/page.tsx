@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { REST } from '@/variables';
+import { initRequest } from '@/lib';
 
 interface I_FormState {
   username: string;
@@ -13,7 +14,10 @@ export default function SignIn(): React.JSX.Element {
     Partial<I_FormState>
   >({});
 
-  const [formState, setFormState] = React.useState<I_FormState>({ username: '', password: '' });
+  const [formState, setFormState] = React.useState<I_FormState>({
+    username: '',
+    password: ''
+  });
 
   type T_InputFields = Array<{
     name: keyof I_FormState;
@@ -69,35 +73,20 @@ export default function SignIn(): React.JSX.Element {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      return console.log('Invalid form:', formState);;
-    }
+    if (!validateForm()) return console.log('Invalid form:', formState);
 
     const { password, username } = formState;
 
-    let init: RequestInit = {};
-    try {
-      init = {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }) as BodyInit
-      };
-    } catch (error) {
-      return console.error('Failed to JSON stringify body, Error:', error);
-    }
+    const init = initRequest({
+      method: 'POST',
+      body: { username, password }
+    });
+    const response = await fetch(REST.SIGN_IN, init);
 
-    console.log(init);
+    if (!response.ok)
+      return console.error(`HTTP error! Status: ${response.status}`);
 
-    try {
-      const response = await fetch(REST.SIGN_IN, init);
-
-      if (!response.ok) return console.error(`HTTP error! Status: ${response.status}`);
-
-      window.location.href = '/';
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    window.location.href = '/';
   };
 
   const validateForm = () => {

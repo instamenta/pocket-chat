@@ -15,10 +15,18 @@ export default function Chat() {
   return (
     <>
       {/* Add Friends Action Button*/}
-      <Link href="/friends/discover" className="fixed bottom-4 right-4 h-12 w-12 bg-blue-500 rounded-full flex items-center justify-center">
+      <Link
+        href="/friends/"
+        className="fixed bottom-4 right-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-500"
+      >
         {/*<?xml version="1.0" encoding="utf-8"?>*/}
-        <svg viewBox="0 0 63 70" xmlns="http://www.w3.org/2000/svg" strokeWidth="3"
-             stroke="#000000" fill="none">
+        <svg
+          viewBox="0 0 63 70"
+          xmlns="http://www.w3.org/2000/svg"
+          strokeWidth="3"
+          stroke="#000000"
+          fill="none"
+        >
           <circle cx="29.22" cy="16.28" r="11.14" />
           <path d="M41.32,35.69c-2.69-1.95-8.34-3.25-12.1-3.25h0A22.55,22.55,0,0,0,6.67,55h29.9" />
           <circle cx="45.38" cy="46.92" r="11.94" />
@@ -33,10 +41,10 @@ export default function Chat() {
         <div
           className={`flex w-full flex-row justify-around rounded-xl border-t border-t-gray-300 bg-blue-50 
         drop-shadow-lg transition-all ${
-            flash
-              ? 'animate-flash border-1 border-gray-100 shadow-2xl shadow-cyan-300'
-              : ''
-          }`}
+          flash
+            ? 'animate-flash border-1 border-gray-100 shadow-2xl shadow-cyan-300'
+            : ''
+        }`}
         >
           <input
             className="m-1 h-full w-full rounded-l-3xl bg-transparent p-2
@@ -54,8 +62,7 @@ export default function Chat() {
               viewBox="0 0 50 50"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M 21 3 C 11.622998 3 4 10.623005 4 20 C 4 29.376995 11.622998 37 21 37 C 24.712383 37 28.139151 35.791079 30.9375 33.765625 L 44.085938 46.914062 L 46.914062 44.085938 L 33.886719 31.058594 C 36.443536 28.083 38 24.223631 38 20 C 38 10.623005 30.377002 3 21 3 z M 21 5 C 29.296122 5 36 11.703883 36 20 C 36 28.296117 29.296122 35 21 35 C 12.703878 35 6 28.296117 6 20 C 6 11.703883 12.703878 5 21 5 z"></path>
+              <path d="M 21 3 C 11.622998 3 4 10.623005 4 20 C 4 29.376995 11.622998 37 21 37 C 24.712383 37 28.139151 35.791079 30.9375 33.765625 L 44.085938 46.914062 L 46.914062 44.085938 L 33.886719 31.058594 C 36.443536 28.083 38 24.223631 38 20 C 38 10.623005 30.377002 3 21 3 z M 21 5 C 29.296122 5 36 11.703883 36 20 C 36 28.296117 29.296122 35 21 35 C 12.703878 35 6 28.296117 6 20 C 6 11.703883 12.703878 5 21 5 z"></path>
             </svg>
           </button>
         </div>
@@ -95,7 +102,7 @@ export default function Chat() {
           'Anaastasiq',
           'Anatahuan',
           'Anatahuan',
-          'Anatahuan'
+          'Anatahuan',
         ].map((item, index) => (
           <div
             key={index}
@@ -117,96 +124,95 @@ export default function Chat() {
             fullName: 'Smith Richardson',
             lastMessage: 'We should meet up soon',
             time: '5:30 PM',
-            missedCount: 0
+            missedCount: 0,
           },
           {
             fullName: 'John Doe',
             lastMessage: 'How are you doing?',
             time: '3:45 PM',
-            missedCount: 3
+            missedCount: 3,
           },
           {
             fullName: 'Alice Johnson',
             lastMessage: 'Great news!',
             time: '1:20 PM',
-            missedCount: 10
+            missedCount: 10,
           },
           {
             fullName: 'Bob Smith',
             lastMessage: 'Where are you?',
             time: '10:15 AM',
-            missedCount: 3
+            missedCount: 3,
           },
           {
             fullName: 'Emily White',
             lastMessage: 'Happy birthday!',
             time: '8:00 AM',
-            missedCount: 1
+            missedCount: 1,
           },
           {
             fullName: 'David Brown',
-            lastMessage: 'Let\'s grab lunch',
+            lastMessage: "Let's grab lunch",
             time: '6:30 AM',
-            missedCount: 2
+            missedCount: 2,
           },
           {
             fullName: 'Sophia Taylor',
             lastMessage: 'Thank you!',
             time: 'Yesterday',
-            missedCount: 0
+            missedCount: 0,
           },
           {
             fullName: 'Michael Wilson',
             lastMessage: 'Check this out',
             time: '2 days ago',
-            missedCount: 0
+            missedCount: 0,
           },
           {
             fullName: 'Olivia Martin',
-            lastMessage: 'I\'m on my way',
+            lastMessage: "I'm on my way",
             time: '3 days ago',
-            missedCount: 4
+            missedCount: 4,
           },
           {
             fullName: 'James Anderson',
-            lastMessage: 'Don\'t forget',
+            lastMessage: "Don't forget",
             time: '4 days ago',
-            missedCount: 0
+            missedCount: 0,
           },
           {
             fullName: 'Emma Harris',
             lastMessage: 'See you later',
             time: '5 days ago',
-            missedCount: 0
+            missedCount: 0,
           },
           {
             fullName: 'William Clark',
-            lastMessage: 'It\'s urgent',
+            lastMessage: "It's urgent",
             time: '1 week ago',
-            missedCount: 0
+            missedCount: 0,
           },
           {
             fullName: 'Ava Lewis',
             lastMessage: 'Missed your call',
             time: '2 weeks ago',
-            missedCount: 1
+            missedCount: 1,
           },
           {
             fullName: 'Ethan Turner',
             lastMessage: 'Happy holidays!',
             time: '3 weeks ago',
-            missedCount: 4
+            missedCount: 4,
           },
           {
             fullName: 'Mia Adams',
-            lastMessage: 'Let\'s plan something',
+            lastMessage: "Let's plan something",
             time: '4 weeks ago',
-            missedCount: 0
-          }
+            missedCount: 0,
+          },
         ].map((item, index) => (
           <div className="flex w-full px-5 py-3" key={index}>
-            <div
-              className="aspect-square h-16 rounded-full border-2 border-white bg-blue-500 outline outline-blue-500" />
+            <div className="aspect-square h-16 rounded-full border-2 border-white bg-blue-500 outline outline-blue-500" />
             <div className="ml-4 h-full w-full pt-2">
               <label className="font-mono text-lg capitalize">
                 {item.fullName}

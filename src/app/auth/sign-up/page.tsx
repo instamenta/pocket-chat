@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { REST } from '@/variables';
+import { initRequest } from '@/lib';
 
 interface I_FormState {
   firstName: string;
@@ -136,36 +137,24 @@ export default function SignUp(): React.JSX.Element {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('IN');
+    if (!validateForm()) return console.log('Invalid form:', formState);
 
-    if (!validateForm()) {
-      console.log('Invalid form:', formState);
-      return;
-    }
+    const init = initRequest({
+      method: 'POST',
+      body: {
+        firstName: formState.firstName,
+        username: formState.username,
+        password: formState.password,
+        lastName: formState.lastName,
+        email: formState.email
+      }
+    });
+    init.credentials = 'include';
 
-    const { username, password, email, lastName, firstName } = formState;
+    const response = await fetch(REST.SIGN_UP, init);
+    if (!response.ok) return console.error(`HTTP error! Status: ${response.status}`);
 
-    let init: RequestInit = {};
-    try {
-      init = {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password, email, lastName, firstName }) as BodyInit
-      };
-    } catch (error) {
-      return console.error('Failed to JSON stringify body, Error:', error);
-    }
-
-    console.log(init);
-
-    try {
-      const response = await fetch(REST.SIGN_UP, init);
-
-      if (!response.ok) return console.error(`HTTP error! Status: ${response.status}`);
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    window.location.href = '/';
   };
 
   const validateForm = () => {
@@ -245,11 +234,15 @@ export default function SignUp(): React.JSX.Element {
             onChange={handleChange}
             onBlur={() => handleBlur(field.name)}
             className={`my-2 w-full rounded-md border-2 px-4 py-2 outline-none ${
-              validationErrors[field.name] ? 'border-red-500' : 'border-gray-300'
+              validationErrors[field.name]
+                ? 'border-red-500'
+                : 'border-gray-300'
             }`}
           />
           {validationErrors[field.name] && (
-            <p className="mt-1 text-xs text-red-500">{validationErrors[field.name]}</p>
+            <p className="mt-1 text-xs text-red-500">
+              {validationErrors[field.name]}
+            </p>
           )}
         </div>
       ))}
@@ -263,7 +256,9 @@ export default function SignUp(): React.JSX.Element {
           onChange={(event) => setAcceptedTerms(event.target.checked)}
           className="mx-4"
         />
-        <label className="font-light text-slate-600 hover:underline">Terms and Conditions</label>
+        <label className="font-light text-slate-600 hover:underline">
+          Terms and Conditions
+        </label>
       </div>
 
       {/* Action Button Container */}

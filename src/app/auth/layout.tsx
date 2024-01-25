@@ -3,7 +3,6 @@ import React from 'react';
 type T_Props = { children: React.ReactNode };
 
 export default function AuthenticationLayout({ children }: T_Props) {
-
   const containerStyle: React.CSSProperties = {
     // backgroundImage: `url(https://i.pinimg.com/originals/67/a8/54/67a854516ec71095239398fe457825e1.png)`,
     // backgroundSize: 'cover',
@@ -21,7 +20,7 @@ export default function AuthenticationLayout({ children }: T_Props) {
         style={{
           height: '10vh',
           borderBottomLeftRadius: '9999px',
-          borderBottomRightRadius: '9999px'
+          borderBottomRightRadius: '9999px',
         }}
       />
       <section className="m-0 w-full p-0 " style={containerStyle}>
