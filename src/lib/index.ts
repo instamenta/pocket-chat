@@ -1,9 +1,10 @@
 export function extractAuthToken() {
   const data = document.cookie
     .split('; ')
-    .find((c) => c.startsWith('X-Authorization-Token='));
+    .find((c) => c.startsWith('X-Authorization-Token='))
+  ;
 
-  return data ? data.slice('X-Authorization-Token='.length) : null;
+  return data ? data.slice('X-Authorization-Token=X-Authorization-Token%'.length) : null;
 }
 
 export function removeAuthToken() {
@@ -44,6 +45,8 @@ export function initRequest({
   const _headers: HeadersInit = { 'Content-Type': 'application/json' };
 
   if (auth && token) _headers['X-Authorization-Token'] = token;
+
+  console.log(token);
 
   init.headers = _headers;
   if (body) init.body = JSON.stringify(body);

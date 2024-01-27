@@ -1,9 +1,14 @@
 const API_URL = 'http://localhost:3002/api',
   USER_ENDPOINT = API_URL + '/user',
+
   SIGN_IN = new URL(USER_ENDPOINT + '/sign-in'),
   SIGN_UP = new URL(USER_ENDPOINT + '/sign-up'),
+
   LIST_USERS = new URL(USER_ENDPOINT + '/list'),
+
   LIST_FRIEND_REQUESTS = new URL(USER_ENDPOINT + '/friends/'),
+  LIST_FRIEND_RECOMMENDATIONS = new URL(USER_ENDPOINT + '/friends/recommendations'),
+
   SEND_FRIEND_REQUEST = (id: string) =>
     new URL(USER_ENDPOINT + '/friends/' + id),
   DELETE_FRIEND_REQUEST = (id: string) =>
@@ -18,7 +23,8 @@ const REST = {
   LIST_USERS,
   LIST_FRIEND_REQUESTS,
   SEND_FRIEND_REQUEST,
-  DELETE_FRIEND_REQUEST
+  DELETE_FRIEND_REQUEST,
+  LIST_FRIEND_RECOMMENDATIONS
 };
 
 const JWT = { TOKEN_NAME: 'X-Authorization-Token' };

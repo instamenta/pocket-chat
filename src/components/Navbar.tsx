@@ -1,7 +1,9 @@
 'use client';
 
 import React from 'react';
-import { extractAuthToken, removeAuthToken } from '@/lib';
+import { extractAuthToken } from '@/lib';
+import * as Actions from '../lib/actions/actions';
+import Link from 'next/link';
 
 const Navbar = () => {
   const [cookie, setCookie] = React.useState<string | null>(null);
@@ -11,20 +13,20 @@ const Navbar = () => {
     if (data) setCookie(data);
   }, []);
 
-  const handleLogout = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleLogout = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    removeAuthToken();
-    window.location.href = '/';
+    await Actions.remoteAuthToken();
   };
 
   return (
     <nav className="mb-3 border-b-cyan-700 bg-white p-4 drop-shadow-xl transition-all  hover:bg-slate-100">
-      {/*border-b-4 hover:border-b-8*/}
+      {/* border-b-4 hover:border-b-8 */}
       <div className="container mx-auto flex items-center justify-between">
         {/* LOGO/NAME PLACE HOLDER */}
-        <div className="text-lg font-bold text-cyan-700 transition-transform hover:translate-x-4 hover:scale-125">
+        <Link href="/"
+              className="text-lg font-bold text-cyan-700 transition-transform hover:translate-x-4 hover:scale-125">
           Chatter
-        </div>
+        </Link>
         <div className="flex flex-row items-center space-x-4 text-gray-800">
           {/* NAVBAR ITEMS */}
           {cookie ? (

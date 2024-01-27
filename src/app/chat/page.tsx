@@ -17,7 +17,7 @@ export default function Chat() {
       {/* Add Friends Action Button*/}
       <Link
         href="/friends/"
-        className="fixed bottom-4 right-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-500"
+        className="fixed bottom-4 right-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-500"
       >
         {/*<?xml version="1.0" encoding="utf-8"?>*/}
         <svg

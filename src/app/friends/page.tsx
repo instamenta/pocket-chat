@@ -10,30 +10,24 @@ import Navbar from '@/components/Navbar';
 
 const Discover = () => {
   const [userList, setUserList] = React.useState<I_UserSchema[]>([]);
-  const [requests, setRequests] = React.useState<
-    T_FriendRequestData[]
-  >([]);
+  const [requests, setRequests] = React.useState<T_FriendRequestData[]>([]);
 
   React.useEffect(() => {
-    fetch(REST.LIST_USERS)
+    fetch(REST.LIST_FRIEND_RECOMMENDATIONS, initRequest({ auth: true }))
       .then(async (response: Response) => {
-        if (!response.ok)
+        if (!response.ok) {
           return console.log('HTTP ERROR', response.status, response);
-        const data = await response.json();
-        console.log(data);
-        setUserList(data);
-      })
-      .catch(console.error);
+        }
+        setUserList(await response.json());
+      });
 
     fetch(REST.LIST_FRIEND_REQUESTS, initRequest({ auth: true }))
       .then(async (response: Response) => {
-        if (!response.ok)
+        if (!response.ok) {
           return console.log('HTTP ERROR', response.status, response);
-        const data = await response.json();
-        console.log(data);
-        setRequests(data);
-      })
-      .catch(console.error);
+        }
+        setRequests(await response.json());
+      });
   }, []);
 
   const handleCancelFriendRequest = async (
@@ -44,16 +38,11 @@ const Discover = () => {
     const response = await fetch(
       REST.DELETE_FRIEND_REQUEST(id),
       initRequest({ method: 'DELETE', auth: true })
-    ).catch(console.error);
+    );
 
     if (!response || !response.ok) {
-      return console.error(
-        `Failed to send request Status: ${response?.status}`,
-        response
-      );
+      return console.error(`Failed to send request Status: ${response?.status}`, response);
     }
-
-    console.log('Successs');
   };
 
   const handleSendFriendRequest = async (
@@ -64,16 +53,11 @@ const Discover = () => {
     const response = await fetch(
       REST.SEND_FRIEND_REQUEST(id),
       initRequest({ method: 'POST', auth: true })
-    ).catch(console.error);
+    );
 
     if (!response || !response.ok) {
-      return console.error(
-        `Failed to send request Status: ${response?.status}`,
-        response
-      );
+      return console.error(`Failed to send request Status: ${response?.status}`, response);
     }
-
-    console.log('Successs');
   };
 
   return (<>
