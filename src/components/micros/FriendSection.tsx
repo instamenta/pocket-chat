@@ -2,9 +2,12 @@ import React from 'react';
 import { FriendCard } from '@/components/micros/FriendCard';
 import { T_friendRequestLists } from '@/lib/queries/friend';
 
-type T_props = { list: Array<T_friendRequestLists>, header: string }
+type T_props = {
+  list: Array<T_friendRequestLists>,
+  header: string
+}
 
-const FriendSection = ({ list, header }: T_props) => {
+const FriendSection = ({ list, header, actions }: T_props) => {
   return (
     <>
       <div className="mt-2 w-full border-b-2 border-t-2 border-gray-300 shadow-2xl ">
@@ -23,8 +26,7 @@ const FriendSection = ({ list, header }: T_props) => {
             <h2 className="m-auto text-center text-3xl font-light text-slate-500">
               ( Empty )
             </h2>
-          </div>
-        ) : <></>}
+          </div>) : null}
       </section>
     </>
   );

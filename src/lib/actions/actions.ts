@@ -15,6 +15,12 @@ export async function remoteAuthToken() {
   redirect('/');
 }
 
+export async function action() {
+
+}
+
+// TODO IMPLEMENT
+
 type T_request_body_builder = {
   method?: HttpMethod;
   body?: object | object[] | string | null;
@@ -32,11 +38,16 @@ export async function initActionRequest({
 
   if (auth) token = await extractAuthToken();
 
+  console.log(token);
+
   if (auth && !token) throw new Error('UNAUTHORIZED requestBodyBuilder():');
 
   const _headers: HeadersInit = { 'Content-Type': 'application/json' };
 
-  if (auth && token) _headers[JWT.token_name] = token;
+  if (auth && token) {
+    _headers[JWT.token_name] = token;
+    _headers['Cookie'] = `${JWT.token_name}=${token}`;
+  }
 
   init.headers = _headers;
   if (body) init.body = JSON.stringify(body);

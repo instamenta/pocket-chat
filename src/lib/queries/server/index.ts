@@ -8,9 +8,10 @@ export const listFriendRequestsOnly = async () => fetch(
     method: FRIENDS.list_friend_requests_only.method,
     auth: true
   })
-).then(async (response: Response): Promise<T_friendRequestLists | void> => {
+).then(async (response: Response): Promise<T_friendRequestLists[]> => {
     if (!response.ok) {
-      return console.log('HTTP ERROR', response.status, response);
+      console.log('HTTP ERROR', response.status, response);
+      return [];
     }
     return await response.json();
   }
@@ -22,9 +23,25 @@ export const listFriendSentOnly = async () => fetch(
     method: FRIENDS.list_friend_sent_only.method,
     auth: true
   })
-).then(async (response: Response): Promise<T_friendRequestLists | void> => {
+).then(async (response: Response): Promise<T_friendRequestLists[]> => {
     if (!response.ok) {
-      return console.log('HTTP ERROR', response.status, response);
+      console.log('HTTP ERROR', response.status, response);
+      return [];
+    }
+    return await response.json();
+  }
+);
+
+export const listFriendRecommendations = async () => fetch(
+  FRIENDS.list_friend_recommendations.url as URL,
+  await initActionRequest({
+    method: FRIENDS.list_friend_recommendations.method,
+    auth: true
+  })
+).then(async (response: Response): Promise<T_friendRequestLists[]> => {
+    if (!response.ok) {
+      console.log('HTTP ERROR', response.status, response);
+      return [];
     }
     return await response.json();
   }

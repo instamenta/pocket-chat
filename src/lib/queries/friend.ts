@@ -38,8 +38,6 @@ export type T_friendRequestLists = {
   request_date: string,
 }
 
-
-
 export const deleteFriendRequest = async (id: string) => fetch(
   FRIENDS_DYNAMIC.delete_friend_request.url(id),
   initRequest({

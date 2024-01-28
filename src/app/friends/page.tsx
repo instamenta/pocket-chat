@@ -1,29 +1,23 @@
 'use server';
 
 import React from 'react';
-import {
-  acceptFriendRequest,
-  declineFriendRequest,
-  deleteFriendRequest,
-  listFriendRecommendations,
-  listFriendRequestsOnly,
-  listFriendSentOnly,
-  sendFriendRequest
-} from '@/lib/queries/friend';
+import { listFriendRecommendations, listFriendRequestsOnly, listFriendSentOnly } from '@/lib/queries/server';
 import FriendSection from '@/components/micros/FriendSection';
 
 // TODO ADD MUTUAL FRIENDS
 
 const Discover = async () => {
 
-  const friendRequestsRecieved = await listFriendRequestsOnly();
-  const friendRequestsSent = await listFriendSentOnly();
-  const friendRecommendations = await listFriendRecommendations();
+  const [
+    friendRequestsReceived,
+    friendRequestsSent,
+    friendRecommendations
+  ] = await Promise.all([
+    listFriendRequestsOnly(),
+    listFriendSentOnly(),
+    listFriendRecommendations()
+  ]);
 
-  console.log(friendRequestsRecieved);
-  console.log(friendRequestsSent);
-  console.log(friendRecommendations);
-  //
   // const handleCancelFriendRequest = async (
   //   event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   //   id: string
@@ -31,7 +25,6 @@ const Discover = async () => {
   //   event.preventDefault();
   //   await deleteFriendRequest(id);
   // };
-  //
   // const handleSendFriendRequest = async (
   //   event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   //   id: string
@@ -39,7 +32,6 @@ const Discover = async () => {
   //   event.preventDefault();
   //   await sendFriendRequest(id);
   // };
-  //
   // const handleAcceptFriendRequest = async (
   //   event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   //   id: string
@@ -47,7 +39,6 @@ const Discover = async () => {
   //   event.preventDefault();
   //   await acceptFriendRequest(id);
   // };
-  //
   // const handleDeclineFriendRequest = async (
   //   event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   //   id: string
@@ -58,9 +49,9 @@ const Discover = async () => {
 
   return (
     <article className="bg-gray-100">
-      <FriendSection list={[]} header={'Friend Requests'} />
-      <FriendSection list={[]} header={'Requests Sent'} />
-      <FriendSection list={[]} header={'Discover people'} />
+      <FriendSection list={friendRequestsReceived} header={'Friend Requests'} />
+      <FriendSection list={friendRequestsSent} header={'Requests Sent'} />
+      <FriendSection list={friendRecommendations} header={'Discover People'} />
     </article>
   );
 };
