@@ -11,10 +11,10 @@ export default function SubmitButton(): React.JSX.Element {
       <button
         type="submit"
         aria-disabled={pending}
-        className={`m-auto border-4 border-orange-600 bg-orange-600 text-white 
-        rounded-xl w-1/2 text-2xl font-medium transition-all
-        hover:bg-white hover:text-black hover:scale-110  disabled:bg-gray-600 
-         ${pending ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`m-auto w-1/2 rounded-xl border-4 border-orange-600 
+        bg-orange-600 text-2xl font-medium text-white transition-all
+        hover:scale-110 hover:bg-white hover:text-black  disabled:bg-gray-600 
+         ${pending ? 'cursor-not-allowed opacity-50' : ''}`}
       >
         Sign In
       </button>

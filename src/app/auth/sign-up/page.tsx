@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
 import { action_handleSignUp } from '@/lib/actions/authentication';
-import Input from '@/components/micros/Input';
 import SubmitButton from '@/components/micros/SubmitButton';
+import Input from '@/components/micros/Input';
 import { useFormState } from 'react-dom';
 import Link from 'next/link';
+import React from 'react';
 
 export default function SignUp() {
   const [state, action] = useFormState(action_handleSignUp, { message: '' });
@@ -17,7 +17,7 @@ export default function SignUp() {
     >
       {/* Info */}
       <h2 className="pb-3 text-3xl text-slate-600">Register </h2>
-      <h3 className="text-slate-400 mb-4">Connect with the people you like.</h3>
+      <h3 className="mb-4 text-slate-400">Connect with the people you like.</h3>
 
       {/* Input Fields */}
       <Input
@@ -67,21 +67,20 @@ export default function SignUp() {
       />
 
       {/* Form Messages */}
-      <span className="text-red-600 text-md">{state?.message}</span>
+      <span className="text-md text-red-600">{state?.message}</span>
 
       {/* Action Button Container */}
       <SubmitButton />
 
       {/* Redirect Link */}
-      <div className="w-full flex justify-center pt-4">
+      <div className="flex w-full justify-center pt-4 text-amber-800">
         <Link
-          className="text-amber-800 hover:underline hover:text-purple-800"
           href="/auth/sign-in"
+          className="hover:text-purple-800 hover:underline"
         >
           Already have an account?
         </Link>
       </div>
-
     </form>
   );
 }

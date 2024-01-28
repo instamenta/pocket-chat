@@ -13,7 +13,9 @@ const Navbar = () => {
     if (data) setCookie(data);
   }, []);
 
-  const handleLogout = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleLogout = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     event.preventDefault();
     await Actions.remoteAuthToken();
   };
@@ -23,8 +25,10 @@ const Navbar = () => {
       {/* border-b-4 hover:border-b-8 */}
       <div className="container mx-auto flex items-center justify-between">
         {/* LOGO/NAME PLACE HOLDER */}
-        <Link href="/"
-              className="text-lg font-bold text-cyan-700 transition-transform hover:translate-x-4 hover:scale-125">
+        <Link
+          href="/"
+          className="text-lg font-bold text-cyan-700 transition-transform hover:translate-x-4 hover:scale-125"
+        >
           Chatter
         </Link>
         <div className="flex flex-row items-center space-x-4 text-gray-800">
@@ -34,7 +38,10 @@ const Navbar = () => {
               <a href="/chat" className="hover:text-black hover:underline">
                 Chat
               </a>
-              <button onClick={handleLogout} className="hover:text-black hover:underline">
+              <button
+                onClick={handleLogout}
+                className="hover:text-black hover:underline"
+              >
                 Logout
               </button>
             </>

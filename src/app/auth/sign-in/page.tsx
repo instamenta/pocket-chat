@@ -1,19 +1,14 @@
 'use client';
 
-import React from 'react';
 import { action_handleSignIn } from '@/lib/actions/authentication';
-import Input from '@/components/micros/Input';
 import SubmitButton from '@/components/micros/SubmitButton';
+import Input from '@/components/micros/Input';
 import { useFormState } from 'react-dom';
 import Link from 'next/link';
-
-const initialState = {
-  message: ''
-};
+import React from 'react';
 
 export default function SignIn() {
-
-  const [state, action] = useFormState(action_handleSignIn, initialState);
+  const [state, action] = useFormState(action_handleSignIn, { message: '' });
 
   return (
     <form
@@ -40,20 +35,19 @@ export default function SignIn() {
         placeholder="Password"
       />
 
-      <span className="text-red-600 text-md">{state?.message}</span>
+      <span className="text-md text-red-600">{state?.message}</span>
       {/* Action Button Container */}
       <SubmitButton />
 
       {/* Redirect Link */}
-      <div className="w-full flex justify-center pt-4">
+      <div className="flex w-full justify-center pt-4 text-amber-800">
         <Link
-          className="text-amber-800 hover:underline hover:text-purple-800"
           href="/auth/sign-up"
+          className="hover:text-purple-800 hover:underline"
         >
           Already have an account?
         </Link>
       </div>
-
     </form>
   );
 }

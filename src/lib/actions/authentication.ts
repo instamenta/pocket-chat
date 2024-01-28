@@ -1,12 +1,15 @@
 'use server';
 
 import { sign_in_schema, sign_up_schema } from '@/lib/validation/schemas';
-import { REST } from '@/variables';
-import { initRequest } from '@/lib';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
+import { initRequest } from '@/lib';
+import { USERS } from '@/variables';
 
-export async function action_handleSignIn(state: { message: string }, formData: FormData) {
+export async function action_handleSignIn(
+  state: { message: string },
+  formData: FormData
+) {
   let data;
   try {
     data = sign_in_schema.parse({
@@ -20,9 +23,9 @@ export async function action_handleSignIn(state: { message: string }, formData: 
   }
 
   const response = await fetch(
-    REST.SIGN_IN,
+    USERS.sign_in.url as URL,
     initRequest({
-      method: 'POST',
+      method: USERS.sign_in.method,
       body: {
         username: data.username,
         password: data.password
@@ -36,14 +39,20 @@ export async function action_handleSignIn(state: { message: string }, formData: 
     return { message: 'Invalid Credentials' };
   }
 
-  const token = response.headers.get('set-cookie');
+  const { token }: { token: string } = await response.json();
 
-  if (token) cookies().set('X-Authorization-Token', token);
+  if (token) cookies().set({
+    name: 'X-Authorization-Token',
+    value: token
+  });
 
   redirect('/');
 }
 
-export async function action_handleSignUp(state: { message: string }, formData: FormData) {
+export async function action_handleSignUp(
+  state: { message: string },
+  formData: FormData
+) {
   let data;
   try {
     data = sign_up_schema.parse({
@@ -67,9 +76,9 @@ export async function action_handleSignUp(state: { message: string }, formData: 
   }
 
   const response = await fetch(
-    REST.SIGN_UP,
+    USERS.sign_up.url as URL,
     initRequest({
-      method: 'POST',
+      method: USERS.sign_up.method,
       body: {
         firstName: data.firstName,
         username: data.username,
@@ -86,9 +95,12 @@ export async function action_handleSignUp(state: { message: string }, formData: 
     return { message: 'Invalid Credentials' };
   }
 
-  const token = response.headers.get('set-cookie');
+  const { token }: { token: string } = await response.json();
 
-  if (token) cookies().set('X-Authorization-Token', token);
+  if (token) cookies().set({
+    name: 'X-Authorization-Token',
+    value: token
+  });
 
   redirect('/');
 }

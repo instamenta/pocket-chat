@@ -1,36 +1,86 @@
-const API_URL = 'http://localhost:3002/api',
-  USER_ENDPOINT = API_URL + '/user',
+import { HttpMethod } from '@/lib';
 
-  SIGN_IN = new URL(USER_ENDPOINT + '/sign-in'),
-  SIGN_UP = new URL(USER_ENDPOINT + '/sign-up'),
+const api_url = 'http://localhost:3002/api';
+const user_endpoint = `${api_url}/user`;
+const friend_endpoint = `${api_url}/friend`;
 
-  LIST_USERS = new URL(USER_ENDPOINT + '/list'),
+type T_rest = {
+  url: URL,
+  method: HttpMethod,
+}
 
-  LIST_FRIEND_REQUESTS = new URL(USER_ENDPOINT + '/friends/'),
-  LIST_FRIEND_RECOMMENDATIONS = new URL(USER_ENDPOINT + '/friends/recommendations'),
+type T_rest_build = {
+  url: ((sth: string) => URL),
+  method: HttpMethod,
+}
 
-  SEND_FRIEND_REQUEST = (id: string) =>
-    new URL(USER_ENDPOINT + '/friends/' + id),
-  DELETE_FRIEND_REQUEST = (id: string) =>
-    new URL(USER_ENDPOINT + '/friends/' + id)
-
-;
-
-const REST = {
-  API_URL,
-  USER_ENDPOINT,
-  SIGN_IN, SIGN_UP,
-  LIST_USERS,
-  LIST_FRIEND_REQUESTS,
-  SEND_FRIEND_REQUEST,
-  DELETE_FRIEND_REQUEST,
-  LIST_FRIEND_RECOMMENDATIONS
+export const USERS = {
+  sign_in: {
+    url: new URL(`${user_endpoint}/sign-in`),
+    method: 'POST'
+  } as T_rest,
+  sign_up: {
+    url: new URL(`${user_endpoint}/sign-up`),
+    method: 'POST'
+  } as T_rest,
+  list_users: {
+    url: new URL(`${user_endpoint}/`),
+    method: 'GET'
+  } as T_rest
 };
 
-const JWT = { TOKEN_NAME: 'X-Authorization-Token' };
+export const USERS_DYNAMIC = {
+  get_user_by_id: {
+    url: (id: string) => new URL(`${user_endpoint}/${id}`),
+    method: 'GET'
+  } as T_rest_build,
+  get_user_by_username: {
+    url: (username: string) => new URL(`${user_endpoint}/${username}`),
+    method: 'GET'
+  } as T_rest_build
+};
 
-const Variables = { REST, JWT };
+export const FRIENDS = {
+  list_friend_requests: {
+    url: new URL(`${friend_endpoint}/`),
+    method: 'GET'
+  } as T_rest,
+  list_friend_requests_only: {
+    url: new URL(`${friend_endpoint}/requests`),
+    method: 'GET'
+  } as T_rest,
+  list_friend_sent_only: {
+    url: new URL(`${friend_endpoint}/sent`),
+    method: 'GET'
+  } as T_rest,
 
-export { REST };
+  list_friend_recommendations: {
+    url: new URL(`${friend_endpoint}/recommendations`),
+    method: 'GET'
+  } as T_rest
+};
 
-export default Variables;
+export const FRIENDS_DYNAMIC = {
+  list_friends_by_user_id: {
+    url: (id: string) => new URL(`${friend_endpoint}/${id}`),
+    method: 'GET'
+  } as T_rest_build,
+  send_friend_request: {
+    url: (id: string) => new URL(`${friend_endpoint}/${id}`),
+    method: 'POST'
+  } as T_rest_build,
+  delete_friend_request: {
+    url: (id: string) => new URL(`${friend_endpoint}/${id}`),
+    method: 'DELETE'
+  } as T_rest_build,
+  accept_friend_request: {
+    url: (id: string) => new URL(`${friend_endpoint}/${id}/accept`),
+    method: 'PUT'
+  } as T_rest_build,
+  decline_friend_request: {
+    url: (id: string) => new URL(`${friend_endpoint}/${id}/decline`),
+    method: 'PUT'
+  } as T_rest_build
+};
+
+export const JWT = { token_name: 'X-Authorization-Token' };
