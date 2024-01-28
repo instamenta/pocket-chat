@@ -3,14 +3,27 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Link from 'next/link';
+import { listFriendsByUserId } from '@/lib/queries/friend';
+import { I_UserSchema } from '@/lib/types';
+import useUser from '@/lib/store';
 
 export default function Chat() {
   const [flash, setFlash] = React.useState(false);
+  const [userList, setUserList] = React.useState<I_UserSchema[]>([]);
+
+  const {user} = useUser();
 
   const handleClick = () => {
     setFlash(true);
     setTimeout(() => setFlash(false), 400);
   };
+
+  React.useEffect(() => {
+    listFriendsByUserId(user.id).then((data) => {
+      setUserList(data);
+      console.log(userList);
+    });
+  }, []);
 
   return (
     <>
@@ -95,22 +108,14 @@ export default function Chat() {
         </div>
 
         {/* Sidescroll Accounts */}
-        {[
-          'Tutankamon',
-          'Samuel',
-          'Myname',
-          'Anaastasiq',
-          'Anatahuan',
-          'Anatahuan',
-          'Anatahuan',
-        ].map((item, index) => (
+        {userList.map((user, index) => (
           <div
             key={index}
             className="mr-4 flex w-14 flex-none flex-col items-center justify-center last:mr-0"
           >
             <div className="h-12 w-12 rounded-full border-2 border-white bg-green-400 outline outline-blue-500" />
             <p className="w-16 truncate pt-2 text-center text-xs font-medium capitalize text-gray-600">
-              {item}
+              {user.first_name + ' ' + user.last_name}
             </p>
           </div>
         ))}

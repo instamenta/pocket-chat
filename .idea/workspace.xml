@@ -6,12 +6,26 @@
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/auth/sign-in/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/sign-in/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/auth/sign-up/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/sign-up/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/chat/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/chat/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/friends/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/friends/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/friends/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/friends/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/micros/ActionButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/micros/ActionButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/micros/FriendSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/micros/FriendSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/micros/ActionButton.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/micros/FriendCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/micros/FriendSection.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/actions/actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/actions/actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/actions/authentication.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/actions/authentication.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/queries/friend.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/friend.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/queries/server/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/server/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/queries/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/variables.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/variables.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +60,7 @@
     "go.import.settings.migrated": "true",
     "javascript.nodejs.core.library.configured.version": "20.5.0",
     "javascript.nodejs.core.library.typings.version": "20.5.9",
-    "last_opened_file_path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots",
+    "last_opened_file_path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots/src/components/micros/action_buttons",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -59,10 +73,12 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/micros/action_buttons" />
       <recent name="$PROJECT_DIR$/public/svg" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/lib" />
       <recent name="$PROJECT_DIR$/src/lib/actions" />
       <recent name="$PROJECT_DIR$/src/app/friends" />
       <recent name="$PROJECT_DIR$/src/app/(authenticaiton)" />
@@ -110,7 +126,7 @@
       <workItem from="1706285170690" duration="13543000" />
       <workItem from="1706352982094" duration="2237000" />
       <workItem from="1706447107023" duration="5521000" />
-      <workItem from="1706455194494" duration="1616000" />
+      <workItem from="1706455194494" duration="13086000" />
     </task>
     <servers />
   </component>

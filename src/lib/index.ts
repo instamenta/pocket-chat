@@ -1,4 +1,4 @@
-import { JWT } from '@/variables';
+import { JWT } from '@/lib/variables';
 
 export function extractAuthToken() {
   const data = document.cookie
@@ -32,10 +32,10 @@ export type HttpMethod =
   | 'TRACE';
 
 export function initRequest({
-                              method = 'GET',
-                              body = null,
-                              auth = false
-                            }: T_request_body_builder): RequestInit {
+  method = 'GET',
+  body = null,
+  auth = false,
+}: T_request_body_builder): RequestInit {
   const init: RequestInit = { method, credentials: 'include' };
 
   let token: string | null = null;

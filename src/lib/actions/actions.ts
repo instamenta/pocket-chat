@@ -2,12 +2,12 @@
 
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { JWT } from '@/variables';
+import { JWT } from '@/lib/variables';
 import { HttpMethod } from '@/lib';
 
 export async function extractAuthToken() {
   const cookieStore = cookies();
-  return cookieStore.get(JWT.token_name)?.value as string ?? null;
+  return (cookieStore.get(JWT.token_name)?.value as string) ?? null;
 }
 
 export async function remoteAuthToken() {
@@ -15,9 +15,7 @@ export async function remoteAuthToken() {
   redirect('/');
 }
 
-export async function action() {
-
-}
+export async function action() {}
 
 // TODO IMPLEMENT
 
@@ -28,17 +26,15 @@ type T_request_body_builder = {
 };
 
 export async function initActionRequest({
-                                          method = 'GET',
-                                          body = null,
-                                          auth = false
-                                        }: T_request_body_builder): Promise<RequestInit> {
+  method = 'GET',
+  body = null,
+  auth = false,
+}: T_request_body_builder): Promise<RequestInit> {
   const init: RequestInit = { method, credentials: 'include' };
 
   let token: string | null = null;
 
   if (auth) token = await extractAuthToken();
-
-  console.log(token);
 
   if (auth && !token) throw new Error('UNAUTHORIZED requestBodyBuilder():');
 

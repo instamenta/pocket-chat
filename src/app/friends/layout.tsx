@@ -7,7 +7,7 @@ export default function FriendsLayout({ children }: T_Props) {
   return (
     <>
       <Navbar />
-      {children}
+      <article className="bg-gray-100">{children}</article>
     </>
   );
 }

@@ -1,18 +1,18 @@
-import { HttpMethod } from '@/lib';
+import { HttpMethod } from '@/lib/index';
 
 const api_url = 'http://localhost:3002/api';
 const user_endpoint = `${api_url}/user`;
 const friend_endpoint = `${api_url}/friend`;
 
 type T_rest = {
-  url: URL,
-  method: HttpMethod,
-}
+  url: URL;
+  method: HttpMethod;
+};
 
 type T_rest_build = {
-  url: ((sth: string) => URL),
-  method: HttpMethod,
-}
+  url: (sth: string) => URL;
+  method: HttpMethod;
+};
 
 export const USERS = {
   sign_in: {
@@ -25,6 +25,10 @@ export const USERS = {
   } as T_rest,
   list_users: {
     url: new URL(`${user_endpoint}/`),
+    method: 'GET'
+  } as T_rest,
+  auth_user: {
+    url: new URL(`${user_endpoint}/auth`),
     method: 'GET'
   } as T_rest
 };
@@ -53,7 +57,6 @@ export const FRIENDS = {
     url: new URL(`${friend_endpoint}/sent`),
     method: 'GET'
   } as T_rest,
-
   list_friend_recommendations: {
     url: new URL(`${friend_endpoint}/recommendations`),
     method: 'GET'

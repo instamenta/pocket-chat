@@ -4,7 +4,10 @@ import { sign_in_schema, sign_up_schema } from '@/lib/validation/schemas';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { initRequest } from '@/lib';
-import { USERS } from '@/variables';
+import { USERS, USERS_DYNAMIC } from '@/lib/variables';
+import { revalidatePath } from 'next/cache';
+import useUser from '@/lib/store';
+import { I_UserSchema } from '@/lib/types';
 
 export async function action_handleSignIn(
   state: { message: string },
@@ -39,13 +42,17 @@ export async function action_handleSignIn(
     return { message: 'Invalid Credentials' };
   }
 
-  const { token }: { token: string } = await response.json();
+  const { token, id }: { token: string, id: string } = await response.json();
 
-  if (token) cookies().set({
-    name: 'X-Authorization-Token',
-    value: token
-  });
+  if (token)
+    cookies().set({
+      name: 'X-Authorization-Token',
+      value: token
+    });
 
+  const user: I_UserSchema = await fetch(USERS_DYNAMIC.get_user_by_id.url(id)).then(data => data.json());
+  useUser.getState().setUser(user);
+  revalidatePath('/');
   redirect('/');
 }
 
@@ -95,12 +102,16 @@ export async function action_handleSignUp(
     return { message: 'Invalid Credentials' };
   }
 
-  const { token }: { token: string } = await response.json();
+  const { token, id }: { token: string, id: string } = await response.json();
 
-  if (token) cookies().set({
-    name: 'X-Authorization-Token',
-    value: token
-  });
+  if (token)
+    cookies().set({
+      name: 'X-Authorization-Token',
+      value: token
+    });
 
+  const user: I_UserSchema = await fetch(USERS_DYNAMIC.get_user_by_id.url(id)).then(data => data.json());
+  useUser.getState().setUser(user);
+  revalidatePath('/');
   redirect('/');
 }

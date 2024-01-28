@@ -74,10 +74,7 @@ export default function SignUp() {
 
       {/* Redirect Link */}
       <div className="flex w-full justify-center pt-4 text-amber-800">
-        <Link
-          href="/auth/sign-in"
-          className="hover:text-purple-800 hover:underline"
-        >
+        <Link href="/auth/sign-in" className="hover:text-purple-800 hover:underline">
           Already have an account?
         </Link>
       </div>
