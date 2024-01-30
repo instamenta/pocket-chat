@@ -11,13 +11,13 @@ import { I_UserSchema } from '@/lib/types';
 
 export async function action_handleSignIn(
   state: { message: string },
-  formData: FormData
+  formData: FormData,
 ) {
   let data;
   try {
     data = sign_in_schema.parse({
       username: formData.get('username') ?? '',
-      password: formData.get('password') ?? ''
+      password: formData.get('password') ?? '',
     });
   } catch (error) {
     console.log('Invalid form:', formData);
@@ -31,9 +31,9 @@ export async function action_handleSignIn(
       method: USERS.sign_in.method,
       body: {
         username: data.username,
-        password: data.password
-      }
-    })
+        password: data.password,
+      },
+    }),
   );
 
   if (!response || !response.ok) {
@@ -42,15 +42,17 @@ export async function action_handleSignIn(
     return { message: 'Invalid Credentials' };
   }
 
-  const { token, id }: { token: string, id: string } = await response.json();
+  const { token, id }: { token: string; id: string } = await response.json();
 
   if (token)
     cookies().set({
       name: 'X-Authorization-Token',
-      value: token
+      value: token,
     });
 
-  const user: I_UserSchema = await fetch(USERS_DYNAMIC.get_user_by_id.url(id)).then(data => data.json());
+  const user: I_UserSchema = await fetch(
+    USERS_DYNAMIC.get_user_by_id.url(id),
+  ).then((data) => data.json());
   useUser.getState().setUser(user);
   revalidatePath('/');
   redirect('/');
@@ -58,7 +60,7 @@ export async function action_handleSignIn(
 
 export async function action_handleSignUp(
   state: { message: string },
-  formData: FormData
+  formData: FormData,
 ) {
   let data;
   try {
@@ -68,7 +70,7 @@ export async function action_handleSignUp(
       username: formData.get('username') ?? '',
       email: formData.get('email') ?? '',
       password: formData.get('password') ?? '',
-      confirmPassword: formData.get('confirmPassword') ?? ''
+      confirmPassword: formData.get('confirmPassword') ?? '',
     });
   } catch (error) {
     console.log('Invalid form:', formData);
@@ -77,7 +79,7 @@ export async function action_handleSignUp(
   }
 
   if (data.password != data.confirmPassword) {
-    console.log('Passwords don\'t match');
+    console.log("Passwords don't match");
 
     return { message: 'Passwords must match' };
   }
@@ -91,9 +93,9 @@ export async function action_handleSignUp(
         username: data.username,
         password: data.password,
         lastName: data.lastName,
-        email: data.email
-      }
-    })
+        email: data.email,
+      },
+    }),
   );
 
   if (!response || !response.ok) {
@@ -102,15 +104,21 @@ export async function action_handleSignUp(
     return { message: 'Invalid Credentials' };
   }
 
-  const { token, id }: { token: string, id: string } = await response.json();
+  const { token, id }: { token: string; id: string } = await response.json();
 
   if (token)
     cookies().set({
       name: 'X-Authorization-Token',
-      value: token
+      value: token,
     });
 
-  const user: I_UserSchema = await fetch(USERS_DYNAMIC.get_user_by_id.url(id)).then(data => data.json());
+  const user: I_UserSchema = await fetch(USERS_DYNAMIC.get_user_by_id.url(id))
+    .then((data) => data.json())
+    .catch(console.error);
+  if (!user) return { message: 'Failed to set user data' };
+
+
+
   useUser.getState().setUser(user);
   revalidatePath('/');
   redirect('/');

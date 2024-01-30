@@ -6,26 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/auth/sign-in/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/sign-in/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/auth/sign-up/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/sign-up/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/chat/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/chat/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/friends/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/friends/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/friends/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/friends/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/micros/ActionButton.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/micros/FriendCard.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/micros/FriendSection.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/actions/actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/actions/actions.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/actions/authentication.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/actions/authentication.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/queries/friend.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/friend.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/queries/server/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/server/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/queries/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/variables.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/variables.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/store/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +23,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -67,8 +55,8 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "/home/user/.nvm/versions/node/v20.5.0/bin/node",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots/node_modules/typescript/lib"
+    "settings.editor.selected.configurable": "settings.nodejs",
+    "ts.external.directory.path": "C:\\Users\\Jam\\Documents\\Projects\\t3-hexagots\\node_modules\\typescript\\lib"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -135,6 +123,18 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/Navbar.tsx</url>
+          <line>2</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

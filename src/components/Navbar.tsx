@@ -4,19 +4,20 @@ import React from 'react';
 import * as Actions from '../lib/actions/actions';
 import Link from 'next/link';
 import useUser from '@/lib/store';
+import { I_UserSchema } from '@/lib/types';
 
 const Navbar = () => {
-  const [status, setStatus] = React.useState<boolean>(false);
-  const state = useUser.getState().isAuthenticated();
+  const [user, setUser] = React.useState<I_UserSchema | null>(null);
 
   React.useEffect(() => {
+    setUser(useUser.getState().user);
 
-    console.log(useUser.getState().user)
-    setStatus(status);
+    console.log(user)
+    console.log(user?.picture)
   }, []);
 
   const handleLogout = async (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
     await Actions.remoteAuthToken();
@@ -35,18 +36,11 @@ const Navbar = () => {
         </Link>
         <div className="flex flex-row items-center space-x-4 text-gray-800">
           {/* NAVBAR ITEMS */}
-          <button
-            onClick={handleLogout}
-            className="hover:text-black hover:underline"
-          >
-            Logout
-          </button>
-
-          {status ? (
+          {user ? (
             <>
-              <a href="/chat" className="hover:text-black hover:underline">
+              <Link href="/chat" className="hover:text-black hover:underline">
                 Chat
-              </a>
+              </Link>
               <button
                 onClick={handleLogout}
                 className="hover:text-black hover:underline"
@@ -56,17 +50,104 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <a href="/auth/sign-in" className="hover:text-black hover:underline">Sign In</a>
-              <a href="/auth/sign-up" className="hover:text-black hover:underline">Sign Up</a>
+              <Link
+                href="/auth/sign-in"
+                className="hover:text-black hover:underline"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/auth/sign-up"
+                className="hover:text-black hover:underline"
+              >
+                Sign Up
+              </Link>
             </>
           )}
 
           {/* AUTH ACTION BUTTON */}
-          <div
-            className={`h-9 w-9 rounded-full shadow-lg shadow-gray-400 ${
-              status ? 'bg-green-500' : 'bg-red-500'
-            }`}
-          ></div>
+
+          <button
+            id="dropdownAvatarNameButton"
+            data-dropdown-toggle="dropdownAvatarName"
+            className="flex items-center rounded-full pe-1 text-sm font-medium text-gray-900 hover:text-blue-600 focus:ring-4 focus:ring-gray-100 md:me-0 dark:text-white dark:hover:text-blue-500 dark:focus:ring-gray-700"
+            type="button"
+          >
+            <span className="sr-only">Open user menu</span>
+            <img
+              className="me-2 h-8 w-8 rounded-full"
+              src={user?.picture ?? ''}
+              alt="avatar"
+            />
+            Bonnie Green
+            <svg
+              className="ms-3 h-2.5 w-2.5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 10 6"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="m1 1 4 4 4-4"
+              />
+            </svg>
+          </button>
+
+          {/* User Data and Dropdown */}
+          {user ? (
+            <div
+              id="dropdownAvatarName"
+              className="z-10 hidden w-44 divide-y divide-gray-100 rounded-lg bg-white shadow dark:divide-gray-600 dark:bg-gray-700"
+            >
+              <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                <div className="font-medium ">Pro User</div>
+                <div className="truncate">name@flowbite.com</div>
+              </div>
+              <ul
+                className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
+              >
+                <li>
+                  <Link
+                    href="#"
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    Settings
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    Earnings
+                  </Link>
+                </li>
+              </ul>
+              <div className="py-2">
+                <Link
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                  Sign out
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </nav>
