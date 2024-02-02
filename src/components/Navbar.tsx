@@ -8,19 +8,30 @@ import { I_UserSchema } from '@/lib/types';
 
 const Navbar = () => {
   const [user, setUser] = React.useState<I_UserSchema | null>(null);
+  const [toggle, setToggle] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    setUser(useUser.getState().user);
-
-    console.log(user)
-    console.log(user?.picture)
+    useUser
+      .getState()
+      .getUser()
+      .then((user) => {
+        setUser(user);
+        console.log(user);
+      });
   }, []);
 
-  const handleLogout = async (
+  const handleSIgnOut = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
     await Actions.remoteAuthToken();
+  };
+
+  const toggleDropdown = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.preventDefault();
+    setToggle((prev) => !prev);
   };
 
   return (
@@ -37,17 +48,7 @@ const Navbar = () => {
         <div className="flex flex-row items-center space-x-4 text-gray-800">
           {/* NAVBAR ITEMS */}
           {user ? (
-            <>
-              <Link href="/chat" className="hover:text-black hover:underline">
-                Chat
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="hover:text-black hover:underline"
-              >
-                Logout
-              </button>
-            </>
+            <></>
           ) : (
             <>
               <Link
@@ -70,8 +71,10 @@ const Navbar = () => {
           <button
             id="dropdownAvatarNameButton"
             data-dropdown-toggle="dropdownAvatarName"
-            className="flex items-center rounded-full pe-1 text-sm font-medium text-gray-900 hover:text-blue-600 focus:ring-4 focus:ring-gray-100 md:me-0 dark:text-white dark:hover:text-blue-500 dark:focus:ring-gray-700"
+            className="flex items-center rounded-full pe-1 text-sm font-medium text-gray-900
+            hover:text-blue-600 focus:ring-4 focus:ring-gray-100 md:me-0"
             type="button"
+            onClick={toggleDropdown}
           >
             <span className="sr-only">Open user menu</span>
             <img
@@ -101,48 +104,45 @@ const Navbar = () => {
           {user ? (
             <div
               id="dropdownAvatarName"
-              className="z-10 hidden w-44 divide-y divide-gray-100 rounded-lg bg-white shadow dark:divide-gray-600 dark:bg-gray-700"
+              className={`absolute z-50 w-44 divide-y divide-gray-100 rounded-lg bg-white shadow ${
+                !toggle ? 'hidden' : ''
+              }`}
+              style={{ top: '65px', right: '0' }}
             >
-              <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+              <div className="px-4 py-3 text-sm text-gray-900">
                 <div className="font-medium ">Pro User</div>
-                <div className="truncate">name@flowbite.com</div>
+                <div className="truncate">@{user.username}</div>
               </div>
               <ul
-                className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                className="py-2 text-sm text-gray-700 "
                 aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
               >
                 <li>
                   <Link
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    href="/chat"
+                    className="block px-4 py-2 hover:bg-gray-100 "
                   >
-                    Dashboard
+                    Chat
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Settings
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100 ">
+                    Discover
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
+                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100 ">
                     Earnings
                   </Link>
                 </li>
               </ul>
               <div className="py-2">
-                <Link
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                <button
+                  onClick={handleSIgnOut}
+                  className="block w-full bg-gray-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:font-bold "
                 >
                   Sign out
-                </Link>
+                </button>
               </div>
             </div>
           ) : (

@@ -1,57 +1,30 @@
 'use client';
 
-import React from 'react';
-
-const initialState = [
-  {
-    sender: 'sender',
-    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type an",
-  },
-  {
-    sender: 'user',
-    text: ' has survived not only five centuries, but also the leap into electronic typesetting, remaining essential',
-  },
-  {
-    sender: 'sender',
-    text: '300000010000001000000100000010000001000000100000010000001000000',
-  },
-  { sender: 'sender', text: '4000000' },
-  { sender: 'sender', text: "'Content here, content here', making" },
-  { sender: 'user', text: '6000000' },
-  { sender: 'sender', text: '7000000' },
-  { sender: 'sender', text: '8000000' },
-  {
-    sender: 'user',
-    text: '300000010000001000000100000010000001000000100000010000001000000',
-  },
-  { sender: 'sender', text: '8000000' },
-  { sender: 'sender', text: '8000000' },
-  { sender: 'sender', text: '8000000' },
-  {
-    sender: 'sender',
-    text: 't is a long established fact that a reader will be distracted by the readable content of a page when looking at its ',
-  },
-  { sender: 'sender', text: '8000000' },
-  {
-    sender: 'sender',
-    text: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock,',
-  },
-  { sender: 'sender', text: '8000000' },
-  { sender: 'sender', text: '8000000' },
-  { sender: 'sender', text: '11208000000' },
-];
+import React, { useState } from 'react';
+import { socket_url } from '@/lib/variables';
+import { I_UserSchema } from '@/lib/types';
+import useUser from '@/lib/store';
+import { getUserByUsername } from '@/lib/queries/user';
 
 interface Message {
   sender: string;
   text: string;
 }
 
-export default function Chat(): React.JSX.Element {
-  const [text, setText] = React.useState<string>('');
-  const [messages /*setMessages*/] = React.useState<Message[]>(initialState);
+export default function Chat({
+  params: { recipient: recipient_username },
+}: {
+  params: { recipient: string };
+}) {
+  const [message, setMessage] = React.useState<string>('');
+  const [messages, setMessages] = React.useState<Message[]>([]);
+
+  const [user, setUser] = React.useState<I_UserSchema | null>(null);
+  const [recipient, setRecipient] = useState<I_UserSchema | null>(null);
 
   const textRef = React.useRef<HTMLTextAreaElement>(null);
   const chatContainerRef = React.useRef<HTMLDivElement>(null);
+  const socketRef = React.useRef<WebSocket | null>(null);
 
   const handleScroll = () => {
     const $el = chatContainerRef.current;
@@ -63,10 +36,62 @@ export default function Chat(): React.JSX.Element {
       : ($el.style.overflowY = 'auto');
   };
 
+  React.useState(() => {
+    let socket: WebSocket;
+
+    useUser
+      .getState()
+      .getUser()
+      .then((user) => {
+        setUser(user);
+
+        getUserByUsername(recipient_username).then((data) => {
+          if (!data) {
+            console.error(
+              'Failed to get recipient with username',
+              recipient_username,
+            );
+            throw new Error(
+              `Failed to get recipient with username ${recipient_username}`,
+            );
+          }
+          setRecipient(data);
+
+          socket = new WebSocket(`${socket_url}?username=${user!.username}`);
+          socketRef.current = socket;
+
+          socket.onopen = () => console.log('Connected to socket');
+          socket.onerror = (error) => console.error('WebSocket Error:', error);
+          socket.onmessage = (event: MessageEvent) => {
+            console.log(event.data);
+            console.log(event);
+          };
+        });
+      });
+    return () => socket?.close();
+  }, []);
+
   React.useEffect(() => {
     const $el = chatContainerRef.current;
     if ($el) $el.scrollTop = $el.scrollHeight;
   }, [messages]);
+
+  const sendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const body = {
+      sender: user!.username,
+      recipient: recipient_username,
+      message: message,
+      date: new Date().toISOString(),
+    };
+
+    try {
+      socketRef.current?.send(JSON.stringify(body));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -152,37 +177,50 @@ export default function Chat(): React.JSX.Element {
       </section>
 
       {/* SEND MESSAGE CONTAINER */}
-      <section className="top-shadow fixed bottom-0 flex w-full flex-row rounded-t-3xl p-5 ">
+      <form
+        className="top-shadow fixed bottom-0 flex w-full flex-row rounded-t-3xl p-5"
+        onSubmit={sendMessage}
+      >
         {/* Message Input */}
         <textarea
           className="h-auto w-full overflow-y-hidden pl-4 outline-none"
           placeholder="Type here..."
-          onChange={(event) => setText(event.target.value)}
-          value={text}
+          onChange={(e) => setMessage(e.target.value)}
+          value={message}
           ref={textRef}
         />
         {/* Options Container */}
         <div className="m-auto flex flex-row gap-3 pl-6">
           {/* Emoji Picker Icon */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="30"
-            width="30"
-            viewBox="0 0 512 512"
+          <button
+            className="rounded-full p-2 transition-all hover:bg-gray-600 hover:fill-white"
+            type="submit"
           >
-            <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm177.6 62.1C192.8 334.5 218.8 352 256 352s63.2-17.5 78.4-33.9c9-9.7 24.2-10.4 33.9-1.4s10.4 24.2 1.4 33.9c-22 23.8-60 49.4-113.6 49.4s-91.7-25.5-113.6-49.4c-9-9.7-8.4-24.9 1.4-33.9s24.9-8.4 33.9 1.4zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
-          </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="30"
+              width="30"
+              viewBox="0 0 512 512"
+            >
+              <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm177.6 62.1C192.8 334.5 218.8 352 256 352s63.2-17.5 78.4-33.9c9-9.7 24.2-10.4 33.9-1.4s10.4 24.2 1.4 33.9c-22 23.8-60 49.4-113.6 49.4s-91.7-25.5-113.6-49.4c-9-9.7-8.4-24.9 1.4-33.9s24.9-8.4 33.9 1.4zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+            </svg>
+          </button>
           {/* Send Message Icon */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="30"
-            width="30"
-            viewBox="0 0 512 512"
+          <button
+            className="rounded-full p-2 transition-all hover:bg-gray-600  hover:fill-white"
+            type="submit"
           >
-            <path d="M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376V479.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z" />
-          </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="30"
+              width="30"
+              viewBox="0 0 512 512"
+            >
+              <path d="M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376V479.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z" />
+            </svg>
+          </button>
         </div>
-      </section>
+      </form>
     </>
   );
 }
@@ -191,7 +229,7 @@ export default function Chat(): React.JSX.Element {
 //   const textarea = textRef.current;
 //   textarea!.style.height = 'auto';
 //   textarea!.style.height = textarea!.scrollHeight + 'px';
-// }, [text]);
+// }, [message]);
 //
 // React.useEffect(() => {
 //   const $el = chatContainerRef.current;

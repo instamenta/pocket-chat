@@ -79,7 +79,7 @@ export async function action_handleSignUp(
   }
 
   if (data.password != data.confirmPassword) {
-    console.log("Passwords don't match");
+    console.log('Passwords don\'t match');
 
     return { message: 'Passwords must match' };
   }
@@ -120,6 +120,5 @@ export async function action_handleSignUp(
 
 
   useUser.getState().setUser(user);
-  revalidatePath('/');
   redirect('/');
 }

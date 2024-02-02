@@ -5,13 +5,12 @@ import Navbar from '@/components/Navbar';
 import Link from 'next/link';
 import { listFriendsByUserId } from '@/lib/queries/friend';
 import { I_UserSchema } from '@/lib/types';
-import useUser from '@/lib/store';
+import useUser, { emptyUser } from '@/lib/store';
 
 export default function Chat() {
   const [flash, setFlash] = React.useState(false);
   const [userList, setUserList] = React.useState<I_UserSchema[]>([]);
-
-  const {user} = useUser();
+  const [user, setUser] = React.useState<I_UserSchema>(emptyUser);
 
   const handleClick = () => {
     setFlash(true);
@@ -19,7 +18,11 @@ export default function Chat() {
   };
 
   React.useEffect(() => {
-    listFriendsByUserId(user.id).then((data) => {
+    useUser
+      .getState()
+      .getUser()
+      .then((user) => setUser(user ?? emptyUser));
+    listFriendsByUserId(user!.id).then((data) => {
       setUserList(data);
       console.log(userList);
     });
@@ -52,7 +55,7 @@ export default function Chat() {
       {/* Searchbar */}
       <div className="w-full px-6 py-1">
         <div
-          className={`flex w-full flex-row justify-around rounded-xl border-t border-t-gray-300 bg-blue-50 
+          className={`z-20 flex w-full flex-row justify-around rounded-xl border-t border-t-gray-300 bg-blue-50 
         drop-shadow-lg transition-all ${
           flash
             ? 'animate-flash border-1 border-gray-100 shadow-2xl shadow-cyan-300'
@@ -60,7 +63,7 @@ export default function Chat() {
         }`}
         >
           <input
-            className="m-1 h-full w-full rounded-l-3xl bg-transparent p-2
+            className="z-30 m-1 h-full w-full rounded-l-3xl bg-transparent p-2
 								 focus:bg-gray-50 focus:bg-transparent focus:outline-0"
           />
           <button
@@ -81,7 +84,7 @@ export default function Chat() {
         </div>
       </div>
 
-      {/* Sidescroll */}
+      {/* Side Scroll */}
       <section className="bg-gray-white scrollbar-sm flex w-full flex-row overflow-x-auto border-b-2 px-5 py-3">
         {/* Add Story Button */}
         <div className="mr-4 h-12 w-12 flex-none last:mr-0">
@@ -113,10 +116,18 @@ export default function Chat() {
             key={index}
             className="mr-4 flex w-14 flex-none flex-col items-center justify-center last:mr-0"
           >
-            <div className="h-12 w-12 rounded-full border-2 border-white bg-green-400 outline outline-blue-500" />
-            <p className="w-16 truncate pt-2 text-center text-xs font-medium capitalize text-gray-600">
-              {user.first_name + ' ' + user.last_name}
-            </p>
+            <Link href={`/chat/${user.username}`}>
+              <div className="h-12 w-12 rounded-full border-2 border-white outline outline-blue-500">
+                <img
+                  className="aspect-square rounded-full"
+                  alt="Profile Pic"
+                  src={user.picture}
+                />
+              </div>
+              <p className="w-16 truncate pt-2 text-center text-xs font-medium capitalize text-gray-600">
+                {user.first_name + ' ' + user.last_name}
+              </p>
+            </Link>
           </div>
         ))}
       </section>

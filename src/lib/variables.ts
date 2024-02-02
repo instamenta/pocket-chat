@@ -3,6 +3,7 @@ import { HttpMethod } from '@/lib/index';
 const api_url = 'http://localhost:3002/api';
 const user_endpoint = `${api_url}/user`;
 const friend_endpoint = `${api_url}/friend`;
+export const socket_url = 'ws://localhost:3003';
 
 type T_rest = {
   url: URL;
@@ -39,7 +40,7 @@ export const USERS_DYNAMIC = {
     method: 'GET'
   } as T_rest_build,
   get_user_by_username: {
-    url: (username: string) => new URL(`${user_endpoint}/${username}`),
+    url: (username: string) => new URL(`${user_endpoint}/username/${username}`),
     method: 'GET'
   } as T_rest_build
 };
