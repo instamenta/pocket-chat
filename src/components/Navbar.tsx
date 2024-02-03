@@ -14,16 +14,14 @@ const Navbar = () => {
     useUser
       .getState()
       .getUser()
-      .then((user) => {
-        setUser(user);
-        console.log(user);
-      });
+      .then((user) => setUser(user));
   }, []);
 
   const handleSIgnOut = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
+    useUser.getState().logout();
     await Actions.remoteAuthToken();
   };
 
@@ -126,7 +124,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100 ">
+                  <Link href="/friends" className="block px-4 py-2 hover:bg-gray-100 ">
                     Discover
                   </Link>
                 </li>

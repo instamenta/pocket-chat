@@ -2,6 +2,7 @@ import { FRIENDS, FRIENDS_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
 import { I_UserSchema } from '../types';
 import { initActionRequest } from '@/lib/actions/actions';
+import { handleResponseVoid } from '@/lib/utilities';
 
 export const listFriendRecommendations = () =>
   fetch(
@@ -78,14 +79,7 @@ export const deleteFriendRequest = async (id: string) =>
       method: FRIENDS_DYNAMIC.delete_friend_request.method,
       auth: true,
     }),
-  ).then((response) => {
-    if (!response || !response.ok) {
-      return console.error(
-        `Failed to send request Status: ${response?.status}`,
-        response,
-      );
-    }
-  });
+  ).then(handleResponseVoid);
 
 export const sendFriendRequest = async (id: string) =>
   fetch(
@@ -94,14 +88,7 @@ export const sendFriendRequest = async (id: string) =>
       method: FRIENDS_DYNAMIC.send_friend_request.method,
       auth: true,
     }),
-  ).then((response) => {
-    if (!response || !response.ok) {
-      return console.error(
-        `Failed to send request Status: ${response?.status}`,
-        response,
-      );
-    }
-  });
+  ).then(handleResponseVoid);
 
 export const acceptFriendRequest = async (id: string) =>
   fetch(
@@ -110,14 +97,7 @@ export const acceptFriendRequest = async (id: string) =>
       method: FRIENDS_DYNAMIC.accept_friend_request.method,
       auth: true,
     }),
-  ).then((response) => {
-    if (!response || !response.ok) {
-      return console.error(
-        `Failed to accept friend request Status: ${response?.status}`,
-        response,
-      );
-    }
-  });
+  ).then(handleResponseVoid);
 
 export const declineFriendRequest = async (id: string) =>
   fetch(
@@ -126,14 +106,7 @@ export const declineFriendRequest = async (id: string) =>
       method: FRIENDS_DYNAMIC.decline_friend_request.method,
       auth: true,
     }),
-  ).then((response) => {
-    if (!response || !response.ok) {
-      return console.error(
-        `Failed to decline friend request Status: ${response?.status}`,
-        response,
-      );
-    }
-  });
+  ).then(handleResponseVoid);
 
 export const listFriendsByUserId = (id: string) =>
   fetch(

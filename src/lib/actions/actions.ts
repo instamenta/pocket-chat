@@ -12,7 +12,7 @@ export async function extractAuthToken() {
 
 export async function remoteAuthToken() {
   cookies().delete(JWT.token_name);
-  redirect('/');
+  redirect('/redirect');
 }
 
 export async function action() {}

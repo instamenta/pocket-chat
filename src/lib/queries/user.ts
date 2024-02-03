@@ -1,6 +1,7 @@
 import { USERS, USERS_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
 import { I_UserSchema } from '@/lib/types';
+import { handleResponse } from '@/lib/utilities';
 
 export const authenticateUser = async () =>
   fetch(
@@ -9,15 +10,7 @@ export const authenticateUser = async () =>
       method: USERS.auth_user.method,
       auth: true,
     }),
-  ).then(async (response): Promise<I_UserSchema | void> => {
-    if (!response || !response.ok) {
-      return console.error(
-        `Failed to accept friend request Status: ${response?.status}`,
-        response,
-      );
-    }
-    return response.json();
-  });
+  ).then((r) => handleResponse<I_UserSchema>(r));
 
 export const getUserByUsername = async (username: string) =>
   fetch(
@@ -26,12 +19,4 @@ export const getUserByUsername = async (username: string) =>
       method: USERS_DYNAMIC.get_user_by_username.method,
       auth: true,
     }),
-  ).then(async (response): Promise<I_UserSchema | void> => {
-    if (!response || !response.ok) {
-      return console.error(
-        `Failed to accept friend request Status: ${response?.status}`,
-        response,
-      );
-    }
-    return response.json();
-  });
+  ).then((r) => handleResponse<I_UserSchema>(r));

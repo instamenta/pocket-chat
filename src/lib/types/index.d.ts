@@ -20,3 +20,24 @@ type T_FriendRequestData = {
   request_date: string;
   request_type: 'sent' | 'received';
 };
+
+export interface I_Message {
+  id: string,
+  content: string,
+  message_status: 'seen' | 'sent' | 'pending',
+  updated_at: string,
+  created_at: string,
+  edited: boolean,
+  sender_id: string,
+  recipient_id: string,
+  friendship_id: string,
+}
+
+export type T_MessageResponse = {
+  date: string,
+  sender: string,
+  content: string,
+  recipient: string,
+  messageId: string,
+  friendship: string,
+}

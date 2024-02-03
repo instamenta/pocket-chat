@@ -46,6 +46,10 @@ const useUser = create<IUserStore>((set, get) => ({
       set({ user });
       return user;
     }
+    if (typeof window === 'undefined') {
+      console.log('NO WINDOW')
+      return null;
+    }
     user = localStorage.getItem('user')
       ? JSON.parse(localStorage.getItem('user')!)
       : emptyUser;
