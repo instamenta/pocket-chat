@@ -47,7 +47,7 @@ const useUser = create<IUserStore>((set, get) => ({
       return user;
     }
     if (typeof window === 'undefined') {
-      console.log('NO WINDOW')
+      console.log('NO WINDOW');
       return null;
     }
     user = localStorage.getItem('user')

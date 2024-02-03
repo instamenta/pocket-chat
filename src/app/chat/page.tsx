@@ -168,7 +168,7 @@ export default function Chat() {
           },
           {
             fullName: 'David Brown',
-            lastMessage: "Let's grab lunch",
+            lastMessage: 'Let\'s grab lunch',
             time: '6:30 AM',
             missedCount: 2,
           },
@@ -186,13 +186,13 @@ export default function Chat() {
           },
           {
             fullName: 'Olivia Martin',
-            lastMessage: "I'm on my way",
+            lastMessage: 'I\'m on my way',
             time: '3 days ago',
             missedCount: 4,
           },
           {
             fullName: 'James Anderson',
-            lastMessage: "Don't forget",
+            lastMessage: 'Don\'t forget',
             time: '4 days ago',
             missedCount: 0,
           },
@@ -204,7 +204,7 @@ export default function Chat() {
           },
           {
             fullName: 'William Clark',
-            lastMessage: "It's urgent",
+            lastMessage: 'It\'s urgent',
             time: '1 week ago',
             missedCount: 0,
           },
@@ -222,7 +222,7 @@ export default function Chat() {
           },
           {
             fullName: 'Mia Adams',
-            lastMessage: "Let's plan something",
+            lastMessage: 'Let\'s plan something',
             time: '4 weeks ago',
             missedCount: 0,
           },

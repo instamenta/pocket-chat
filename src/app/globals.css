@@ -58,9 +58,7 @@ body {
 /*}*/
 
 .top-shadow {
-    -webkit-box-shadow: -1px -16px 32px 3px rgba(186, 185, 199, 1);
-    -moz-box-shadow: -1px -16px 32px 3px rgba(186, 185, 199, 1);
-    box-shadow: -1px -16px 32px 3px rgba(186, 185, 199, 1);
+    box-shadow: -1px -3px 32px 3px rgba(186, 185, 199, 1);
 }
 
 .min-w-0 {

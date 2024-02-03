@@ -63,7 +63,6 @@ export default function Chat({
         recipientData.id,
       );
       setMessages(conversationMessages);
-
       socket = new WebSocket(socket_url);
       socketRef.current = socket;
 
@@ -71,15 +70,11 @@ export default function Chat({
       socket.onerror = (error) => console.error('WebSocket Error:', error);
       socket.onmessage = (event: MessageEvent) => {
         blob_to_json<I_Message>(event.data, (data) => {
-          if (!data) return console.log('Fail :///');
-
-          setMessages((prev) => [data, ...prev]);
-
+          if (!data) {
+            return console.log('Fail :///');
+          }
           console.log(data);
-          console.log(data.sender_id);
-          console.log(userData!.id);
-
-          console.log(data.sender_id === userData?.id);
+          setMessages((prev) => [data, ...prev]);
         });
       };
     })();
@@ -106,7 +101,6 @@ export default function Chat({
         }),
       );
 
-      setMessages((prev) => prev);
       setMessage('');
     } catch (error) {
       console.error(error);
@@ -114,11 +108,11 @@ export default function Chat({
   };
 
   return (
-    <>
+    <div className="bg-slate-100">
       {/* Navigation Container*/}
       <nav
         className="flex h-full w-full flex-row justify-between rounded-b-3xl
-                   border-b-4 border-gray-300 px-5 py-5 pt-3 shadow-xl"
+                   border-gray-300 bg-white px-5 py-5 pt-3 shadow-xl"
       >
         {/* Information Navigation Container */}
         <div className="flex flex-row" style={{ width: '75%' }}>
@@ -133,16 +127,17 @@ export default function Chat({
               <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
             </svg>
             {/* Recipient Profile Image */}
-            <div className="ml-4 h-12 w-12 rounded-full bg-red-950 overflow-hidden">
+            <div className="ml-4 h-12 w-12 overflow-hidden rounded-full bg-red-950">
               <img src={recipient?.picture ?? ''} alt="profile pic" />
             </div>
+          {/* TODO STATUS CIRCLE */}
           </div>
 
           <div className="flex w-full flex-col truncate pl-4">
             <p className="truncate font-bold text-gray-800">
               {recipient?.first_name + ' ' + recipient?.last_name}
             </p>
-            <p className="font-normal text-blue-500">Active</p>
+            <p className="font-normal text-gray-500">Active</p>
           </div>
         </div>
 
@@ -183,8 +178,8 @@ export default function Chat({
 
       {/* CHAT MESSAGES SECTION */}
       <section
-        className="flex max-h-screen w-full bg-gray-700"
-        style={{ height: 'calc(100vh - 172px)' }}
+        className="flex max-h-screen w-full"
+        style={{ height: 'calc(100vh - 160px)' }}
         ref={chatContainerRef}
         onScroll={handleScroll}
       >
@@ -194,16 +189,14 @@ export default function Chat({
               style={{ maxWidth: '70%' }}
               key={index}
               className={`mb-3 ${
-                message.sender_id !== user?.id 
-                  ? 'self-start' 
-                  : 'self-end'
+                message.sender_id !== user?.id ? 'self-start' : 'self-end'
               }`}
             >
-              <div
-                className={`rounded-2xl  px-4 pb-4 pt-2 ${
+              <div data-popover={message.created_at}
+                   className={`rounded-2xl px-4 pb-3 pt-2 drop-shadow-xl ${
                   message.sender_id !== user?.id
-                    ? 'rounded-br-none bg-white'
-                    : 'rounded-bl-none bg-gray-600'
+                    ? 'rounded-bl-none bg-white border-t border-gray-200'
+                    : 'rounded-br-none bg-blue-600 font-medium text-white'
                 }`}
               >
                 <span className="break-words">{message.content}</span>
@@ -215,13 +208,13 @@ export default function Chat({
 
       {/* SEND MESSAGE CONTAINER */}
       <form
-        className="top-shadow fixed bottom-0 flex w-full flex-row rounded-t-3xl px-5 py-2"
+        className="fixed bottom-0 top-shadow flex w-full flex-row rounded-t-3xl px-5 pt-2 pb-3 z-40"
         onSubmit={sendMessage}
       >
         {/* Message Input */}
         <textarea
-          className="h-auto w-full overflow-y-hidden pl-4 outline-none bg-black text-white font-medium
-          text-left content-center mt-2 rounded-3xl"
+          className="mt-2 h-auto w-full content-center overflow-y-hidden rounded-3xl border-2 border-gray-500 bg-white
+            pl-4 text-left font-medium text-black outline-none"
           placeholder="Type here..."
           onChange={(e) => setMessage(e.target.value)}
           value={message}
@@ -259,7 +252,7 @@ export default function Chat({
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 
