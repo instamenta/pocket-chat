@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.17.19",
+    "emoji-picker-react": "^4.7.12",
     "js-cookie": "^3.0.5",
     "next": "14.0.4",
     "react": "^18",

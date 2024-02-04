@@ -5,15 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/micros/ReceivedMessage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/micros/SentMessage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/chat/[recipient]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/[recipient]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/chat/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/chat/[recipient]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/[username]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/profile/[username]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/[username]/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/store/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +25,11 @@
     <execution />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="KubernetesApiProvider">{
@@ -47,7 +53,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "test",
     "go.import.settings.migrated": "true",
     "javascript.nodejs.core.library.configured.version": "20.5.0",
     "javascript.nodejs.core.library.typings.version": "20.5.9",
@@ -60,7 +66,7 @@
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "/home/user/Desktop/myProjects/chat-app/t3-hexagots/node_modules/prettier",
     "settings.editor.selected.configurable": "settings.nodejs",
-    "ts.external.directory.path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots/node_modules/typescript/lib"
+    "ts.external.directory.path": "C:\\Users\\Jam\\Documents\\Projects\\t3-hexagots\\node_modules\\typescript\\lib"
   }
 }]]></component>
   <component name="RecentsManager">
