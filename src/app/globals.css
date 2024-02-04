@@ -85,3 +85,12 @@ body {
 .scrollbar-xs::-webkit-scrollbar-button {
     display: none; /* Hide the scrollbar buttons (arrows) */
 }
+
+.fancy-text {
+    font-family: "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Noto Color Emoji",
+    "Android Emoji",
+    "EmojiSymbols",
+    sans-serif;
+}

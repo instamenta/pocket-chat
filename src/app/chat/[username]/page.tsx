@@ -13,15 +13,23 @@ import { MdInfoOutline, MdOutlinePhoneInTalk } from 'react-icons/md';
 import { VscDeviceCameraVideo } from 'react-icons/vsc';
 import { GrSend } from 'react-icons/gr';
 import { BsEmojiGrin } from 'react-icons/bs';
+import EmojiPicker from 'emoji-picker-react';
+import ReceivedMessage from '@/components/micros/ReceivedMessage';
+import SentMessage from '@/components/micros/SentMessage';
+import Link from 'next/link';
+
+// TODO ADD SUPPORT FOR ALL EMOJIS AND USE THE APPLE FONT
 
 export default function Chat({
-  params: { recipient: recipient_username },
+  params: { username },
 }: {
-  params: { recipient: string };
+  params: { username: string };
 }) {
   const router = useRouter();
+
   const [message, setMessage] = useState<string>('');
   const [messages, setMessages] = useState<I_Message[]>([]);
+  const [pickerState, setPickerState] = useState<boolean>(false);
 
   const [user, setUser] = useState<I_UserSchema | null>(null);
   const [recipient, setRecipient] = useState<I_UserSchema | null>(null);
@@ -42,13 +50,13 @@ export default function Chat({
         });
       if (!userData) return console.log('User not found');
 
-      const recipientData = await getUserByUsername(recipient_username);
+      const recipientData = await getUserByUsername(username);
       if (!recipientData) {
         console.error(
-          `Failed to get recipient with username ${recipient_username}`,
+          `Failed to get recipient with username ${username}`,
         );
         throw new Error(
-          `Failed to get recipient with username ${recipient_username}`,
+          `Failed to get recipient with username ${username}`,
         );
       }
       setRecipient(recipientData);
@@ -102,6 +110,21 @@ export default function Chat({
       }),
     );
     setMessage('');
+    setPickerState(false);
+  };
+
+  const insertEmoji = ({ emoji }: { emoji: string }) => {
+    console.log(emoji);
+    const textarea = textRef.current as HTMLTextAreaElement;
+    const cursorPos = textarea.selectionStart;
+    if (message !== '') {
+      setMessage(
+        (prev) =>
+          `${prev.substring(0, cursorPos)}${emoji}${prev.substring(cursorPos)}`,
+      );
+    } else {
+      setMessage(emoji);
+    }
   };
 
   return (
@@ -120,24 +143,25 @@ export default function Chat({
             >
               <FaChevronLeft className="h-7 w-10 transition-all hover:scale-125 hover:scale-x-150 hover:fill-blue-600" />
             </button>
-            <div className="relative ml-2">
-            <img
-              style={{ minWidth: '40px', minHeight: '40px' }}
-              className="h-10 w-10 rounded-full"
-              src={recipient?.picture ?? ''}
-              alt="profile pic"
-            />
-            <span className="absolute bottom-0 left-7 h-3.5 w-3.5 rounded-full border border-white bg-green-400 dark:border-gray-800"></span>
-            </div>
 
-            {/* TODO STATUS CIRCLE */}
-          </div>
+            <Link href={`/profile/${username}`} className="flex flex-row">
+              <div className="relative ml-2">
+                <img
+                  style={{ minWidth: '40px', minHeight: '40px' }}
+                  className="h-10 w-10 rounded-full"
+                  src={recipient?.picture ?? ''}
+                  alt="profile pic"
+                />
+                <span className="absolute bottom-0 left-7 h-3.5 w-3.5 rounded-full border border-white bg-green-400 dark:border-gray-800"></span>
+              </div>
 
-          <div className="flex w-full flex-col truncate pl-4">
-            <p className="truncate font-bold text-gray-800">
-              {recipient?.first_name + ' ' + recipient?.last_name}
-            </p>
-            <p className="text-sm font-normal text-gray-500">Active</p>
+              <div className="flex w-full flex-col truncate pl-4">
+                <p className="truncate font-bold text-gray-800">
+                  {recipient?.first_name + ' ' + recipient?.last_name}
+                </p>
+                <p className="text-sm font-normal text-gray-500">Active</p>
+              </div>
+            </Link>
           </div>
         </div>
 
@@ -157,24 +181,17 @@ export default function Chat({
         ref={chatContainerRef}
       >
         <article className="scrollbar-xs flex w-full flex-col-reverse overflow-y-scroll p-6">
-          {messages.map((message, index) => (
-            <div
-              className={`mb-3 ${message.sender_id !== user?.id ? 'self-start' : 'self-end'}`}
-              style={{ maxWidth: '70%' }}
-              key={index}
-            >
-              <div
-                data-popover={message.created_at}
-                className={`rounded-2xl px-4 pb-3 pt-2 drop-shadow-xl ${
-                  message.sender_id !== user?.id
-                    ? 'rounded-bl-none border-t border-gray-200 bg-white'
-                    : 'rounded-br-none bg-blue-600 font-medium text-white'
-                }`}
-              >
-                <span className="break-words">{message.content}</span>
-              </div>
-            </div>
-          ))}
+          {messages.map((message, index) =>
+            message.sender_id !== user?.id ? (
+              <ReceivedMessage
+                key={index}
+                message={message}
+                recipient={recipient}
+              />
+            ) : (
+              <SentMessage key={index} message={message} />
+            ),
+          )}
         </article>
       </section>
 
@@ -185,8 +202,8 @@ export default function Chat({
       >
         {/* Message Input */}
         <textarea
-          className="mt-2 h-8 w-full content-center overflow-y-hidden rounded-3xl border-2
-            border-gray-300 bg-white pl-4 text-left font-medium text-black outline-none transition-all focus:h-16 "
+          className="fancy-text mt-2 h-8 w-full content-center overflow-y-hidden rounded-3xl
+            border-2 border-gray-300 bg-white pl-4 text-left font-medium text-black outline-none transition-all focus:h-16 "
           placeholder="Type here..."
           onChange={(e) => setMessage(e.target.value)}
           value={message}
@@ -196,9 +213,13 @@ export default function Chat({
         {/* Options Container */}
         <div className="m-auto flex flex-row gap-4 pl-5">
           {/* Emoji Picker Icon */}
+          <div style={{ position: 'fixed', bottom: '65px', right: 0 }}>
+            <EmojiPicker open={pickerState} onEmojiClick={insertEmoji} />
+          </div>
           <button
             className="rounded-full transition-all hover:bg-yellow-200 hover:fill-white"
-            type="submit"
+            type="button"
+            onClick={() => setPickerState((prev) => !prev)}
           >
             <BsEmojiGrin className="h-8 w-8" />
           </button>

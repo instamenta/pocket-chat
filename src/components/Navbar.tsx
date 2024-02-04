@@ -75,12 +75,17 @@ const Navbar = () => {
             onClick={toggleDropdown}
           >
             <span className="sr-only">Open user menu</span>
-            <span className="text-gray-700">{user?.username ? `@${user.username}` : ''}</span>
-            <img
-              className="ml-2 h-8 w-8 rounded-full"
-              src={user?.picture ?? ''}
-              alt="avatar"
-            />
+            <span className="text-gray-700">
+              {user?.username ? `@${user.username}` : ''}
+            </span>
+
+            {user ? (
+              <img
+                className="ml-2 h-8 w-8 rounded-full"
+                src={user?.picture ?? ''}
+                alt="avatar"
+              />
+            ) : null}
           </button>
 
           {/* User Data and Dropdown */}
