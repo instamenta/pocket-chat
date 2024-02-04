@@ -110,7 +110,7 @@ export default function Chat() {
           </p>
         </div>
 
-        {/* Sidescroll Accounts */}
+        {/* Side scroll Accounts */}
         {userList.map((user, index) => (
           <div
             key={index}

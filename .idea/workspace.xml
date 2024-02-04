@@ -6,9 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/chat/[recipient]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/[recipient]/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/chat/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/store/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +51,7 @@
     "go.import.settings.migrated": "true",
     "javascript.nodejs.core.library.configured.version": "20.5.0",
     "javascript.nodejs.core.library.typings.version": "20.5.9",
-    "last_opened_file_path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots/public/svg",
+    "last_opened_file_path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -119,7 +123,8 @@
       <workItem from="1706824681731" duration="986000" />
       <workItem from="1706890259713" duration="11229000" />
       <workItem from="1706951584559" duration="10989000" />
-      <workItem from="1706989091346" duration="7968000" />
+      <workItem from="1706989091346" duration="8016000" />
+      <workItem from="1707043655970" duration="14912000" />
     </task>
     <servers />
   </component>

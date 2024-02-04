@@ -1,12 +1,11 @@
+'use client';
+
 import { JWT } from '@/lib/variables';
+import Cookie from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 export function extractAuthToken() {
-  const data = document.cookie
-    .split('; ')
-    .find((c) => c.startsWith(`${JWT.token_name}=`));
-  return data
-    ? data.slice(`${JWT.token_name}=${JWT.token_name}%`.length)
-    : null;
+  return Cookie.get(JWT.token_name) ?? null;
 }
 
 export function removeAuthToken() {
@@ -36,13 +35,20 @@ export function initRequest({
   body = null,
   auth = false,
 }: T_request_body_builder): RequestInit {
-  const init: RequestInit = { method, credentials: 'include' };
+  const init: RequestInit = {
+    method,
+    credentials: 'include',
+    cache: 'no-store',
+  };
 
   let token: string | null = null;
 
   if (auth) token = extractAuthToken();
 
-  if (auth && !token) throw new Error('UNAUTHORIZED requestBodyBuilder():');
+  if (auth && !token) {
+    const router = useRouter();
+    router.push('/auth');
+  }
 
   const _headers: HeadersInit = { 'Content-Type': 'application/json' };
 
@@ -50,8 +56,6 @@ export function initRequest({
 
   init.headers = _headers;
   if (body) init.body = JSON.stringify(body);
-
-  init.cache = 'no-store';
 
   return init;
 }

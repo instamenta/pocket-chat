@@ -17,7 +17,7 @@ const Navbar = () => {
       .then((user) => setUser(user));
   }, []);
 
-  const handleSIgnOut = async (
+  const handleSignOut = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
@@ -75,68 +75,60 @@ const Navbar = () => {
             onClick={toggleDropdown}
           >
             <span className="sr-only">Open user menu</span>
+            <span className="text-gray-700">{user?.username ? `@${user.username}` : ''}</span>
             <img
-              className="me-2 h-8 w-8 rounded-full"
+              className="ml-2 h-8 w-8 rounded-full"
               src={user?.picture ?? ''}
               alt="avatar"
             />
-            Bonnie Green
-            <svg
-              className="ms-3 h-2.5 w-2.5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 10 6"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m1 1 4 4 4-4"
-              />
-            </svg>
           </button>
 
           {/* User Data and Dropdown */}
           {user ? (
             <div
               id="dropdownAvatarName"
-              className={`absolute z-50 w-44 divide-y divide-gray-100 rounded-lg bg-white shadow ${
+              className={`absolute z-50 w-32 divide-y divide-gray-100 rounded-lg bg-white shadow ${
                 !toggle ? 'hidden' : ''
               }`}
-              style={{ top: '65px', right: '0' }}
+              style={{ top: '65px', right: '15px' }}
             >
               <div className="px-4 py-3 text-sm text-gray-900">
-                <div className="font-medium ">Pro User</div>
-                <div className="truncate">@{user.username}</div>
+                <div className="truncate underline">
+                  {user?.first_name ? `Hi, ${user?.first_name ?? ''}` : ''}
+                </div>
               </div>
               <ul
-                className="py-2 text-sm text-gray-700 "
+                className="py-2 text-sm text-gray-700"
                 aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
               >
                 <li>
                   <Link
+                    href="/profile"
+                    className="block px-4 py-2 text-left transition-all hover:bg-gray-100 hover:text-gray-900 hover:underline "
+                  >
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="/chat"
-                    className="block px-4 py-2 hover:bg-gray-100 "
+                    className="block px-4 py-2 text-left transition-all hover:bg-gray-100 hover:text-gray-900 hover:underline "
                   >
                     Chat
                   </Link>
                 </li>
                 <li>
-                  <Link href="/friends" className="block px-4 py-2 hover:bg-gray-100 ">
+                  <Link
+                    href="/friends"
+                    className="block px-4 py-2 text-left transition-all hover:bg-gray-100 hover:text-gray-900 hover:underline "
+                  >
                     Discover
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100 ">
-                    Earnings
                   </Link>
                 </li>
               </ul>
               <div className="py-2">
                 <button
-                  onClick={handleSIgnOut}
+                  onClick={handleSignOut}
                   className="block w-full bg-gray-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:font-bold "
                 >
                   Sign out

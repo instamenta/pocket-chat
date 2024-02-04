@@ -3,6 +3,7 @@ import { I_UserSchema } from '../types';
 import { authenticateUser } from '@/lib/queries/user';
 import Cookie from 'js-cookie';
 import { JWT } from '@/lib/variables';
+import { extractAuthToken } from '@/lib';
 
 interface IUserStore {
   user: I_UserSchema;
@@ -41,14 +42,20 @@ const useUser = create<IUserStore>((set, get) => ({
   isAuthenticated: () => get().user.id !== '',
 
   getUser: async () => {
+    if (typeof window === 'undefined') {
+      console.log('NO WINDOW');
+      return null;
+    }
+    const isAuth= extractAuthToken();
+    if (!isAuth) {
+      set({ user: { ...emptyUser } });
+      localStorage.removeItem('user');
+      return null;
+    }
     let user = get().user;
     if (user.id !== '') {
       set({ user });
       return user;
-    }
-    if (typeof window === 'undefined') {
-      console.log('NO WINDOW');
-      return null;
     }
     user = localStorage.getItem('user')
       ? JSON.parse(localStorage.getItem('user')!)
