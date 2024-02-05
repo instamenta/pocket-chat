@@ -16,14 +16,21 @@ import { FaRegAddressCard } from 'react-icons/fa';
 import { MdOutlineAlternateEmail } from 'react-icons/md';
 import { GoGear } from 'react-icons/go';
 import { useRouter } from 'next/navigation';
+import { useEdgeStore } from '@/lib/store/edgestore';
+import { SingleImageDropzone } from '@/components/edgestore/SingleImageDropzone';
+import { IoCloudUploadOutline } from 'react-icons/io5';
 
 // TODO ADD EDIT PROFILE
 // TODO IMPLEMENT CHANGE PASSWORD
 
 const Profile = () => {
   const router = useRouter();
+  const { edgestore } = useEdgeStore();
 
+  const [file, setFile] = React.useState<File>();
   const [user, setUser] = useState<I_UserSchema | null>(null);
+  const [toggleImagePicker, setToggleImagePicker] = useState<boolean>(false);
+
   useEffect(() => {
     useUser
       .getState()
@@ -58,15 +65,56 @@ const Profile = () => {
 
       {/* TOP CONTAINER */}
       <section className="flex flex-col justify-center py-7 align-middle">
-        <div className="w-full pb-8">
-          <div className=" m-auto aspect-square w-24 overflow-hidden rounded-full outline outline-2 outline-gray-600">
-            <img
-              className="h-full w-full"
-              src={user?.picture ?? ''}
-              alt="Prifle Image"
-            />
-          </div>
+        <div className="relative flex w-full flex-row justify-center pb-8">
+          {toggleImagePicker ? (
+            <>
+              <div className="w-full">
+                <SingleImageDropzone
+                  width={50}
+                  height={50}
+                  value={file}
+                  className="m-auto"
+                  onChange={(file) => setFile(file)}
+                />
+              </div>
+            </>
+          ) : (
+            <div className=" m-auto aspect-square w-24 overflow-hidden rounded-full outline outline-2 outline-gray-600">
+              <img
+                className="h-full w-full"
+                src={user?.picture ?? ''}
+                alt="Prifle Image"
+              />
+            </div>
+          )}
+
+          {toggleImagePicker ? (
+            <button
+              className="absolute mr-44 h-10 w-10 rounded-full transition-all hover:bg-blue-200"
+              onClick={async (event) => {
+                event.preventDefault();
+                if (!file) return;
+                const r = await edgestore.publicFiles.upload({ file });
+                console.log(r.url);
+              }}
+            >
+              <IoCloudUploadOutline className="h-10 w-10 transition-all hover:scale-110" />
+            </button>
+          ) : (
+            <></>
+          )}
+          <button
+            className="absolute ml-44 h-10 w-10 rounded-full transition-all hover:bg-purple-200"
+            onClick={(event) => {
+              event.preventDefault();
+              setToggleImagePicker((prev) => !prev);
+            }}
+          >
+            <GoGear className="h-10 w-10 transition-all hover:scale-110" />
+          </button>
         </div>
+
+        {/* User Data Header */}
         <div className="flex w-full flex-col justify-center align-middle">
           <h2 className="m-auto text-2xl font-medium">
             {(user?.first_name ?? '') + ' ' + (user?.last_name ?? '')}
