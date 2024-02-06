@@ -86,6 +86,14 @@ export const FRIENDS_DYNAMIC = {
     url: (id: string) => new URL(`${friend_endpoint}/${id}/decline`),
     method: 'PUT',
   } as T_rest_build,
+  get_by_sender_and_recipient: {
+    url: (user1: string, user2: string) =>
+      new URL(`${friend_endpoint}/${user1}/${user2}`),
+    method: 'GET',
+  } as {
+    url: (user1: string, user2: string) => URL;
+    method: HttpMethod;
+  },
 };
 
 export const MESSAGES = {
@@ -105,8 +113,8 @@ export const MESSAGES_DYNAMIC = {
       new URL(`${message_endpoint}/${user1}/${user2}`),
     method: 'GET',
   } as {
-    url: (user1: string, user2: string) => URL,
-    method: HttpMethod,
+    url: (user1: string, user2: string) => URL;
+    method: HttpMethod;
   },
 };
 

@@ -24,6 +24,7 @@ type T_FriendRequestData = {
 export interface I_Message {
   id: string,
   content: string,
+  type: string,
   message_status: 'seen' | 'sent' | 'pending',
   updated_at: string,
   created_at: string,
@@ -34,10 +35,28 @@ export interface I_Message {
 }
 
 export type T_MessageResponse = {
+  type: string,
   date: string,
   sender: string,
   content: string,
   recipient: string,
   messageId: string,
   friendship: string,
+}
+
+
+export interface I_Friendship {
+  id: string,
+  created_at: string,
+  sender_id: string,
+  recipient_id: string,
+  friendship_status: 'accepted' | 'pending'
+}
+
+export interface T_VideoCallInviteResponse {
+  type: string,
+  room_id: string,
+  sender_id: string,
+  recipient_id: string,
+  date: string,
 }

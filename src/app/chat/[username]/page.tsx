@@ -1,10 +1,12 @@
 'use client';
 
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
-import { I_Message, I_UserSchema } from '@/lib/types';
-import useUser from '@/lib/store';
-import { getUserByUsername } from '@/lib/queries/user';
-import { socket_url } from '@/lib/variables';
+import {
+  I_Friendship,
+  I_Message,
+  I_UserSchema,
+  T_VideoCallInviteResponse,
+} from '@/lib/types';
 import { blob_to_json } from '@/lib/utilities';
 import { listMessagesByUsers } from '@/lib/queries/messages';
 import { FaChevronLeft } from 'react-icons/fa6';
@@ -17,6 +19,13 @@ import EmojiPicker from 'emoji-picker-react';
 import ReceivedMessage from '@/components/micros/ReceivedMessage';
 import SentMessage from '@/components/micros/SentMessage';
 import Link from 'next/link';
+import { getBySenderAndRecipient } from '@/lib/queries/friend';
+import {
+  useCallNotification,
+  useRecipient,
+  useSocket,
+  useUserData,
+} from '@/lib/hooks';
 
 // TODO ADD SUPPORT FOR ALL EMOJIS AND USE THE APPLE FONT
 
@@ -33,50 +42,50 @@ export default function Chat({
 
   const [user, setUser] = useState<I_UserSchema | null>(null);
   const [recipient, setRecipient] = useState<I_UserSchema | null>(null);
+  const [friendship, setFriendship] = useState<I_Friendship | null>(null);
 
   const socketRef = useRef<WebSocket | null>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useState(() => {
-    let socket: WebSocket;
     void (async function initialize() {
-      const userData = await useUser
-        .getState()
-        .getUser()
-        .then((d) => {
-          setUser(d);
-          return d;
-        });
-      if (!userData) return console.log('User not found');
-
-      const recipientData = await getUserByUsername(username);
-      if (!recipientData) {
-        console.error(
-          `Failed to get recipient with username ${username}`,
+      Promise.all([
+        useUserData(setUser),
+        useRecipient(username, setRecipient),
+      ]).then(([userData, recipientData]) => {
+        const conversationMessages = await listMessagesByUsers(
+          userData!.id,
+          recipientData.id,
         );
-        throw new Error(
-          `Failed to get recipient with username ${username}`,
+        setMessages(conversationMessages);
+
+        getBySenderAndRecipient(userData.id, recipientData.id).then((data) =>
+          setFriendship(data),
         );
-      }
-      setRecipient(recipientData);
 
-      const conversationMessages = await listMessagesByUsers(
-        userData!.id,
-        recipientData.id,
-      );
-      setMessages(conversationMessages);
-      socket = new WebSocket(socket_url);
-      socketRef.current = socket;
+        const socket = useSocket(socketRef, (messageEvent: MessageEvent) => {});
 
-      socket.onopen = () => console.log('Connected to socket');
-      socket.onerror = (error) => console.error('WebSocket Error:', error);
-      socket.onmessage = (event: MessageEvent) => {
-        blob_to_json<I_Message>(event.data, (data) => {
-          if (!data) return console.log('Fail :///');
-          setMessages((prev) => [data, ...prev]);
-        });
-      };
+        socket.onmessage = (event: MessageEvent) => {
+          blob_to_json<I_Message | T_VideoCallInviteResponse>(
+            event.data,
+            (data) => {
+              if (!data) return console.log('Fail :///');
+
+              if (data.type === 'message') {
+                setMessages((prev) => [data as I_Message, ...prev]);
+              } else if (data.type === 'video-call-invite') {
+                useCallNotification(data as T_VideoCallInviteResponse);
+              } else {
+                console.error(
+                  'Response type from socket not implemented',
+                  data,
+                );
+              }
+            },
+          );
+        };
+      });
     })();
 
     return () => {
@@ -103,6 +112,7 @@ export default function Chat({
     event.preventDefault();
     socketRef.current?.send(
       JSON.stringify({
+        type: 'message',
         sender: user!.id,
         recipient: recipient?.id,
         content: message,
@@ -125,6 +135,19 @@ export default function Chat({
     } else {
       setMessage(emoji);
     }
+  };
+
+  const initiateVideoCall = async () => {
+    const videoCallRequest = {
+      type: 'video-call-invite',
+      sender: user?.id,
+      recipient: recipient?.id,
+      room: friendship?.id,
+    };
+
+    socketRef.current?.send(JSON.stringify(videoCallRequest));
+
+    router.push(`/chat/video/${friendship?.id}`);
   };
 
   return (
@@ -167,7 +190,10 @@ export default function Chat({
 
         {/* Operations Icons Navigation Container */}
         <div className="m-auto flex flex-row gap-4 pl-6">
-          <VscDeviceCameraVideo className="h-8 w-8 rounded-full transition-all hover:bg-green-300" />
+          <VscDeviceCameraVideo
+            onClick={initiateVideoCall}
+            className="h-8 w-8 rounded-full transition-all hover:bg-green-300"
+          />
           <MdOutlinePhoneInTalk className="h-8 w-8 rounded-full fill-gray-800 transition-all hover:bg-purple-300" />
           <MdInfoOutline className="h-8 w-8 rounded-full transition-all hover:bg-blue-300" />
         </div>

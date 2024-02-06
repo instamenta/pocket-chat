@@ -1,6 +1,6 @@
 import { FRIENDS, FRIENDS_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
-import { I_UserSchema } from '../types';
+import { I_Friendship, I_UserSchema } from '../types';
 import { initActionRequest } from '@/lib/actions/actions';
 import { handleResponseVoid } from '@/lib/utilities';
 
@@ -119,6 +119,21 @@ export const listFriendsByUserId = (id: string) =>
     if (!response.ok) {
       console.log('HTTP ERROR', response.status, response);
       return [];
+    }
+    return await response.json();
+  });
+
+export const getBySenderAndRecipient = (user1: string, user2: string) =>
+  fetch(
+    FRIENDS_DYNAMIC.get_by_sender_and_recipient.url(user1, user2),
+    initRequest({
+      method: FRIENDS_DYNAMIC.get_by_sender_and_recipient.method,
+      auth: true,
+    }),
+  ).then(async (response: Response): Promise<I_Friendship|null> => {
+    if (!response.ok) {
+      console.log('HTTP ERROR', response.status, response);
+      return null;
     }
     return await response.json();
   });
