@@ -70,6 +70,10 @@ export const FRIENDS_DYNAMIC = {
     url: (id: string) => new URL(`${friend_endpoint}/${id}`),
     method: 'GET',
   } as T_rest_build,
+  get_by_id: {
+    url: (id: string) => new URL(`${friend_endpoint}/one/${id}`),
+    method: 'GET',
+  } as T_rest_build,
   send_friend_request: {
     url: (id: string) => new URL(`${friend_endpoint}/${id}`),
     method: 'POST',

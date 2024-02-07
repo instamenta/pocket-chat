@@ -20,3 +20,12 @@ export const getUserByUsername = async (username: string) =>
       auth: true,
     }),
   ).then((r) => handleResponse<I_UserSchema>(r));
+
+export const getUserById = async (id: string) =>
+  fetch(
+    USERS_DYNAMIC.get_user_by_id.url(id),
+    initRequest({
+      method: USERS_DYNAMIC.get_user_by_id.method,
+      auth: true,
+    }),
+  ).then((r) => handleResponse<I_UserSchema>(r));

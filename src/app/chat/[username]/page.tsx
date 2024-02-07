@@ -25,7 +25,7 @@ import {
   useRecipient,
   useSocket,
   useUserData,
-} from '@/lib/hooks';
+} from '@/lib/hooks'; // TODO ADD SUPPORT FOR ALL EMOJIS AND USE THE APPLE FONT
 
 // TODO ADD SUPPORT FOR ALL EMOJIS AND USE THE APPLE FONT
 
@@ -49,44 +49,46 @@ export default function Chat({
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useState(() => {
-    void (async function initialize() {
-      Promise.all([
-        useUserData(setUser),
-        useRecipient(username, setRecipient),
-      ]).then(([userData, recipientData]) => {
-        const conversationMessages = await listMessagesByUsers(
-          userData!.id,
-          recipientData.id,
-        );
-        setMessages(conversationMessages);
+    Promise.all([
+      useUserData(setUser),
+      useRecipient(username, 'username',setRecipient),
+    ]).then(async ([userData, recipientData]) => {
+      const conversationMessages = await listMessagesByUsers(
+        userData!.id,
+        recipientData!.id,
+      );
+      setMessages(conversationMessages);
 
-        getBySenderAndRecipient(userData.id, recipientData.id).then((data) =>
-          setFriendship(data),
-        );
+      getBySenderAndRecipient(userData!.id, recipientData!.id).then(
+        setFriendship,
+      );
 
-        const socket = useSocket(socketRef, (messageEvent: MessageEvent) => {});
+      const socket = useSocket(socketRef);
 
-        socket.onmessage = (event: MessageEvent) => {
-          blob_to_json<I_Message | T_VideoCallInviteResponse>(
-            event.data,
-            (data) => {
-              if (!data) return console.log('Fail :///');
-
-              if (data.type === 'message') {
+      socket.onmessage = (event: MessageEvent) => {
+        blob_to_json<I_Message | T_VideoCallInviteResponse>(
+          event.data,
+          (data) => {
+            if (!data) return console.log('Fail :///');
+            switch (data.type) {
+              case 'message': {
                 setMessages((prev) => [data as I_Message, ...prev]);
-              } else if (data.type === 'video-call-invite') {
+                break;
+              }
+              case 'video-call-invite': {
                 useCallNotification(data as T_VideoCallInviteResponse);
-              } else {
+                break;
+              }
+              default:
                 console.error(
                   'Response type from socket not implemented',
                   data,
                 );
-              }
-            },
-          );
-        };
-      });
-    })();
+            }
+          },
+        );
+      };
+    });
 
     return () => {
       if (socketRef.current) socketRef.current.close();
@@ -147,7 +149,7 @@ export default function Chat({
 
     socketRef.current?.send(JSON.stringify(videoCallRequest));
 
-    router.push(`/chat/video/${friendship?.id}`);
+    router.push(`/chat/video/${friendship!.id.toString()}`);
   };
 
   return (

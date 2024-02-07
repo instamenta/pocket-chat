@@ -5,12 +5,12 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { T_VideoCallInviteResponse } from '@/lib/types';
 
-export const toast_config:  ToastOptions<unknown> | undefined = {
+export const toast_config: ToastOptions<unknown> | undefined = {
   draggable: false,
   autoClose: false,
   closeOnClick: false,
   position: 'top-center',
-}
+};
 
 const VideoChatInvitation = ({
   closeToast,

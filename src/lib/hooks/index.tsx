@@ -1,9 +1,8 @@
 import React from 'react';
 import { I_UserSchema, T_VideoCallInviteResponse } from '@/lib/types';
 import useUser from '@/lib/store';
-import { getUserByUsername } from '@/lib/queries/user';
+import { getUserById, getUserByUsername } from '@/lib/queries/user';
 import { socket_url } from '@/lib/variables';
-import { blob_to_json } from '@/lib/utilities';
 import { toast } from 'react-toastify';
 import VideoChatInvitation, {
   toast_config,
@@ -23,52 +22,29 @@ export async function useUserData(
 }
 
 export async function useRecipient(
-  username: string,
+  filter: string,
+  type: 'username' | 'id',
   callback?: (value: React.SetStateAction<I_UserSchema | null>) => void,
 ) {
-  const d = await getUserByUsername(username);
+  let d: void | I_UserSchema;
+  if (type === 'username') {
+    d = await getUserByUsername(filter);
+  } else {
+    d = await getUserById(filter);
+  }
   if (!d) {
-    console.error(`Failed to get recipient with username ${username}`);
+    console.error(`Failed to get recipient by ${type}: ${filter}`);
     return null;
   }
   if (callback) callback(d);
   return d;
 }
 
-export function useSocket<T>(
-  ref: React.MutableRefObject<WebSocket | null>,
-  callback?: (arg0: MessageEvent) => unknown,
-) {
+export function useSocket(ref: React.MutableRefObject<WebSocket | null>) {
   const socket = new WebSocket(socket_url);
-  ref.current = socket;
   socket.onopen = () => onOpen();
   socket.onerror = (error) => onError(error);
-  socket.onmessage = (event: MessageEvent) => {
-    blob_to_json<T>(event.data, (data) => {
-      if (!data) {
-        console.log('No data returned from Web Socket', data);
-        return null;
-      }
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      if ('type' in data) {
-        if (data.type === 'message') {
-          return data;
-        } else if (data.type === 'video-call-invite') {
-          return data;
-        } else {
-          console.error('Response type from socket not implemented', data);
-        }
-      } else {
-        console.error('Type is missing from data', data);
-        return null;
-      }
-    });
-    if (callback) {
-      callback(event);
-    }
-  };
-
+  ref.current = socket;
   return socket;
 }
 
