@@ -8,7 +8,7 @@ import {
   T_VideoCallInviteResponse,
 } from '@/lib/types';
 import { blob_to_json } from '@/lib/utilities';
-import { listMessagesByUsers } from '@/lib/queries/messages';
+import { listMessagesByUsers } from '@/lib/queries/message';
 import { FaChevronLeft } from 'react-icons/fa6';
 import { useRouter } from 'next/navigation';
 import { MdInfoOutline, MdOutlinePhoneInTalk } from 'react-icons/md';

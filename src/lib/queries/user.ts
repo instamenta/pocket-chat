@@ -29,3 +29,32 @@ export const getUserById = async (id: string) =>
       auth: true,
     }),
   ).then((r) => handleResponse<I_UserSchema>(r));
+
+export const updateProfilePublicInformation = async (body: {
+  username?: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+}) =>
+  fetch(
+    USERS.update_profile_public_information.url,
+    initRequest({
+      method: USERS.update_profile_public_information.method,
+      auth: true,
+      body,
+    }),
+  ).then((r) =>
+    handleResponse<{ token: string, id: string, userData: I_UserSchema }>(r),
+  );
+
+export const updateProfilePicture = async (picture_url: string) =>
+  fetch(
+    USERS.update_profile_picture.url,
+    initRequest({
+      method: USERS.update_profile_picture.method,
+      auth: true,
+      body: { picture_url },
+    }),
+  ).then((r) =>
+    handleResponse<{ token: string, id: string, userData: I_UserSchema }>(r),
+  );

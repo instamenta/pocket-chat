@@ -4,6 +4,9 @@ const api_url = 'http://localhost:3002/api';
 const user_endpoint = `${api_url}/user`;
 const friend_endpoint = `${api_url}/friend`;
 const message_endpoint = `${api_url}/message`;
+const publication_endpoint = `${api_url}/publication`;
+const comment_endpoint = `${api_url}/comment`;
+
 export const socket_url = 'ws://localhost:3003';
 
 type T_rest = {
@@ -32,6 +35,14 @@ export const USERS = {
   auth_user: {
     url: new URL(`${user_endpoint}/auth`),
     method: 'GET',
+  } as T_rest,
+  update_profile_public_information: {
+    url: new URL(`${user_endpoint}/`),
+    method: 'PUT',
+  } as T_rest,
+  update_profile_picture: {
+    url: new URL(`${user_endpoint}/picture`),
+    method: 'PUT',
   } as T_rest,
 };
 
@@ -120,6 +131,61 @@ export const MESSAGES_DYNAMIC = {
     url: (user1: string, user2: string) => URL;
     method: HttpMethod;
   },
+};
+
+export const PUBLICATIONS = {
+  list_publications: {
+    url: new URL(`${publication_endpoint}/`),
+    method: 'GET',
+  } as T_rest,
+  get_recommendations: {
+    url: new URL(`${publication_endpoint}/recommendations`),
+    method: 'GET',
+  } as T_rest,
+  create_publication: {
+    url: new URL(`${publication_endpoint}/`),
+    method: 'POST',
+  } as T_rest,
+};
+
+export const PUBLICATIONS_DYNAMIC = {
+  get_publication_by_id: {
+    url: (id: string) => new URL(`${publication_endpoint}/${id}`),
+    method: 'GET',
+  } as T_rest_build,
+  get_publications_by_user_id: {
+    url: (userId: string) => new URL(`${publication_endpoint}/user/${userId}`),
+    method: 'GET',
+  } as T_rest_build,
+  update_publication: {
+    url: (id: string) => new URL(`${publication_endpoint}/${id}`),
+    method: 'PUT',
+  } as T_rest_build,
+  like_publication: {
+    url: (id: string) => new URL(`${publication_endpoint}/${id}/like`),
+    method: 'PUT',
+  } as T_rest_build,
+};
+
+export const COMMENTS = {};
+
+export const COMMENTS_DYNAMIC = {
+  list_comments_by_publication: {
+    url: (id: string) => new URL(`${comment_endpoint}/${id}`),
+    method: 'GET',
+  } as T_rest_build,
+  create_comment: {
+    url: (id: string) => new URL(`${comment_endpoint}/${id}`),
+    method: 'POST',
+  } as T_rest_build,
+  delete_comment: {
+    url: (id: string) => new URL(`${comment_endpoint}/${id}`),
+    method: 'DELETE',
+  } as T_rest_build,
+  like_comment: {
+    url: (id: string) => new URL(`${comment_endpoint}/${id}/like`),
+    method: 'PUT',
+  } as T_rest_build,
 };
 
 export const JWT = { token_name: 'X-Authorization-Token' };

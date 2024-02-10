@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { I_UserSchema } from '@/lib/types';
 import useUser from '@/lib/store';
 import { FaAddressCard, FaChevronLeft } from 'react-icons/fa6';
@@ -19,9 +19,22 @@ import { useRouter } from 'next/navigation';
 import { useEdgeStore } from '@/lib/store/edgestore';
 import { SingleImageDropzone } from '@/components/edgestore/SingleImageDropzone';
 import { IoCloudUploadOutline } from 'react-icons/io5';
+import {
+  updateProfilePicture,
+  updateProfilePublicInformation,
+} from '@/lib/queries/user';
+import { personal_data_schema } from '@/lib/validation/schemas';
+import { toast } from 'react-toastify'; // TODO ADD EDIT PROFILE
 
 // TODO ADD EDIT PROFILE
 // TODO IMPLEMENT CHANGE PASSWORD
+
+type T_personalInfo = {
+  email: string;
+  first_name: string;
+  last_name: string;
+  username: string;
+};
 
 const Profile = () => {
   const router = useRouter();
@@ -30,6 +43,13 @@ const Profile = () => {
   const [file, setFile] = React.useState<File>();
   const [user, setUser] = useState<I_UserSchema | null>(null);
   const [toggleImagePicker, setToggleImagePicker] = useState<boolean>(false);
+  const [toggleEdit, setToggleEdit] = useState<boolean>(false);
+  const [personalInfo, setPersonalInfo] = useState<T_personalInfo>({
+    email: '',
+    first_name: '',
+    last_name: '',
+    username: '',
+  });
 
   useEffect(() => {
     useUser
@@ -37,9 +57,113 @@ const Profile = () => {
       .getUser()
       .then((d) => {
         setUser(d);
-        console.log(d);
+        setPersonalInfo({
+          email: d!.email,
+          first_name: d!.first_name,
+          last_name: d!.last_name,
+          username: d!.username,
+        });
       });
   }, []);
+
+  const handleImageUpload = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.preventDefault();
+    if (!file) return;
+    const r = await edgestore.publicFiles.upload({ file });
+
+    const response = await updateProfilePicture(r.url);
+    if (!response) {
+      toast(() => (
+        <div className="bg-red-400 outline outline-2 outline-red-600">
+          <p className="m-auto text-center font-bold">Failed to update info.</p>
+        </div>
+      ));
+      return console.log('Empty response body');
+    }
+
+    toast(() => (
+      <div className="outline outline-2 outline-green-600">
+        <p className="m-auto text-center font-bold">
+          Successfully updated info
+        </p>
+      </div>
+    ));
+
+    useUser.getState().setUser(response.userData);
+    setUser(response.userData);
+    setToggleImagePicker(false);
+    router.refresh();
+  };
+
+  const handlePersonalInfoFormSubmit = async (
+    event: React.FormEvent<HTMLFormElement>,
+  ) => {
+    event.preventDefault();
+
+    const form = event.target as HTMLFormElement;
+
+    let data;
+    try {
+      data = personal_data_schema.parse({
+        username: (form.querySelector('[name="username"]') as HTMLInputElement)
+          ?.value,
+        firstName: (
+          form.querySelector('[name="first_name"]') as HTMLInputElement
+        )?.value,
+        lastName: (form.querySelector('[name="last_name"]') as HTMLInputElement)
+          ?.value,
+        email: (form.querySelector('[name="email"]') as HTMLInputElement)
+          ?.value,
+      });
+    } catch (error) {
+      return console.log('Invalid form:', form);
+    }
+
+    const request: {
+      username?: string;
+      firstName?: string;
+      lastName?: string;
+      email?: string;
+    } = {};
+    if (data.username !== user!.username) request.username = data.username;
+    if (data.firstName !== user!.first_name) request.firstName = data.firstName;
+    if (data.lastName !== user!.last_name) request.lastName = data.lastName;
+    if (data.email !== user!.email) request.email = data.email;
+
+    console.log(request);
+
+    const response = await updateProfilePublicInformation(request);
+    if (!response) {
+      toast(() => (
+        <div className="bg-red-400 outline outline-2 outline-red-600">
+          <p className="m-auto text-center font-bold">Failed to update info.</p>
+        </div>
+      ));
+      return console.error('empty response');
+    }
+
+    toast(() => (
+      <div className="outline outline-2 outline-green-600">
+        <p className="m-auto text-center font-bold">
+          Successfully updated info
+        </p>
+      </div>
+    ));
+    useUser.getState().setUser(response.userData);
+    setUser(response.userData);
+    setToggleEdit(false);
+    router.refresh();
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setPersonalInfo((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   return (
     <div className="h-screen bg-white text-black">
@@ -47,8 +171,8 @@ const Profile = () => {
       <nav className="flex justify-between px-3 pt-3">
         <button
           className="flex justify-center align-middle"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={(event) => {
+            event.preventDefault();
             router.push('/');
           }}
         >
@@ -66,18 +190,17 @@ const Profile = () => {
       {/* TOP CONTAINER */}
       <section className="flex flex-col justify-center py-7 align-middle">
         <div className="relative flex w-full flex-row justify-center pb-8">
+          {/* Profile Image AND\OR Image Uploader */}
           {toggleImagePicker ? (
-            <>
-              <div className="w-full">
-                <SingleImageDropzone
-                  width={50}
-                  height={50}
-                  value={file}
-                  className="m-auto"
-                  onChange={(file) => setFile(file)}
-                />
-              </div>
-            </>
+            <div className="w-full">
+              <SingleImageDropzone
+                width={50}
+                height={50}
+                value={file}
+                className="m-auto"
+                onChange={(file) => setFile(file)}
+              />
+            </div>
           ) : (
             <div className=" m-auto aspect-square w-24 overflow-hidden rounded-full outline outline-2 outline-gray-600">
               <img
@@ -91,12 +214,7 @@ const Profile = () => {
           {toggleImagePicker ? (
             <button
               className="absolute mr-44 h-10 w-10 rounded-full transition-all hover:bg-blue-200"
-              onClick={async (event) => {
-                event.preventDefault();
-                if (!file) return;
-                const r = await edgestore.publicFiles.upload({ file });
-                console.log(r.url);
-              }}
+              onClick={handleImageUpload}
             >
               <IoCloudUploadOutline className="h-10 w-10 transition-all hover:scale-110" />
             </button>
@@ -131,47 +249,114 @@ const Profile = () => {
       </section>
 
       {/* USER DATA CONTAINER */}
-      <section className="mx-14">
+      <form onSubmit={handlePersonalInfoFormSubmit} className="mx-14">
         {/* HEADER */}
         <div className="flex justify-between">
           <span className="select-none text-xl font-normal text-gray-700">
             Personal Information
           </span>
-          <button className="flex flex-row pr-2 font-bold text-blue-600 transition-all hover:scale-105 hover:underline">
-            <span className="pr-1">Edit</span>
-            <CiEdit className="h-6 w-6" />
-          </button>
+          {toggleEdit ? (
+            <button
+              type="submit"
+              className="rounded-md px-2 font-semibold text-blue-600 outline outline-2 outline-blue-600
+              transition-all hover:scale-110 hover:bg-slate-200
+            "
+            >
+              Submit
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={(event) => {
+                event.preventDefault();
+                setToggleEdit(true);
+              }}
+              className="flex flex-row pr-2 font-bold text-blue-600 transition-all hover:scale-105 hover:underline"
+            >
+              <span className="pr-1">Edit</span>
+              <CiEdit className="h-6 w-6" />
+            </button>
+          )}
         </div>
 
         {/* DATA SECTION */}
+        {/* Email Input */}
         <div className="my-1.5 flex justify-between rounded-t-xl border-none py-2 outline outline-1 outline-slate-700 transition-all hover:outline-blue-600">
           <div className="flex flex-row pl-4 font-light">
             <CiMail className="h-6 w-6" />
-            <label className="px-4 font-light text-slate-600">Email</label>
+            <label htmlFor="email" className="px-4 font-light text-slate-600">
+              Email
+            </label>
           </div>
-          <span className="pr-4">{user?.email ?? ''}</span>
+          <input
+            id="email"
+            name="email"
+            className="w-full pr-4 text-end"
+            value={personalInfo.email}
+            onChange={handleInputChange}
+          />
         </div>
+
+        {/* First Name Input */}
         <div className="my-1.5 flex justify-between border-none py-2 outline outline-1 outline-slate-700 transition-all hover:outline-blue-600">
           <div className="flex flex-row pl-4 font-light">
             <FaAddressCard className="h-6 w-6" />
-            <label className="px-4 font-light text-slate-600">First name</label>
+            <label
+              htmlFor="first_name"
+              className="px-4 font-light text-slate-600"
+            >
+              First name
+            </label>
           </div>
-          <span className="pr-4">{user?.first_name ?? ''}</span>
+          <input
+            id="first_name"
+            name="first_name"
+            className="w-full pr-4 text-end"
+            value={personalInfo.first_name}
+            onChange={handleInputChange}
+          />
         </div>
+
+        {/* Last Name Input */}
         <div className="my-1.5 flex justify-between border-none py-2 outline outline-1 outline-slate-700 transition-all hover:outline-blue-600">
           <div className="flex flex-row pl-4 font-light">
             <FaRegAddressCard className="h-6 w-6" />
-            <label className="px-4 font-light text-slate-600">Last name</label>
+            <label
+              htmlFor="last_name"
+              className="px-4 font-light text-slate-600"
+            >
+              Last name
+            </label>
           </div>
-          <span className="pr-4">{user?.last_name ?? ''}</span>
+          <input
+            id="last_name"
+            name="last_name"
+            className="w-full pr-4 text-end"
+            value={personalInfo.last_name}
+            onChange={handleInputChange}
+          />
         </div>
+
+        {/* Username Input */}
         <div className="my-1.5 flex justify-between border-none py-2 outline outline-1 outline-slate-700 transition-all hover:outline-blue-600">
           <div className="flex flex-row pl-4 font-light">
             <MdOutlineAlternateEmail className="h-6 w-6" />
-            <label className="px-4 font-light text-slate-600">Username</label>
+            <label
+              htmlFor="username"
+              className="px-4 font-light text-slate-600"
+            >
+              Username
+            </label>
           </div>
-          <span className="pr-4">{user?.username ?? ''}</span>
+          <input
+            id="username"
+            name="username"
+            className="w-full pr-4 text-end"
+            value={personalInfo.username}
+            onChange={handleInputChange}
+          />
         </div>
+
         <div className="my-1.5 flex justify-between rounded-b-xl border-none py-2 outline outline-1 outline-slate-700 transition-all hover:outline-blue-600">
           <div className="flex flex-row pl-4 font-light">
             <CiLocationOn className="h-6 w-6" />
@@ -179,7 +364,7 @@ const Profile = () => {
           </div>
           <span className="pr-4">{'Sofia/Bulgaria'}</span>
         </div>
-      </section>
+      </form>
 
       <section className="mx-14">
         {/* HEADER */}
