@@ -1,6 +1,6 @@
 import { PUBLICATIONS, PUBLICATIONS_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
-import { I_Publication } from '@/lib/types';
+import { I_Publication, I_Recommendation } from '@/lib/types';
 import { handleResponse } from '@/lib/utilities';
 
 export const listPublications = async () =>
@@ -19,10 +19,9 @@ export const getRecommendations = async () =>
       method: PUBLICATIONS.get_recommendations.method,
       auth: true,
     }),
-  ).then((r) => handleResponse<I_Publication[]>(r));
+  ).then((r) => handleResponse<I_Recommendation[]>(r));
 
 export const createPublication = async (body: {
-  publisher_id: string;
   description: string;
   images: string[];
   publication_status: string;
@@ -75,4 +74,13 @@ export const likePublication = async (id: string) =>
       method: PUBLICATIONS_DYNAMIC.like_publication.method,
       auth: true,
     }),
-  ).then((r) => handleResponse<void>(r));
+  ).then((res) => {
+    if (!res || !res.ok) {
+      console.error(
+        `Failed to send request Status: ${res?.statusText}`,
+        res.headers,
+      );
+      return false;
+    }
+    return true;
+  });

@@ -33,7 +33,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="mb-3 border-b-cyan-700 bg-white p-4 drop-shadow-xl transition-all  hover:bg-slate-100">
+    <nav className="border-b-cyan-700 bg-white p-4 drop-shadow-xl transition-all hover:bg-slate-100">
       {/* border-b-4 hover:border-b-8 */}
       <div className="container mx-auto flex items-center justify-between">
         {/* LOGO/NAME PLACE HOLDER */}

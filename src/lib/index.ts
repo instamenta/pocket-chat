@@ -35,6 +35,8 @@ export function initRequest({
   body = null,
   auth = false,
 }: T_request_body_builder): RequestInit {
+  'use client';
+
   const init: RequestInit = {
     method,
     credentials: 'include',

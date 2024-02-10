@@ -1,6 +1,6 @@
 import { COMMENTS_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
-import { I_Comment } from '@/lib/types';
+import { T_Comment } from '@/lib/types';
 import { handleResponse } from '@/lib/utilities';
 
 export const listCommentsByPublication = async (publicationId: string) =>
@@ -10,7 +10,7 @@ export const listCommentsByPublication = async (publicationId: string) =>
       method: COMMENTS_DYNAMIC.list_comments_by_publication.method,
       auth: true,
     }),
-  ).then((r) => handleResponse<I_Comment[]>(r));
+  ).then((r) => handleResponse<T_Comment[]>(r));
 
 export const createComment = async (publicationId: string, body: {
   userId: string;

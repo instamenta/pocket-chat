@@ -1,25 +1,25 @@
 export interface I_UserSchema {
-  id: string;
-  username: string;
-  email: string;
-  password: string;
-  first_name: string;
-  last_name: string;
-  picture: string;
-  created_at: string; // Timestamp in ISO 8601 format
-  updated_at: string; // Timestamp in ISO 8601 format
-  last_active_at: string; // Timestamp in ISO 8601 format
+  id: string
+  username: string
+  email: string
+  password: string
+  first_name: string
+  last_name: string
+  picture: string
+  created_at: string // Timestamp in ISO 8601 format
+  updated_at: string // Timestamp in ISO 8601 format
+  last_active_at: string // Timestamp in ISO 8601 format
 }
 
 type T_FriendRequestData = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  picture: string;
-  username: string;
-  request_date: string;
-  request_type: 'sent' | 'received';
-};
+  id: string
+  first_name: string
+  last_name: string
+  picture: string
+  username: string
+  request_date: string
+  request_type: 'sent' | 'received'
+}
 
 export interface I_Message {
   id: string,
@@ -86,14 +86,32 @@ export enum E_PublicationStatus {
 }
 
 export interface I_Publication {
-  id: string;
-  created_at: string;
-  updated_at: string;
-  publication_status: E_PublicationStatus;
-  images: string[];
-  description: string;
-  publisher_id: string;
-  likes_count: number;
-  comments_count: number;
-  publisher: string;
+  id: string
+  created_at: string
+  updated_at: string
+  publication_status: E_PublicationStatus
+  images: string[]
+  description: string
+  publisher_id: string
+  likes_count: number
+  comments_count: number
+  publisher: string
+}
+
+export interface I_Recommendation {
+  id: string
+  created_at: string
+  updated_at: string
+  publication_status: E_PublicationStatus
+  images: string[]
+  description: string
+  publisher_id: string
+  likes_count: number
+  comments_count: number
+  publisher: string
+  username: string
+  picture: string
+  liked_by_user: boolean
+  first_name: string
+  last_name: string
 }
