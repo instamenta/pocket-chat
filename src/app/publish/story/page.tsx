@@ -11,6 +11,7 @@ import { I_UserSchema } from '@/lib/types';
 import { updateProfilePicture } from '@/lib/queries/user';
 import { toast } from 'react-toastify';
 import { IoCloudUploadOutline } from 'react-icons/io5';
+import { createStory } from '@/lib/queries/story';
 
 const CreateStory = () => {
   const router = useRouter();
@@ -20,24 +21,22 @@ const CreateStory = () => {
   const [user, setUser] = useState<I_UserSchema | null>(null);
 
   useEffect(() => {
-    useUser
-      .getState()
-      .getUser()
-      .then((d) => setUser(d));
+    useUser.getState().getUser().then(setUser);
   }, []);
 
   const handleImageUpload = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
+
     if (!file) return;
     const r = await edgestore.publicFiles.upload({ file });
 
-    const response = await updateProfilePicture(r.url);
+    const response = await createStory(r.url);
     if (!response) {
       toast(() => (
         <div className="bg-red-400 outline outline-2 outline-red-600">
-          <p className="m-auto text-center font-bold">Failed to update info.</p>
+          <p className="m-auto text-center font-bold">Fail</p>
         </div>
       ));
       return console.log('Empty response body');
@@ -45,16 +44,12 @@ const CreateStory = () => {
 
     toast(() => (
       <div className="outline outline-2 outline-green-600">
-        <p className="m-auto text-center font-bold">
-          Successfully updated info
-        </p>
+        <p className="m-auto text-center font-bold">Success</p>
       </div>
     ));
 
-    useUser.getState().setUser(response.userData);
-    setUser(response.userData);
-    setToggleImagePicker(false);
-    router.refresh();
+    new Promise((r) => setTimeout(r, 1000));
+    router.push('/feed');
   };
 
   return (
@@ -90,14 +85,15 @@ const CreateStory = () => {
           width={1}
           height={1}
           value={file}
-          className="m-auto border-2 bg-white bg-opacity-50"
-          onChange={(file) => setFile(file)}
+          className="m-auto border-2 bg-white transition-all hover:bg-slate-200"
+          onChange={setFile}
         />
         <button
-          className="mt-10 flex items-center gap-4 rounded-md px-5 bg-white"
+          className="mt-10 flex items-center gap-4 rounded-md bg-white px-5 outline outline-2 outline-slate-300 
+          transition-all hover:scale-110 "
           onClick={handleImageUpload}
         >
-          <div className="bg-white rounded-full scale-150">
+          <div className="scale-150 rounded-full bg-white">
             <IoCloudUploadOutline className="h-10 w-10 transition-all hover:scale-110" />
           </div>
           <span className="text-2xl ">Upload</span>

@@ -2,10 +2,11 @@ import { HttpMethod } from '@/lib/index';
 
 const api_url = 'http://localhost:3002/api';
 const user_endpoint = `${api_url}/user`;
+const story_endpoint = `${api_url}/story`;
 const friend_endpoint = `${api_url}/friend`;
 const message_endpoint = `${api_url}/message`;
-const publication_endpoint = `${api_url}/publication`;
 const comment_endpoint = `${api_url}/comment`;
+const publication_endpoint = `${api_url}/publication`;
 
 export const socket_url = 'ws://localhost:3003';
 
@@ -185,6 +186,28 @@ export const COMMENTS_DYNAMIC = {
   like_comment: {
     url: (id: string) => new URL(`${comment_endpoint}/${id}/like`),
     method: 'PUT',
+  } as T_rest_build,
+};
+
+export const STORY = {
+  create_story: {
+    url: new URL(`${story_endpoint}/`),
+    method: 'POST',
+  } as T_rest,
+  list_stories: {
+    url: new URL(`${story_endpoint}/`),
+    method: 'GET',
+  } as T_rest,
+  list_feed_stories: {
+    url: new URL(`${story_endpoint}/feed`),
+    method: 'GET',
+  } as T_rest,
+};
+
+export const STORY_DYNAMIC = {
+  list_friend_stories_by_id: {
+    url: (username: string) => new URL(`${story_endpoint}/${username}`),
+    method: 'GET',
   } as T_rest_build,
 };
 

@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { I_Recommendation, I_UserSchema } from '@/lib/types';
+import { I_Recommendation, I_UserSchema, T_FeedStory } from '@/lib/types';
 import Navbar from '@/components/Navbar';
 import { getRecommendations, likePublication } from '@/lib/queries/publication';
 import { FaAddressBook, FaCommentDots, FaRegHeart } from 'react-icons/fa';
-import { FaHeart } from 'react-icons/fa6';
+import { FaHeart, FaRegShareFromSquare } from 'react-icons/fa6';
 import { CiSquarePlus } from 'react-icons/ci';
 import { TfiGallery } from 'react-icons/tfi';
 import { GrYoutube } from 'react-icons/gr';
@@ -13,13 +13,15 @@ import { MdGroups, MdLiveTv, MdMore } from 'react-icons/md';
 import { RiLiveFill } from 'react-icons/ri';
 import useUser from '@/lib/store';
 import { AiFillPlusCircle } from 'react-icons/ai';
-import { BiSend } from "react-icons/bi";
-import { FaRegShareFromSquare } from "react-icons/fa6";
+import { BiSend } from 'react-icons/bi';
+import { listFeedStories } from '@/lib/queries/story';
 
 const Feed = () => {
   const [publications, setPublications] = useState<I_Recommendation[]>([]);
   const [description, setDescription] = useState<string>('');
   const [user, setUser] = useState<I_UserSchema | null>(null);
+  const [stories, setStories] = useState<T_FeedStory[]>([]);
+  const [toggleStoryMode, setToggleStoryMode] = useState<boolean>(false);
 
   useEffect(() => {
     useUser
@@ -27,10 +29,8 @@ const Feed = () => {
       .getUser()
       .then((d) => setUser(d));
 
-    getRecommendations().then((d) => {
-      setPublications(d ?? []);
-      console.log(d);
-    });
+    getRecommendations().then((d) => setPublications(d ?? []));
+    listFeedStories().then((d) => setStories(d ?? []));
   }, []);
 
   const handleLike = (
@@ -96,94 +96,31 @@ const Feed = () => {
               </span>
             </div>
           </div>
-
-          <AiFillPlusCircle />
-          {/* REST */}
-          <div className="aspect-phone-portrait relative rounded-2xl border-2 border-white bg-slate-300 outline outline-blue-600">
-            <div className="absolute left-2 top-2 z-50 h-8 w-8 rounded-full bg-slate-500 outline outline-2 outline-white"></div>
-            <img
-              className="absolute left-0 top-0 h-full w-full rounded-2xl"
-              src="https://g1.img-dpreview.com/3ACBE6D011274856888F900E563D7A85.jpg"
-              alt="story-image"
-            />
-            <div className="absolute bottom-0 left-0 w-full overflow-hidden rounded-b-2xl bg-gradient-to-b from-transparent to-black px-2 py-1">
-              <span className="block truncate text-xs text-white">
-                Gonzaliez Garsia
-              </span>
+          {/* Stories */}
+          {stories.map((story, index) => (
+            <div
+              className="aspect-phone-portrait relative rounded-2xl border-2 border-white bg-slate-300 outline outline-blue-600"
+              key={index}
+            >
+              <div className="absolute left-2 top-2 z-50 h-8 w-8 rounded-full bg-slate-500 outline outline-2 outline-white">
+                <img
+                  src={story.user_picture}
+                  alt="profile-pic"
+                  className="h-full w-full overflow-hidden rounded-full"
+                />
+              </div>
+              <img
+                className="absolute left-0 top-0 h-full w-full rounded-2xl"
+                src={story.image_url}
+                alt="story-image"
+              />
+              <div className="absolute bottom-0 left-0 w-full overflow-hidden rounded-b-2xl bg-gradient-to-b from-transparent to-black px-2 py-1">
+                <span className="block truncate text-xs text-white">
+                  {story.first_name + ' ' + story.last_name}
+                </span>
+              </div>
             </div>
-          </div>
-          <div className="aspect-phone-portrait relative rounded-2xl border-2 border-white bg-slate-300 outline outline-blue-600">
-            <img
-              className="absolute left-0 top-0 h-full w-full rounded-2xl"
-              src="https://g1.img-dpreview.com/3ACBE6D011274856888F900E563D7A85.jpg"
-              alt="story-image"
-            />
-            <div className="absolute bottom-0 left-0 w-full overflow-hidden rounded-b-2xl bg-gradient-to-b from-transparent to-black px-2 py-1">
-              <span className="block truncate text-xs text-white">
-                Gonzaliez Garsia
-              </span>
-            </div>
-          </div>
-          <div className="aspect-phone-portrait relative rounded-2xl border-2 border-white bg-slate-300 outline outline-blue-600">
-            <img
-              className="absolute left-0 top-0 h-full w-full rounded-2xl"
-              src="https://g1.img-dpreview.com/3ACBE6D011274856888F900E563D7A85.jpg"
-              alt="story-image"
-            />
-            <div className="absolute bottom-0 left-0 w-full overflow-hidden rounded-b-2xl bg-gradient-to-b from-transparent to-black px-2 py-1">
-              <span className="block truncate text-xs text-white">
-                Gonzaliez Garsia
-              </span>
-            </div>
-          </div>
-          <div className="aspect-phone-portrait relative rounded-2xl border-2 border-white bg-slate-300 outline outline-blue-600">
-            <img
-              className="absolute left-0 top-0 h-full w-full rounded-2xl"
-              src="https://g1.img-dpreview.com/3ACBE6D011274856888F900E563D7A85.jpg"
-              alt="story-image"
-            />
-            <div className="absolute bottom-0 left-0 w-full overflow-hidden rounded-b-2xl bg-gradient-to-b from-transparent to-black px-2 py-1">
-              <span className="block truncate text-xs text-white">
-                Gonzaliez Garsia
-              </span>
-            </div>
-          </div>
-          <div className="aspect-phone-portrait relative rounded-2xl border-2 border-white bg-slate-300 outline outline-blue-600">
-            <img
-              className="absolute left-0 top-0 h-full w-full rounded-2xl"
-              src="https://g1.img-dpreview.com/3ACBE6D011274856888F900E563D7A85.jpg"
-              alt="story-image"
-            />
-            <div className="absolute bottom-0 left-0 w-full overflow-hidden rounded-b-2xl bg-gradient-to-b from-transparent to-black px-2 py-1">
-              <span className="block truncate text-xs text-white">
-                Gonzaliez Garsia
-              </span>
-            </div>
-          </div>
-          <div className="aspect-phone-portrait relative rounded-2xl border-2 border-white bg-slate-300 outline outline-blue-600">
-            <img
-              className="absolute left-0 top-0 h-full w-full rounded-2xl"
-              src="https://g1.img-dpreview.com/3ACBE6D011274856888F900E563D7A85.jpg"
-              alt="story-image"
-            />
-            <div className="absolute bottom-0 left-0 w-full overflow-hidden rounded-b-2xl bg-gradient-to-b from-transparent to-black px-2 py-1">
-              <span className="block truncate text-xs text-white">
-                Gonzaliez Garsia
-              </span>
-            </div>
-          </div>
-          <div className="aspect-phone-portrait relative rounded-2xl border-2 border-white bg-slate-300 outline outline-blue-600">
-            <img
-              className="absolute left-0 top-0 h-full w-full rounded-2xl"
-              src="https://g1.img-dpreview.com/3ACBE6D011274856888F900E563D7A85.jpg"
-              alt="story-image"
-            />
-            <div className="absolute bottom-0 left-0 w-full overflow-hidden rounded-b-2xl bg-gradient-to-b from-transparent to-black px-2 py-1">
-              <span className="block truncate text-xs text-white">
-                Gonzaliez Garsia
-              </span>
-            </div>
-          </div>
+          ))}
         </section>
       </div>
 
@@ -221,7 +158,7 @@ const Feed = () => {
         {publications.map((publication, index) => (
           <article
             key={index}
-            className="mb-3 flex flex-col border bg-white drop-shadow border-t-gray-300 border-t-2"
+            className="mb-3 flex flex-col border border-t-2 border-t-gray-300 bg-white drop-shadow"
           >
             <div className="flex w-full flex-row p-4 pb-4">
               <div className="">
@@ -273,9 +210,9 @@ const Feed = () => {
 
             <div className="flex flex-row"></div>
             <div className="flex flex-row justify-between px-4 py-2">
-            {/*  TODO */}
+              {/*  TODO */}
             </div>
-            <div className="flex justify-evenly flex-nowrap gap-4 w-full border-t-2 border-t-slate-300 py-3 text-center font-semibold">
+            <div className="flex w-full flex-nowrap justify-evenly gap-4 border-t-2 border-t-slate-300 py-3 text-center font-semibold">
               <div className="flex flex-row flex-nowrap gap-1">
                 <div
                   className="hover:cursor-pointer"
@@ -294,11 +231,11 @@ const Feed = () => {
                 <span>Comment</span>
               </div>
               <div className="flex flex-row flex-nowrap gap-1">
-                <BiSend className="w-5 h-5" />
+                <BiSend className="h-5 w-5" />
                 <span>Send</span>
               </div>
               <div className="flex flex-row flex-nowrap gap-1 ">
-                <FaRegShareFromSquare className="w-5 h-5" />
+                <FaRegShareFromSquare className="h-5 w-5" />
                 <span>Share</span>
               </div>
             </div>
