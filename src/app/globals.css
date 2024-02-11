@@ -119,3 +119,30 @@ body {
         background-position: 50px 50px;
     }
 }
+
+.scrollbar-none {
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.aspect-phone-portrait {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 9 / 16;
+}
+
+.object-photo {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+}
+
+.shadow-outline {
+    text-shadow: -1px -1px 0 #183b44, 1px -1px 0 #183b44, -1px 1px 0 #183b44, 1px 1px 0 #183b44;
+}
