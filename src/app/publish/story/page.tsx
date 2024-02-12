@@ -48,7 +48,6 @@ const CreateStory = () => {
       </div>
     ));
 
-    new Promise((r) => setTimeout(r, 1000));
     router.push('/feed');
   };
 

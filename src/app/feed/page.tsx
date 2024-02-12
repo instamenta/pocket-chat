@@ -21,7 +21,6 @@ const Feed = () => {
   const [description, setDescription] = useState<string>('');
   const [user, setUser] = useState<I_UserSchema | null>(null);
   const [stories, setStories] = useState<T_FeedStory[]>([]);
-  const [toggleStoryMode, setToggleStoryMode] = useState<boolean>(false);
 
   useEffect(() => {
     useUser

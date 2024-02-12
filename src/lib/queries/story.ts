@@ -20,7 +20,7 @@ export const listStories = async () =>
       method: STORY.list_stories.method,
       auth: true,
     }),
-  ).then((r) => handleResponse<T_StoryFull[]>(r));
+  ).then((r) => handleResponse<T_FeedStory[]>(r));
 
 export const listFeedStories = async () =>
   fetch(
