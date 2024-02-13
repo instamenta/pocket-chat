@@ -6,9 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/auth/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/auth/sign-in/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/sign-in/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/feed/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/feed/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/publish/story/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/publish/story/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/queries/story.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/story.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/micros/Input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/micros/Input.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,11 +76,11 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/modals" />
       <recent name="$PROJECT_DIR$/src/app/publish/filter" />
       <recent name="$PROJECT_DIR$/src/lib" />
       <recent name="$PROJECT_DIR$/src/lib/actions" />
       <recent name="$PROJECT_DIR$/src/app/friends" />
-      <recent name="$PROJECT_DIR$/src/app/(authenticaiton)" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -136,7 +141,8 @@
       <workItem from="1707646278934" duration="17977000" />
       <workItem from="1707679607118" duration="2011000" />
       <workItem from="1707686876406" duration="2048000" />
-      <workItem from="1707752145104" duration="8425000" />
+      <workItem from="1707752145104" duration="8660000" />
+      <workItem from="1707858659981" duration="6850000" />
     </task>
     <servers />
   </component>
@@ -156,8 +162,7 @@
         </line-breakpoint>
         <line-breakpoint type="javascript">
           <url>file://$PROJECT_DIR$/src/app/feed/page.tsx</url>
-          <line>26</line>
-          <properties lambdaOrdinal="-1" />
+          <line>30</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

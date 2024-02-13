@@ -100,7 +100,7 @@ export default function SignIn() {
           href="/auth/sign-up"
           className="hover:text-purple-800 hover:underline"
         >
-          Already have an account?
+          Dont have an account?
         </Link>
       </div>
     </form>

@@ -15,12 +15,16 @@ import useUser from '@/lib/store';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { BiSend } from 'react-icons/bi';
 import { listFeedStories } from '@/lib/queries/story';
+import Link from 'next/link';
+import PublicationDetails from '@/components/modals/PublicationDetails';
 
 const Feed = () => {
   const [publications, setPublications] = useState<I_Recommendation[]>([]);
   const [description, setDescription] = useState<string>('');
   const [user, setUser] = useState<I_UserSchema | null>(null);
   const [stories, setStories] = useState<T_FeedStory[]>([]);
+  const [selectedPublication, setSelectedPublication] =
+    useState<I_Recommendation | null>(null);
 
   useEffect(() => {
     useUser
@@ -58,9 +62,21 @@ const Feed = () => {
     });
   };
 
+  const handleOpenPublicationDetails = (publication: I_Recommendation) => {
+    setSelectedPublication(publication);
+  };
+
   return (
     <>
       <Navbar />
+
+      {/* Publication Details Overlay */}
+      {selectedPublication && (
+        <PublicationDetails
+          publication={selectedPublication}
+          onClose={() => setSelectedPublication(null)}
+        />
+      )}
 
       <section className="flex flex-row justify-between gap-1 px-4 py-2">
         <CiSquarePlus className="my-auto h-12 w-12 fill-blue-600 transition-all hover:scale-110" />
@@ -97,7 +113,8 @@ const Feed = () => {
           </div>
           {/* Stories */}
           {stories.map((story, index) => (
-            <div
+            <Link
+              href="/feed/story"
               className="aspect-phone-portrait relative rounded-2xl border-2 border-white bg-slate-300 outline outline-blue-600"
               key={index}
             >
@@ -118,7 +135,7 @@ const Feed = () => {
                   {story.first_name + ' ' + story.last_name}
                 </span>
               </div>
-            </div>
+            </Link>
           ))}
         </section>
       </div>
@@ -157,6 +174,7 @@ const Feed = () => {
         {publications.map((publication, index) => (
           <article
             key={index}
+            onClick={() => handleOpenPublicationDetails(publication)}
             className="mb-3 flex flex-col border border-t-2 border-t-gray-300 bg-white drop-shadow"
           >
             <div className="flex w-full flex-row p-4 pb-4">

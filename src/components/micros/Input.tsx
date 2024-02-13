@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 type props = {
   name: string;
@@ -11,8 +11,6 @@ type props = {
   minLength?: number;
 };
 
-// Input.tsx (Client-Side)
-
 export default function Input({
   name,
   placeholder,
@@ -20,12 +18,13 @@ export default function Input({
   minLength,
   type = 'text',
   required = false,
-}: props): React.JSX.Element {
-  const [isValid, setIsValid] = React.useState<boolean | null>(null);
-  const [isTouched, setIsTouched] = React.useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = React.useState<string>('');
+}: props) {
+  const [isValid, setIsValid] = useState<boolean | null>(null);
+  const [isTouched, setIsTouched] = useState<boolean>(false);
+  const [isUnfocused, setIsUnfocused] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target;
     setIsTouched(true);
 
@@ -50,18 +49,24 @@ export default function Input({
         minLength={minLength}
         required={required}
         placeholder={placeholder}
-        className={`my-2 w-full rounded-md border-2 px-4 py-2 outline-none transition-all ${
-          isTouched
+        className={`my-2 w-full rounded-md border-2 px-4 py-2 outline-none transition-all hover:border-slate-300 ${
+          isTouched && isUnfocused
             ? isValid !== null &&
-              (isValid ? 'border-blue-400' : 'border-red-500')
-            : 'border-gray-300'
+              (isValid
+                ? 'border-green-400 focus:border-green-600'
+                : 'border-red-500 focus:border-red-300')
+            : 'border-blue-400'
         }`}
         onChange={handleChange}
-        onBlur={() => setIsTouched(true)}
+        onFocus={() => setIsUnfocused(false)}
+        onBlur={(event) => {
+          handleChange(event);
+          setIsUnfocused(true);
+        }}
       />
       <span
-        className={`transition-colors   ${
-          isTouched
+        className={`transition-colors ${
+          isTouched && isUnfocused
             ? isValid !== null && (isValid ? 'text-blue-400' : 'text-red-500')
             : 'text-gray-500'
         }`}

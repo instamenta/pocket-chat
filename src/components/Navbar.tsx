@@ -46,23 +46,10 @@ const Navbar = () => {
         </Link>
         <div className="flex flex-row items-center space-x-4 text-gray-800">
           {/* NAVBAR ITEMS */}
-          {user ? (
-            <></>
-          ) : (
-            <>
-              <Link
-                href="/auth/sign-in"
-                className="hover:text-black hover:underline"
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/auth/sign-up"
-                className="hover:text-black hover:underline"
-              >
-                Sign Up
-              </Link>
-            </>
+          {user ? null : (
+            <Link href="/auth" className="hover:text-black hover:underline">
+              Sign
+            </Link>
           )}
 
           <div className="flex flex-row justify-center align-middle">
@@ -82,9 +69,10 @@ const Navbar = () => {
             </button>
 
             <Link
-              href='/chat'
-              className="h-full flex justify-center align-middle my-auto bg-blue-100 rounded-full mx-2">
-            <BiSolidMessageDetail className="aspect-square h-8 w-8 fill-slate-500 scale-90 hover:fill-blue-600 transition-all" />
+              href="/chat"
+              className="mx-2 my-auto flex h-full justify-center rounded-full bg-blue-100 align-middle"
+            >
+              <BiSolidMessageDetail className="aspect-square h-8 w-8 scale-90 fill-slate-500 transition-all hover:fill-blue-600" />
             </Link>
             <button
               id="dropdownAvatarNameButton"

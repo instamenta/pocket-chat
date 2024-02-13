@@ -15,21 +15,23 @@ export default function Authenticate(): React.JSX.Element {
 
       {/* Action Button Container */}
       <div className="flex w-full  flex-col justify-center gap-5 pt-8 text-2xl font-medium">
-        <button
+        <Link
+          href="/auth/sign-in"
           type="submit"
           className="w-full rounded-2xl border-2 border-orange-600 bg-orange-600 py-2 text-white
-            transition-all hover:drop-shadow-xl"
-        >
-          Sign Up
-        </button>
-        <div className="border bg-slate-700" />
-        <button
-          type="submit"
-          className="w-full rounded-2xl border-2 border-orange-600  bg-white py-2 text-orange-600
-            transition-all hover:drop-shadow-xl"
+            transition-all hover:drop-shadow-xl text-center"
         >
           Sign In
-        </button>
+        </Link>
+        <div className="border bg-slate-700" />
+        <Link
+          href="/auth/sign-up"
+          type="submit"
+          className="w-full rounded-2xl border-2 border-orange-600  bg-white py-2 text-orange-600
+            transition-all hover:drop-shadow-xl text-center"
+        >
+          Sign Up
+        </Link>
       </div>
       <div className="w-full pl-5 pt-4 text-left font-normal text-slate-500 hover:underline">
         <span>
