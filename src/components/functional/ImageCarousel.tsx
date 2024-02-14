@@ -20,7 +20,7 @@ export default function ImageCarousel({ images }: { images: string[] }) {
     <div className="relative">
       <AiOutlineLeft
         onClick={handlePrevSlide}
-        className="absolute inset-y-1/2 left-0 z-20 m-auto cursor-pointer text-5xl text-gray-400"
+        className="absolute inset-y-1/2 left-0 z-20 mx-auto cursor-pointer text-5xl text-gray-400"
       />
       <div className="relative m-auto flex h-[50vh] w-full overflow-hidden">
         <Swipe

@@ -71,10 +71,13 @@ const Feed = () => {
       <Navbar />
 
       {/* Publication Details Overlay */}
-      {selectedPublication && (
+      {(selectedPublication && user) && (
         <PublicationDetails
           publication={selectedPublication}
           onClose={() => setSelectedPublication(null)}
+          publications={publications}
+          setPublications={setPublications}
+          user={user}
         />
       )}
 
