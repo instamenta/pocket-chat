@@ -44,7 +44,7 @@ export const updateProfilePublicInformation = async (body: {
       body,
     }),
   ).then((r) =>
-    handleResponse<{ token: string, id: string, userData: I_UserSchema }>(r),
+    handleResponse<{ token: string; id: string; userData: I_UserSchema }>(r),
   );
 
 export const updateProfilePicture = async (picture_url: string) =>
@@ -56,5 +56,17 @@ export const updateProfilePicture = async (picture_url: string) =>
       body: { picture_url },
     }),
   ).then((r) =>
-    handleResponse<{ token: string, id: string, userData: I_UserSchema }>(r),
+    handleResponse<{ token: string; id: string; userData: I_UserSchema }>(r),
+  );
+
+export const updateBio = async (bio: string) =>
+  fetch(
+    USERS.update_bio.url,
+    initRequest({
+      method: USERS.update_bio.method,
+      auth: true,
+      body: { bio },
+    }),
+  ).then((r) =>
+    handleResponse<{ token: string; id: string; userData: I_UserSchema }>(r),
   );

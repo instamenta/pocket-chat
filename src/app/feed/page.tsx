@@ -17,6 +17,7 @@ import { BiSend } from 'react-icons/bi';
 import { listFeedStories } from '@/lib/queries/story';
 import Link from 'next/link';
 import PublicationDetails from '@/components/modals/PublicationDetails';
+import { IoHeartHalfOutline } from 'react-icons/io5';
 
 const Feed = () => {
   const [publications, setPublications] = useState<I_Recommendation[]>([]);
@@ -71,7 +72,7 @@ const Feed = () => {
       <Navbar />
 
       {/* Publication Details Overlay */}
-      {(selectedPublication && user) && (
+      {selectedPublication && user && (
         <PublicationDetails
           publication={selectedPublication}
           onClose={() => setSelectedPublication(null)}
@@ -94,7 +95,8 @@ const Feed = () => {
         ></textarea>
         <TfiGallery className="my-auto h-10 w-12 rounded-xl fill-green-600 px-1 transition-all hover:scale-110 hover:bg-slate-200 hover:fill-green-700 " />
       </section>
-      {/* STORY SECTION */}
+
+      {/* Story Section */}
       <div className="drop-shadow-md">
         <section className="scrollbar-none flex h-56 w-full flex-row gap-2.5 overflow-x-auto bg-slate-100 px-2 py-4 text-center font-semibold shadow-inner">
           {/* First Element*/}
@@ -114,7 +116,7 @@ const Feed = () => {
               </span>
             </div>
           </div>
-          {/* Stories */}
+          {/* Each Story */}
           {stories.map((story, index) => (
             <Link
               href="/feed/story"
@@ -143,7 +145,7 @@ const Feed = () => {
         </section>
       </div>
 
-      {/* Section */}
+      {/* Decoration's Section */}
       <section className="scrollbar-sm flex w-full flex-row gap-3 overflow-x-auto bg-slate-100 px-2 pb-2.5 pt-2 text-center font-semibold shadow-inner">
         <div className="flex flex-row gap-1.5 rounded-2xl border-t border-t-slate-200 bg-white px-4 py-1.5 drop-shadow-lg">
           <GrYoutube className="h-6 w-6 fill-purple-500" />
@@ -172,15 +174,18 @@ const Feed = () => {
           <span>More</span>
         </div>
       </section>
-      {/* PUBLICATIONS CONTAINER */}
+
+      {/* Publications Container */}
       <section className="w-full bg-slate-200 pt-2 shadow-inner">
+        {/* Each Publication */}
         {publications.map((publication, index) => (
           <article
             key={index}
-            onClick={() => handleOpenPublicationDetails(publication)}
             className="mb-3 flex flex-col border border-t-2 border-t-gray-300 bg-white drop-shadow"
           >
-            <div className="flex w-full flex-row p-4 pb-4">
+            {/* Publisher Data */}
+            <Link href={`/profile/${publication.username}`} className="flex w-full flex-row p-4 pb-4">
+              {/* Publisher Profile Pic */}
               <div className="">
                 <img
                   src={publication.picture}
@@ -196,7 +201,7 @@ const Feed = () => {
                   @<span className="font-light">{publication.username}</span>
                 </div>
               </div>
-            </div>
+            </Link>
             {publication.description ? (
               <div className="text-pretty px-4 pb-2">
                 <span className="font-medium text-gray-900">
@@ -204,15 +209,17 @@ const Feed = () => {
                 </span>
               </div>
             ) : null}
-            {/* Image Out liner */}
+            {/* Image TOP Outline */}
             <div className="mx-4 h-3 border-x-2 border-t-2 " />
 
-            {/* Publication Images */}
+            {/* Images Grid Container */}
             <div
+              onClick={() => handleOpenPublicationDetails(publication)}
               className={`grid  ${
                 publication.images.length === 1 ? 'grid-cols-1' : 'grid-cols-2'
               }`}
             >
+              {/* Images */}
               {publication.images
                 .slice(0, 4)
                 .map((image: string, index: number) => (
@@ -225,15 +232,27 @@ const Feed = () => {
                   </div>
                 ))}
             </div>
-            {/* Image Out liner */}
+            {/* Image Bottom Outline */}
             <div className="mx-4 h-3 border-x-2 border-b-2 " />
 
-            <div className="flex flex-row"></div>
-            <div className="flex flex-row justify-between px-4 py-2">
-              {/*  TODO */}
+            {/* Publication Rating */}
+            <div className="flex w-full justify-between px-4 pb-2 pt-4">
+              <div className="flex content-center gap-1">
+                <IoHeartHalfOutline className="h-6 w-6 fill-red-600 " />
+                <span>{publication.likes_count}</span>
+              </div>
+              <div className="flex gap-2">
+                <div className="flex gap-2">
+                  <span>{publication.comments_count + ' ' + 'comments'}</span>
+                  <span>{24 + ' ' + 'reposts'}</span>
+                </div>
+              </div>
             </div>
-            <div className="flex w-full flex-nowrap justify-evenly gap-4 border-t-2 border-t-slate-300 py-3 text-center font-semibold">
+
+            <div
+              className="flex w-full flex-nowrap justify-evenly gap-4 border-t-2 border-t-slate-300 py-3 text-center font-semibold">
               <div className="flex flex-row flex-nowrap gap-1">
+                {/* Like Publication*/}
                 <div
                   className="hover:cursor-pointer"
                   onClick={(event) => handleLike(event, publication.id, index)}
@@ -246,18 +265,27 @@ const Feed = () => {
                 </div>
                 <span>Like</span>
               </div>
-              <div className="flex flex-row flex-nowrap gap-1">
+
+              {/* Comment Publication */}
+              <button
+                onClick={() => handleOpenPublicationDetails(publication)}
+                className="flex flex-row flex-nowrap gap-1"
+              >
                 <FaCommentDots className="h-5 w-5 fill-gray-600" />
                 <span>Comment</span>
-              </div>
-              <div className="flex flex-row flex-nowrap gap-1">
+              </button>
+
+              {/* Share to Conversation */}
+              <button className="flex flex-row flex-nowrap gap-1">
                 <BiSend className="h-5 w-5" />
                 <span>Send</span>
-              </div>
-              <div className="flex flex-row flex-nowrap gap-1 ">
+              </button>
+
+              {/* Share Button */}
+              <button className="flex flex-row flex-nowrap gap-1 ">
                 <FaRegShareFromSquare className="h-5 w-5" />
                 <span>Share</span>
-              </div>
+              </button>
             </div>
           </article>
         ))}

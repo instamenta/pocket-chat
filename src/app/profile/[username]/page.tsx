@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { I_UserSchema } from '@/lib/types';
+import { I_Publication, I_UserSchema } from '@/lib/types';
 import useUser from '@/lib/store';
 import { FaChevronLeft, FaCirclePlus, FaUserPlus } from 'react-icons/fa6';
 import { BsGrid3X3 } from 'react-icons/bs';
@@ -13,10 +13,11 @@ import { GoGear } from 'react-icons/go';
 import Link from 'next/link';
 import { getUserByUsername } from '@/lib/queries/user';
 import { FaUserEdit } from 'react-icons/fa';
+import { getPublicationsByUserId } from '@/lib/queries/publication';
 
 const ProfilePage = ({
-  params: { username },
-}: {
+                       params: { username }
+                     }: {
   params: { username: string };
 }) => {
   const router = useRouter();
@@ -24,6 +25,10 @@ const ProfilePage = ({
   const [user, setUser] = useState<I_UserSchema | null>(null);
   const [recipient, setRecipient] = useState<I_UserSchema | null>(null);
   const [isUser, setIsUser] = useState<boolean>(false);
+  const [publications, setPublications] = useState<I_Publication[]>([]);
+  const [stats, setStats] = useState({
+    posts: 0
+  });
 
   useEffect(() => {
     void (async function initialize() {
@@ -37,17 +42,32 @@ const ProfilePage = ({
 
       if (!userData) return console.log('User not found');
 
+      let recipient: I_UserSchema;
       if (username === userData.username) {
         setIsUser(true);
-        return setRecipient(userData);
+        setRecipient(userData);
+        recipient = userData;
+      } else {
+        const recipientData = await getUserByUsername(username);
+        if (!recipientData) {
+          console.error(`Failed to get recipient with username ${username}`);
+          throw new Error(`Failed to get recipient with username ${username}`);
+        }
+        setRecipient(recipientData);
+        recipient = recipientData;
       }
 
-      const recipientData = await getUserByUsername(username);
-      if (!recipientData) {
-        console.error(`Failed to get recipient with username ${username}`);
-        throw new Error(`Failed to get recipient with username ${username}`);
-      }
-      setRecipient(recipientData);
+      getPublicationsByUserId(recipient.id).then((d) => {
+        if (!d) {
+          setStats({ posts: 0 });
+          return setPublications([]);
+        }
+        setStats({ posts: d.length });
+
+        const data: I_Publication[] = d.filter((e) => e.images.length);
+        setPublications(data);
+        console.log(data);
+      });
     })();
   }, []);
 
@@ -74,12 +94,13 @@ const ProfilePage = ({
       </nav>
       <div className="mx-4">
         <section className="flex flex-row justify-between pr-8">
-          <div className="h-24 w-24 overflow-hidden rounded-full border-2 border-white bg-blue-600 outline outline-blue-600">
+          <div
+            className="h-24 w-24 overflow-hidden rounded-full border-2 border-white bg-blue-600 outline outline-blue-600">
             <img src={recipient?.picture ?? ''} alt="Profile Picture" />
           </div>
           <div className="flex flex-row justify-center align-middle">
             <div className="flex w-20 flex-col justify-center text-center">
-              <span className="font-bold">1,300</span>
+              <span className="font-bold">{stats.posts}</span>
               <label className="text-gray-700">Posts</label>
             </div>
             <div className="flex w-20 flex-col justify-center text-center">
@@ -102,11 +123,7 @@ const ProfilePage = ({
           </span>
           <div className="w-3/4">
             <span style={{ fontSize: '13px' }}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industrys standard dummy text{' '}
-              <b>...more</b>
-              {/*ever since the 1500s, when an unknown printer took a galley of type*/}
-              {/*and scrambled it to make a type specimen book.{' '}*/}
+              {recipient?.bio ?? ''}
             </span>
           </div>
         </section>
@@ -118,16 +135,20 @@ const ProfilePage = ({
           </span>
         </section>
         <section className="flex flex-row gap-4 py-3.5 font-semibold">
-          <button className="w-full rounded-md bg-blue-600 text-white outline outline-blue-600 transition-all hover:bg-white hover:text-black hover:outline-2 ">
+          <button
+            className="w-full rounded-md bg-blue-600 text-white outline outline-blue-600 transition-all hover:bg-white hover:text-black hover:outline-2 ">
             {isUser ? 'Edit' : 'Follow'}
           </button>
-          <button className="w-full rounded-md bg-slate-200 font-medium outline outline-slate-200  transition-all hover:bg-white hover:outline-2 hover:outline-blue-600">
+          <button
+            className="w-full rounded-md bg-slate-200 font-medium outline outline-slate-200  transition-all hover:bg-white hover:outline-2 hover:outline-blue-600">
             Message
           </button>
-          <button className="w-full rounded-md bg-slate-200 font-medium outline outline-slate-200  transition-all hover:bg-white hover:outline-2 hover:outline-blue-600">
+          <button
+            className="w-full rounded-md bg-slate-200 font-medium outline outline-slate-200  transition-all hover:bg-white hover:outline-2 hover:outline-blue-600">
             Contact
           </button>
-          <button className="rounded-md bg-blue-600 px-2  outline  outline-blue-600 transition-all hover:bg-white hover:outline-2">
+          <button
+            className="rounded-md bg-blue-600 px-2  outline  outline-blue-600 transition-all hover:bg-white hover:outline-2">
             {isUser ? (
               <FaUserEdit className="h-6 w-6 fill-white hover:fill-black" />
             ) : (
@@ -258,7 +279,16 @@ const ProfilePage = ({
           <SiYoutubeshorts className="h-7 w-7" />
         </div>
       </section>
+      {/* Images Section Container*/}
       <section className="grid grid-cols-3 gap-0.5 pt-0.5">
+        {publications.map((publication, index) => (
+          <img
+            key={index}
+            className="aspect-square w-full overflow-hidden object-scale-down"
+            src={publication.images[0]}
+            alt="Image"
+          />
+        ))}
         <img
           className="aspect-square w-full overflow-hidden object-none object-center"
           src="https://cdn.fstoppers.com/styles/full/s3/media/2019/12/04/nando-jpeg-quality-006-too-much.jpg"

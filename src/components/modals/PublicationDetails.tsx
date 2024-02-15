@@ -60,6 +60,8 @@ const PublicationDetails = ({
           pub.likes_count--;
         }
         updatedPublications[index] = pub;
+        publication = pub;
+
         return updatedPublications;
       });
     });

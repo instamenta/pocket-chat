@@ -20,11 +20,13 @@ import { useEdgeStore } from '@/lib/store/edgestore';
 import { SingleImageDropzone } from '@/components/edgestore/SingleImageDropzone';
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import {
+  updateBio,
   updateProfilePicture,
   updateProfilePublicInformation,
 } from '@/lib/queries/user';
 import { personal_data_schema } from '@/lib/validation/schemas';
-import { toast } from 'react-toastify'; // TODO ADD EDIT PROFILE
+import { toast } from 'react-toastify';
+import TextArea from '@/components/functional/TextArea'; // TODO ADD EDIT PROFILE
 
 // TODO ADD EDIT PROFILE
 // TODO IMPLEMENT CHANGE PASSWORD
@@ -44,6 +46,7 @@ const Profile = () => {
   const [user, setUser] = useState<I_UserSchema | null>(null);
   const [toggleImagePicker, setToggleImagePicker] = useState<boolean>(false);
   const [toggleEdit, setToggleEdit] = useState<boolean>(false);
+  const [description, setDescription] = useState<string>('');
   const [personalInfo, setPersonalInfo] = useState<T_personalInfo>({
     email: '',
     first_name: '',
@@ -63,6 +66,7 @@ const Profile = () => {
           last_name: d!.last_name,
           username: d!.username,
         });
+        setDescription(d!.bio);
       });
   }, []);
 
@@ -132,8 +136,6 @@ const Profile = () => {
     if (data.lastName !== user!.last_name) request.lastName = data.lastName;
     if (data.email !== user!.email) request.email = data.email;
 
-    console.log(request);
-
     const response = await updateProfilePublicInformation(request);
     if (!response) {
       toast(() => (
@@ -165,8 +167,35 @@ const Profile = () => {
     }));
   };
 
+  const handleUpdateBio = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.preventDefault();
+
+    const response = await updateBio(description);
+    if (!response) {
+      toast(() => (
+        <div className="bg-red-400 outline outline-2 outline-red-600">
+          <p className="m-auto text-center font-bold">Failed to update Bio.</p>
+        </div>
+      ));
+      return console.error('empty response');
+    }
+
+    toast(() => (
+      <div className="outline outline-2 outline-green-600">
+        <p className="m-auto text-center font-bold">Successfully updated Bio</p>
+      </div>
+    ));
+
+    useUser.getState().setUser(response.userData);
+    setUser(response.userData);
+    setDescription('');
+    router.refresh();
+  };
+
   return (
-    <div className="h-screen bg-white text-black">
+    <div className="min-h-screen bg-white pb-10 text-black">
       {/* NAVIGATION BAR */}
       <nav className="flex justify-between px-3 pt-3">
         <button
@@ -248,8 +277,31 @@ const Profile = () => {
         </div>
       </section>
 
+      {/* Bio*/}
+      <div className="mx-10 text-xl pb-2">
+        Biography
+      </div>
+      <section className="mx-10 mb-6 rounded-xl border border-slate-400">
+        <TextArea
+          description={description}
+          setDescription={setDescription}
+          placeholder="Maybe something you relate to?"
+          rows={4}
+          small={true}
+        />
+        <div className="flex justify-center border-t border-t-slate-400">
+          <button
+            onClick={handleUpdateBio}
+            className="border-x-2 border-y border-slate-400 bg-white px-4 py-1 font-semibold
+           transition-all hover:scale-110 hover:border-blue-600 hover:text-blue-600"
+          >
+            Update
+          </button>
+        </div>
+      </section>
+
       {/* USER DATA CONTAINER */}
-      <form onSubmit={handlePersonalInfoFormSubmit} className="mx-14">
+      <form onSubmit={handlePersonalInfoFormSubmit} className="mx-10">
         {/* HEADER */}
         <div className="flex justify-between">
           <span className="select-none text-xl font-normal text-gray-700">
@@ -366,7 +418,7 @@ const Profile = () => {
         </div>
       </form>
 
-      <section className="mx-14">
+      <section className="mx-10">
         {/* HEADER */}
         <div className="flex justify-between pt-4">
           <span className="select-none text-xl font-normal text-gray-600">
