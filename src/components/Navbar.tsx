@@ -4,19 +4,12 @@ import React from 'react';
 import * as Actions from '../lib/actions/actions';
 import Link from 'next/link';
 import useUser from '@/lib/store';
-import { I_UserSchema } from '@/lib/types';
 import { BiSolidMessageDetail } from 'react-icons/bi';
+import { useUserContext } from '@/lib/context/UserContext';
 
 const Navbar = () => {
-  const [user, setUser] = React.useState<I_UserSchema | null>(null);
+  const { user } = useUserContext();
   const [toggle, setToggle] = React.useState<boolean>(false);
-
-  React.useEffect(() => {
-    useUser
-      .getState()
-      .getUser()
-      .then((d) => setUser(d));
-  }, []);
 
   const handleSignOut = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -46,12 +39,6 @@ const Navbar = () => {
         </Link>
         <div className="flex flex-row items-center space-x-4 text-gray-800">
           {/* NAVBAR ITEMS */}
-          {user ? null : (
-            <Link href="/auth" className="hover:text-black hover:underline">
-              Sign
-            </Link>
-          )}
-
           <div className="flex flex-row justify-center align-middle">
             {/* AUTH ACTION BUTTON */}
             <button
@@ -64,7 +51,7 @@ const Navbar = () => {
             >
               <span className="sr-only">Open user menu</span>
               <span className="text-gray-700">
-                {user?.username ? `@${user.username}` : ''}
+                {user.username ? `@${user.username}` : ''}
               </span>
             </button>
 
@@ -82,71 +69,65 @@ const Navbar = () => {
               type="button"
               onClick={toggleDropdown}
             >
-              {user ? (
-                <img
-                  className="ml-2 h-10 w-10 rounded-full"
-                  src={user?.picture ?? ''}
-                  alt="avatar"
-                />
-              ) : null}
+              <img
+                className="ml-2 h-10 w-10 rounded-full"
+                src={user.picture ?? ''}
+                alt="avatar"
+              />
             </button>
           </div>
 
           {/* User Data and Dropdown */}
-          {user ? (
-            <div
-              id="dropdownAvatarName"
-              className={`absolute z-50 w-32 divide-y divide-gray-100 rounded-lg bg-white shadow ${
-                !toggle ? 'hidden' : ''
-              }`}
-              style={{ top: '65px', right: '15px' }}
-            >
-              <div className="px-4 py-3 text-sm text-gray-900">
-                <div className="truncate underline">
-                  {user?.first_name ? `Hi, ${user?.first_name ?? ''}` : ''}
-                </div>
-              </div>
-              <ul
-                className="py-2 text-sm text-gray-700"
-                aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
-              >
-                <li>
-                  <Link
-                    href="/profile"
-                    className="block px-4 py-2 text-left transition-all hover:bg-gray-100 hover:text-gray-900 hover:underline "
-                  >
-                    Profile
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/chat"
-                    className="block px-4 py-2 text-left transition-all hover:bg-gray-100 hover:text-gray-900 hover:underline "
-                  >
-                    Chat
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/friends"
-                    className="block px-4 py-2 text-left transition-all hover:bg-gray-100 hover:text-gray-900 hover:underline "
-                  >
-                    Discover
-                  </Link>
-                </li>
-              </ul>
-              <div className="py-2">
-                <button
-                  onClick={handleSignOut}
-                  className="block w-full bg-gray-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:font-bold "
-                >
-                  Sign out
-                </button>
+          <div
+            id="dropdownAvatarName"
+            className={`absolute z-50 w-32 divide-y divide-gray-100 rounded-lg bg-white shadow ${
+              !toggle ? 'hidden' : ''
+            }`}
+            style={{ top: '65px', right: '15px' }}
+          >
+            <div className="px-4 py-3 text-sm text-gray-900">
+              <div className="truncate underline">
+                {user.first_name ? `Hi, ${user.first_name}` : ''}
               </div>
             </div>
-          ) : (
-            <></>
-          )}
+            <ul
+              className="py-2 text-sm text-gray-700"
+              aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
+            >
+              <li>
+                <Link
+                  href="/profile"
+                  className="block px-4 py-2 text-left transition-all hover:bg-gray-100 hover:text-gray-900 hover:underline "
+                >
+                  Profile
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/chat"
+                  className="block px-4 py-2 text-left transition-all hover:bg-gray-100 hover:text-gray-900 hover:underline "
+                >
+                  Chat
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/friends"
+                  className="block px-4 py-2 text-left transition-all hover:bg-gray-100 hover:text-gray-900 hover:underline "
+                >
+                  Discover
+                </Link>
+              </li>
+            </ul>
+            <div className="py-2">
+              <button
+                onClick={handleSignOut}
+                className="block w-full bg-gray-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:font-bold "
+              >
+                Sign out
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </nav>

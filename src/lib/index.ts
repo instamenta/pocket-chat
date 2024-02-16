@@ -48,8 +48,10 @@ export function initRequest({
   if (auth) token = extractAuthToken();
 
   if (auth && !token) {
-    const router = useRouter();
-    router.push('/auth');
+    if (typeof window !== 'undefined') {
+      const router = useRouter();
+      router.push('/auth');
+    }
   }
 
   const _headers: HeadersInit = { 'Content-Type': 'application/json' };

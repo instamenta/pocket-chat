@@ -20,6 +20,7 @@ export const emptyUser: I_UserSchema = {
   password: '',
   first_name: '',
   last_name: '',
+  bio: '',
   picture: '',
   created_at: '',
   updated_at: '',

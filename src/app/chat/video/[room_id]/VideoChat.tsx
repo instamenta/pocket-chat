@@ -3,9 +3,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Peer from 'peerjs';
 import { I_UserSchema } from '@/lib/types';
-import { useRecipient, useUserData } from '@/lib/hooks';
+import { useRecipient } from '@/lib/hooks';
 import { getFriendshipById } from '@/lib/queries/friend';
 import { usePeer } from '@/lib/hooks/peer';
+import { useUserContext } from '@/lib/context/UserContext';
 
 type PeerInstance = Peer | null;
 
@@ -14,9 +15,10 @@ const VideoChat = ({
 }: {
   params: { room_id: string };
 }) => {
+  const { user } = useUserContext();
+
   const [myId, setMyId] = useState<string>('');
   const [peerId, setPeerId] = useState<string>('');
-  const [user, setUser] = useState<I_UserSchema | null>(null);
   const [recipient, setRecipient] = useState<I_UserSchema | null>(null);
 
   const localVideoRef = useRef<HTMLVideoElement>(null);
@@ -29,13 +31,8 @@ const VideoChat = ({
         if (!friendship) {
           return console.error('Friendship not found', friendship);
         }
-        const userData = await useUserData(setUser);
-        if (!userData) {
-          return console.error('Failed to get user data');
-        }
-
         const recipient_id =
-          friendship.sender_id === userData.id
+          friendship.sender_id === user.id
             ? friendship.recipient_id
             : friendship.sender_id;
 
@@ -51,12 +48,7 @@ const VideoChat = ({
         if (peerRef.current) {
           return console.log('Peer already initiated');
         }
-        const peer = usePeer(
-          userData.id,
-          peerRef,
-          localVideoRef,
-          remoteVideoRef,
-        );
+        const peer = usePeer(user.id, peerRef, localVideoRef, remoteVideoRef);
 
         peer?.on('open', (id) => {
           console.log(`calling peer ${recipient_id} my id ${id}`);

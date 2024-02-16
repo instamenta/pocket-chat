@@ -1,8 +1,6 @@
 'use client';
 
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { I_UserSchema } from '@/lib/types';
-import useUser from '@/lib/store';
 import { FaAddressCard, FaChevronLeft } from 'react-icons/fa6';
 import {
   CiEdit,
@@ -26,10 +24,9 @@ import {
 } from '@/lib/queries/user';
 import { personal_data_schema } from '@/lib/validation/schemas';
 import { toast } from 'react-toastify';
-import TextArea from '@/components/functional/TextArea'; // TODO ADD EDIT PROFILE
-
-// TODO ADD EDIT PROFILE
-// TODO IMPLEMENT CHANGE PASSWORD
+import TextArea from '@/components/functional/TextArea';
+import { useUserContext } from '@/lib/context/UserContext';
+import useUser from '@/lib/store'; // TODO ADD EDIT PROFILE
 
 type T_personalInfo = {
   email: string;
@@ -41,9 +38,9 @@ type T_personalInfo = {
 const Profile = () => {
   const router = useRouter();
   const { edgestore } = useEdgeStore();
+  const { user, setUser } = useUserContext();
 
   const [file, setFile] = React.useState<File>();
-  const [user, setUser] = useState<I_UserSchema | null>(null);
   const [toggleImagePicker, setToggleImagePicker] = useState<boolean>(false);
   const [toggleEdit, setToggleEdit] = useState<boolean>(false);
   const [description, setDescription] = useState<string>('');
@@ -55,19 +52,13 @@ const Profile = () => {
   });
 
   useEffect(() => {
-    useUser
-      .getState()
-      .getUser()
-      .then((d) => {
-        setUser(d);
-        setPersonalInfo({
-          email: d!.email,
-          first_name: d!.first_name,
-          last_name: d!.last_name,
-          username: d!.username,
-        });
-        setDescription(d!.bio);
-      });
+    setPersonalInfo({
+      email: user.email,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      username: user.username,
+    });
+    setDescription(user.bio);
   }, []);
 
   const handleImageUpload = async (
@@ -278,9 +269,7 @@ const Profile = () => {
       </section>
 
       {/* Bio*/}
-      <div className="mx-10 text-xl pb-2">
-        Biography
-      </div>
+      <div className="mx-10 pb-2 text-xl">Biography</div>
       <section className="mx-10 mb-6 rounded-xl border border-slate-400">
         <TextArea
           description={description}

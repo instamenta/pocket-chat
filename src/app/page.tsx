@@ -2,12 +2,12 @@
 
 import React from 'react';
 import Footer from '@/components/Footer';
-import Navbar from '@/components/Navbar';
+import HomePageNavbar from '@/components/HomePageNavbar';
 
 export default async function Home() {
   return (
     <>
-      <Navbar />
+      <HomePageNavbar />
       <main className="flex min-h-screen flex-col items-center justify-between">
         {/* Hero Section */}
         <section className="w-full">

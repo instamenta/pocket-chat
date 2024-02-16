@@ -16,7 +16,6 @@ const CreatePublication = () => {
   const { edgestore } = useEdgeStore();
   const router = useRouter();
 
-  // const [user, setUser] = useState<I_UserSchema | null>(null);
   const [fileStates, setFileStates] = useState<FileState[]>([]);
   const [description, setDescription] = useState<string>('');
 
@@ -52,7 +51,7 @@ const CreatePublication = () => {
                 updateFileProgress(addedFileState.key, 'COMPLETE');
               }
             },
-            options: undefined
+            options: undefined,
           });
           imageUrls.push(res.url);
         } catch (error) {
@@ -95,7 +94,7 @@ const CreatePublication = () => {
       </nav>
       <section className="px-4">
         <div className="mb-4 w-full rounded-lg border border-gray-200 bg-gray-50 ">
-          < TextArea description={description} setDescription={setDescription}/>
+          <TextArea description={description} setDescription={setDescription} />
         </div>
       </section>
       <section className="px-4">

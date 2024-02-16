@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { I_Recommendation, I_UserSchema, T_FeedStory } from '@/lib/types';
+import { I_Recommendation, T_FeedStory } from '@/lib/types';
 import Navbar from '@/components/Navbar';
 import { getRecommendations, likePublication } from '@/lib/queries/publication';
 import { FaAddressBook, FaCommentDots, FaRegHeart } from 'react-icons/fa';
@@ -11,28 +11,24 @@ import { TfiGallery } from 'react-icons/tfi';
 import { GrYoutube } from 'react-icons/gr';
 import { MdGroups, MdLiveTv, MdMore } from 'react-icons/md';
 import { RiLiveFill } from 'react-icons/ri';
-import useUser from '@/lib/store';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { BiSend } from 'react-icons/bi';
 import { listFeedStories } from '@/lib/queries/story';
 import Link from 'next/link';
 import PublicationDetails from '@/components/modals/PublicationDetails';
 import { IoHeartHalfOutline } from 'react-icons/io5';
+import { useUserContext } from '@/lib/context/UserContext';
 
 const Feed = () => {
+  const { user } = useUserContext();
+
   const [publications, setPublications] = useState<I_Recommendation[]>([]);
   const [description, setDescription] = useState<string>('');
-  const [user, setUser] = useState<I_UserSchema | null>(null);
   const [stories, setStories] = useState<T_FeedStory[]>([]);
   const [selectedPublication, setSelectedPublication] =
     useState<I_Recommendation | null>(null);
 
   useEffect(() => {
-    useUser
-      .getState()
-      .getUser()
-      .then((d) => setUser(d));
-
     getRecommendations().then((d) => setPublications(d ?? []));
     listFeedStories().then((d) => setStories(d ?? []));
   }, []);
@@ -184,7 +180,10 @@ const Feed = () => {
             className="mb-3 flex flex-col border border-t-2 border-t-gray-300 bg-white drop-shadow"
           >
             {/* Publisher Data */}
-            <Link href={`/profile/${publication.username}`} className="flex w-full flex-row p-4 pb-4">
+            <Link
+              href={`/profile/${publication.username}`}
+              className="flex w-full flex-row p-4 pb-4"
+            >
               {/* Publisher Profile Pic */}
               <div className="">
                 <img
@@ -249,8 +248,7 @@ const Feed = () => {
               </div>
             </div>
 
-            <div
-              className="flex w-full flex-nowrap justify-evenly gap-4 border-t-2 border-t-slate-300 py-3 text-center font-semibold">
+            <div className="flex w-full flex-nowrap justify-evenly gap-4 border-t-2 border-t-slate-300 py-3 text-center font-semibold">
               <div className="flex flex-row flex-nowrap gap-1">
                 {/* Like Publication*/}
                 <div

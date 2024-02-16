@@ -20,14 +20,16 @@ import ReceivedMessage from '@/components/micros/ReceivedMessage';
 import SentMessage from '@/components/micros/SentMessage';
 import Link from 'next/link';
 import { getBySenderAndRecipient } from '@/lib/queries/friend';
+import { useRecipient } from '@/lib/hooks';
+import { useUserContext } from '@/lib/context/UserContext';
 import {
   useCallNotification,
-  useRecipient,
-  useSocket,
-  useUserData,
-} from '@/lib/hooks'; // TODO ADD SUPPORT FOR ALL EMOJIS AND USE THE APPLE FONT
-
-// TODO ADD SUPPORT FOR ALL EMOJIS AND USE THE APPLE FONT
+  useWebSocket,
+} from '@/lib/context/WebsocketContext';
+import TextMessage from '@/components/chat-bubbles/TextMessage';
+import VoiceMessage from '@/components/chat-bubbles/VoiceMessage';
+import FileMessage from '@/components/chat-bubbles/FileMessage';
+import ImageMessage from '@/components/chat-bubbles/ImageMessage';
 
 export default function Chat({
   params: { username },
@@ -35,64 +37,56 @@ export default function Chat({
   params: { username: string };
 }) {
   const router = useRouter();
+  const { user } = useUserContext();
+  const ws = useWebSocket();
 
   const [message, setMessage] = useState<string>('');
   const [messages, setMessages] = useState<I_Message[]>([]);
   const [pickerState, setPickerState] = useState<boolean>(false);
 
-  const [user, setUser] = useState<I_UserSchema | null>(null);
   const [recipient, setRecipient] = useState<I_UserSchema | null>(null);
   const [friendship, setFriendship] = useState<I_Friendship | null>(null);
 
-  const socketRef = useRef<WebSocket | null>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useState(() => {
-    Promise.all([
-      useUserData(setUser),
-      useRecipient(username, 'username',setRecipient),
-    ]).then(async ([userData, recipientData]) => {
-      const conversationMessages = await listMessagesByUsers(
-        userData!.id,
-        recipientData!.id,
-      );
-      setMessages(conversationMessages);
+    useRecipient(username, 'username', setRecipient).then(
+      async (recipientData) => {
+        if (!ws) return;
 
-      getBySenderAndRecipient(userData!.id, recipientData!.id).then(
-        setFriendship,
-      );
-
-      const socket = useSocket(socketRef);
-
-      socket.onmessage = (event: MessageEvent) => {
-        blob_to_json<I_Message | T_VideoCallInviteResponse>(
-          event.data,
-          (data) => {
-            if (!data) return console.log('Fail :///');
-            switch (data.type) {
-              case 'message': {
-                setMessages((prev) => [data as I_Message, ...prev]);
-                break;
-              }
-              case 'video-call-invite': {
-                useCallNotification(data as T_VideoCallInviteResponse);
-                break;
-              }
-              default:
-                console.error(
-                  'Response type from socket not implemented',
-                  data,
-                );
-            }
-          },
+        const conversationMessages = await listMessagesByUsers(
+          user.id,
+          recipientData!.id,
         );
-      };
-    });
+        setMessages(conversationMessages);
+        getBySenderAndRecipient(user.id, recipientData!.id).then(setFriendship);
 
-    return () => {
-      if (socketRef.current) socketRef.current.close();
-    };
+        ws.onmessage = (event: MessageEvent) => {
+          blob_to_json<I_Message | T_VideoCallInviteResponse>(
+            event.data,
+            (data) => {
+              if (!data) return console.log('Fail :///');
+              switch (data.type) {
+                case 'message': {
+                  setMessages((prev) => [data as I_Message, ...prev]);
+                  break;
+                }
+                case 'video-call-invite': {
+                  useCallNotification(data as T_VideoCallInviteResponse);
+                  break;
+                }
+                default:
+                  console.error(
+                    'Response type from socket not implemented',
+                    data,
+                  );
+              }
+            },
+          );
+        };
+      },
+    );
   });
 
   const handleScroll = () => {
@@ -112,7 +106,7 @@ export default function Chat({
 
   const sendMessage = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    socketRef.current?.send(
+    ws!.send(
       JSON.stringify({
         type: 'message',
         sender: user!.id,
@@ -147,7 +141,7 @@ export default function Chat({
       room: friendship?.id,
     };
 
-    socketRef.current?.send(JSON.stringify(videoCallRequest));
+    ws!.send(JSON.stringify(videoCallRequest));
 
     router.push(`/chat/video/${friendship!.id.toString()}`);
   };
@@ -209,6 +203,10 @@ export default function Chat({
         ref={chatContainerRef}
       >
         <article className="scrollbar-xs flex w-full flex-col-reverse overflow-y-scroll p-6">
+          <ImageMessage />
+          <TextMessage />
+          <VoiceMessage />
+          <FileMessage />
           {messages.map((message, index) =>
             message.sender_id !== user?.id ? (
               <ReceivedMessage
@@ -264,14 +262,3 @@ export default function Chat({
     </div>
   );
 }
-
-// useEffect(() => {
-//   const textarea = textRef.current;
-//   textarea!.style.height = 'auto';
-//   textarea!.style.height = textarea!.scrollHeight + 'px';
-// }, [message]);
-//
-// useEffect(() => {
-//   const $el = chatContainerRef.current;
-//   $el.scrollTop = $el.scrollHeight;
-// }, []);

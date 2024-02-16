@@ -1,14 +1,11 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FaChevronLeft } from 'react-icons/fa6';
 import { GoGear } from 'react-icons/go';
 import { useRouter } from 'next/navigation';
 import { SingleImageDropzone } from '@/components/edgestore/SingleImageDropzone';
 import { useEdgeStore } from '@/lib/store/edgestore';
-import useUser from '@/lib/store';
-import { I_UserSchema } from '@/lib/types';
-import { updateProfilePicture } from '@/lib/queries/user';
 import { toast } from 'react-toastify';
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import { createStory } from '@/lib/queries/story';
@@ -18,11 +15,6 @@ const CreateStory = () => {
 
   const { edgestore } = useEdgeStore();
   const [file, setFile] = React.useState<File>();
-  const [user, setUser] = useState<I_UserSchema | null>(null);
-
-  useEffect(() => {
-    useUser.getState().getUser().then(setUser);
-  }, []);
 
   const handleImageUpload = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
