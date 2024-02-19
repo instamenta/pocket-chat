@@ -1,6 +1,12 @@
 'use client';
 
-import React, { FormEvent, useEffect, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   I_Friendship,
   I_Message,
@@ -13,8 +19,6 @@ import { FaChevronLeft } from 'react-icons/fa6';
 import { useRouter } from 'next/navigation';
 import { MdInfoOutline, MdOutlinePhoneInTalk } from 'react-icons/md';
 import { VscDeviceCameraVideo } from 'react-icons/vsc';
-import { GrSend } from 'react-icons/gr';
-import { BsEmojiGrin } from 'react-icons/bs';
 import EmojiPicker from 'emoji-picker-react';
 import ReceivedMessage from '@/components/micros/ReceivedMessage';
 import SentMessage from '@/components/micros/SentMessage';
@@ -26,22 +30,23 @@ import {
   useCallNotification,
   useWebSocket,
 } from '@/lib/context/WebsocketContext';
-import TextMessage from '@/components/chat-bubbles/TextMessage';
-import VoiceMessage from '@/components/chat-bubbles/VoiceMessage';
-import FileMessage from '@/components/chat-bubbles/FileMessage';
-import ImageMessage from '@/components/chat-bubbles/ImageMessage';
+import { useEdgeStore } from '@/lib/store/edgestore';
+import { importImages } from '@/lib/utilities/files';
+import VoiceRecorder from '@/components/functional/VoiceRecording';
 
 export default function Chat({
   params: { username },
 }: {
   params: { username: string };
 }) {
+  const ws = useWebSocket();
   const router = useRouter();
   const { user } = useUserContext();
-  const ws = useWebSocket();
+  const { edgestore } = useEdgeStore();
 
   const [message, setMessage] = useState<string>('');
   const [messages, setMessages] = useState<I_Message[]>([]);
+  const [images, setImages] = useState<FileList | null>(null);
   const [pickerState, setPickerState] = useState<boolean>(false);
 
   const [recipient, setRecipient] = useState<I_UserSchema | null>(null);
@@ -69,6 +74,7 @@ export default function Chat({
               if (!data) return console.log('Fail :///');
               switch (data.type) {
                 case 'message': {
+                  console.log(data);
                   setMessages((prev) => [data as I_Message, ...prev]);
                   break;
                 }
@@ -106,21 +112,28 @@ export default function Chat({
 
   const sendMessage = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    let imageUrls: string[] = [];
+    if (images?.length) {
+      imageUrls = await importImages(edgestore, images);
+    }
+
     ws!.send(
       JSON.stringify({
         type: 'message',
-        sender: user!.id,
+        sender: user.id,
         recipient: recipient?.id,
         content: message,
         date: new Date().toISOString(),
+        images: imageUrls,
       }),
     );
     setMessage('');
+    setImages(null);
     setPickerState(false);
   };
 
   const insertEmoji = ({ emoji }: { emoji: string }) => {
-    console.log(emoji);
     const textarea = textRef.current as HTMLTextAreaElement;
     const cursorPos = textarea.selectionStart;
     if (message !== '') {
@@ -146,6 +159,12 @@ export default function Chat({
     router.push(`/chat/video/${friendship!.id.toString()}`);
   };
 
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setImages(event.target.files);
+    }
+  };
+
   return (
     <div className="bg-slate-100">
       {/* Navigation Container*/}
@@ -156,12 +175,9 @@ export default function Chat({
         {/* Information Navigation Container */}
         <div className="flex flex-row" style={{ width: '75%' }}>
           <div className="flex h-full flex-row content-center items-center">
-            <button
-              className="flex justify-center align-middle"
-              onClick={() => router.push('/chat')}
-            >
+            <Link href="/chat" className="flex justify-center align-middle">
               <FaChevronLeft className="h-7 w-10 transition-all hover:scale-125 hover:scale-x-150 hover:fill-blue-600" />
-            </button>
+            </Link>
 
             <Link href={`/profile/${username}`} className="flex flex-row">
               <div className="relative ml-2">
@@ -194,7 +210,6 @@ export default function Chat({
           <MdInfoOutline className="h-8 w-8 rounded-full transition-all hover:bg-blue-300" />
         </div>
       </nav>
-
       {/* CHAT MESSAGES SECTION */}
       <section
         style={{ height: 'calc(100vh - 132px)' }}
@@ -203,10 +218,6 @@ export default function Chat({
         ref={chatContainerRef}
       >
         <article className="scrollbar-xs flex w-full flex-col-reverse overflow-y-scroll p-6">
-          <ImageMessage />
-          <TextMessage />
-          <VoiceMessage />
-          <FileMessage />
           {messages.map((message, index) =>
             message.sender_id !== user?.id ? (
               <ReceivedMessage
@@ -221,14 +232,15 @@ export default function Chat({
         </article>
       </section>
 
+
       {/* SEND MESSAGE CONTAINER */}
       <form
-        className="top-shadow fixed bottom-0 z-40 flex w-full flex-row rounded-t-3xl px-5 pb-3 pt-2"
+        className="top-shadow fixed bottom-0 z-40 flex w-full flex-row px-5 pb-3 pt-1 align-middle"
         onSubmit={sendMessage}
       >
         {/* Message Input */}
         <textarea
-          className="fancy-text mt-2 h-8 w-full content-center overflow-y-hidden rounded-3xl
+          className="fancy-text mt-2 h-8 w-full content-center overflow-y-hidden rounded-md
             border-2 border-gray-300 bg-white pl-4 text-left font-medium text-black outline-none transition-all focus:h-16 "
           placeholder="Type here..."
           onChange={(e) => setMessage(e.target.value)}
@@ -237,25 +249,90 @@ export default function Chat({
         />
 
         {/* Options Container */}
-        <div className="m-auto flex flex-row gap-4 pl-5">
+        <div className="m-auto flex h-full flex-row gap-4 pl-5">
           {/* Emoji Picker Icon */}
           <div style={{ position: 'fixed', bottom: '65px', right: 0 }}>
             <EmojiPicker open={pickerState} onEmojiClick={insertEmoji} />
           </div>
+
+          <label
+            className="rounded-full transition-all hover:bg-purple-200 hover:fill-white"
+            htmlFor="image_picker"
+          >
+            <input
+              id="image_picker"
+              type="file"
+              className="sr-only"
+              onChange={handleFileChange}
+              multiple
+            />
+            <svg
+              className="h-6 w-6"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 18"
+            >
+              <path
+                fill="currentColor"
+                d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"
+              />
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"
+              />
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"
+              />
+            </svg>
+            <span className="sr-only">Upload image</span>
+          </label>
+          <VoiceRecorder />
+
           <button
             className="rounded-full transition-all hover:bg-yellow-200 hover:fill-white"
             type="button"
             onClick={() => setPickerState((prev) => !prev)}
           >
-            <BsEmojiGrin className="h-8 w-8" />
+            <svg
+              className="h-6 w-6"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M13.408 7.5h.01m-6.876 0h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM4.6 11a5.5 5.5 0 0 0 10.81 0H4.6Z"
+              />
+            </svg>
+            <span className="sr-only">Add emoji</span>
           </button>
-
           {/* Send Message Icon */}
           <button
             className="rounded-full transition-all hover:bg-blue-300  hover:fill-white"
             type="submit"
           >
-            <GrSend className="h-8 w-8" />
+            <svg
+              className="h-6 w-6 rotate-90 fill-blue-600 rtl:-rotate-90"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 18 20"
+            >
+              <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
+            </svg>
+            <span className="sr-only">Send message</span>
           </button>
         </div>
       </form>

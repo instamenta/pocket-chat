@@ -9,6 +9,20 @@ const SentMessage = ({ message }: { message: I_Message }) => {
         className="rounded-2xl rounded-br-none bg-blue-600 px-4 pb-3 pt-2 font-medium text-white drop-shadow-xl"
       >
         <span className="break-words">{message.content}</span>
+        {message.images?.length ? (
+          <div
+            className={`grid ${message.images.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}
+          >
+            {message.images.map((img, index) => (
+              <img
+                src={img}
+                key={index}
+                alt={'pic send'}
+                className="h-auto w-full"
+              />
+            ))}
+          </div>
+        ) : null}
       </div>
     </div>
   );

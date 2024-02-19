@@ -7,12 +7,13 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { socket_url } from '@/lib/variables';
+import { JWT, socket_url } from '@/lib/variables';
 import { T_VideoCallInviteResponse } from '@/lib/types';
 import { toast } from 'react-toastify';
 import VideoChatInvitation, {
   toast_config,
 } from '@/components/toast/VideoChatInvitation';
+import Cookie from 'js-cookie';
 
 const WebSocketContext = createContext<WebSocket | null>(null);
 
@@ -26,6 +27,8 @@ export const WebSocketProvider = ({
   const [webSocket, setWebSocket] = useState<WebSocket | null>(null);
 
   const connectWebSocket = useCallback(() => {
+    if (!Cookie.get(JWT.token_name)) return;
+    
     const ws = new WebSocket(socket_url);
 
     ws.onopen = () => console.log('Connected to socket');

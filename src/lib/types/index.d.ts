@@ -1,3 +1,5 @@
+import { socket_events } from '@/lib/types/enumerations';
+
 export interface I_UserSchema {
   id: string;
   username: string;
@@ -24,16 +26,28 @@ type T_FriendRequestData = {
 
 export interface I_Message {
   id: string;
-  content: string;
-  type: string;
-  message_status: 'seen' | 'sent' | 'pending';
-  updated_at: string;
-  created_at: string;
   edited: boolean;
+  content: string;
   sender_id: string;
+  created_at: string;
+  updated_at: string;
   recipient_id: string;
   friendship_id: string;
+  images?: string[];
+  files?: string[];
+  message_status: 'seen' | 'sent' | 'pending';
+  type: socket_events;
 }
+
+export type I_MessageRequest = {
+  date?: string;
+  sender: string;
+  content: string;
+  recipient: string;
+  images?: string[];
+  files?: string[];
+  type: socket_events;
+};
 
 export type T_MessageResponse = {
   type: string;
@@ -43,6 +57,8 @@ export type T_MessageResponse = {
   recipient: string;
   messageId: string;
   friendship: string;
+  images?: string[];
+  files?: string[];
 };
 
 export interface I_Friendship {

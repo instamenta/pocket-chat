@@ -18,6 +18,7 @@ export function middleware(req: NextRequest) {
       nextUrl.pathname = '/feed';
       return NextResponse.redirect(nextUrl);
     }
+    return NextResponse.next();
   }
 
   //* Redirect unauthenticated users.

@@ -29,6 +29,20 @@ const ReceivedMessage = ({
           }`}
         >
           <span className="break-words">{message.content}</span>
+          {message.images?.length ? (
+            <div
+              className={`grid ${message.images.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}
+            >
+              {message.images.map((img, index) => (
+                <img
+                  src={img}
+                  key={index}
+                  alt={'pic send'}
+                  className="h-auto w-full"
+                />
+              ))}
+            </div>
+          ) : null}
         </div>
         <div
           className={`absolute rounded-full text-sm font-light transition-all ${

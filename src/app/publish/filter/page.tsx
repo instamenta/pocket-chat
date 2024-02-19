@@ -67,8 +67,6 @@ export default function ImageModifier() {
 
   const filterStyle = `contrast(${_f.contrast}%) brightness(${_f.brightness}%) saturate(${_f.saturate}%) hue-rotate(${_f.hueRotate}deg) sepia(${_f.sepia}%) grayscale(${_f.grayscale}%) invert(${_f.invert}%) blur(${_f.blur}px)`;
 
-  // @ts-ignore
-  // @ts-ignore
   return (
     <>
       <section className="aspect-square w-full overflow-hidden">
