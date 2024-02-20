@@ -33,6 +33,7 @@ import {
 import { useEdgeStore } from '@/lib/store/edgestore';
 import { importImages } from '@/lib/utilities/files';
 import VoiceRecorder from '@/components/functional/VoiceRecording';
+import { GrGallery } from 'react-icons/gr';
 
 export default function Chat({
   params: { username },
@@ -165,6 +166,8 @@ export default function Chat({
     }
   };
 
+  const handleAudio = () => {};
+
   return (
     <div className="bg-slate-100">
       {/* Navigation Container*/}
@@ -232,7 +235,6 @@ export default function Chat({
         </article>
       </section>
 
-
       {/* SEND MESSAGE CONTAINER */}
       <form
         className="top-shadow fixed bottom-0 z-40 flex w-full flex-row px-5 pb-3 pt-1 align-middle"
@@ -266,35 +268,11 @@ export default function Chat({
               onChange={handleFileChange}
               multiple
             />
-            <svg
-              className="h-6 w-6"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 18"
-            >
-              <path
-                fill="currentColor"
-                d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"
-              />
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"
-              />
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"
-              />
-            </svg>
+            <GrGallery className="w-6 h-6 fill-purple-600 " />
             <span className="sr-only">Upload image</span>
           </label>
-          <VoiceRecorder />
+
+          <VoiceRecorder handleAudio={handleAudio} />
 
           <button
             className="rounded-full transition-all hover:bg-yellow-200 hover:fill-white"
@@ -324,7 +302,7 @@ export default function Chat({
             type="submit"
           >
             <svg
-              className="h-6 w-6 rotate-90 fill-blue-600 rtl:-rotate-90"
+              className="h-6 w-6 rotate-90 rtl:-rotate-90"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
