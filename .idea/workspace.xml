@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/chat/[username]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/[username]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/test/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/test/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/functional/VoiceRecording.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/functional/VoiceRecording.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/micros/ReceivedMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/micros/ReceivedMessage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/micros/SentMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/micros/SentMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/variables.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/variables.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +149,8 @@
       <workItem from="1708414741593" duration="5335000" />
       <workItem from="1708420820554" duration="18000" />
       <workItem from="1708458649933" duration="4340000" />
-      <workItem from="1708527245853" duration="3860000" />
+      <workItem from="1708527245853" duration="3878000" />
+      <workItem from="1708549981923" duration="4304000" />
     </task>
     <servers />
   </component>

@@ -77,7 +77,11 @@ const ReceivedMessage = ({
           {message.files?.length ? (
             <div className="flex w-full gap-3 ">
               <button onClick={togglePlayback} className="text-white">
-                {isPlaying ? <FaPause className="size-5 fill-blue-600" /> : <FaPlay className="size-5 fill-blue-600" />}
+                {isPlaying ? (
+                  <FaPause className="size-5 fill-blue-600" />
+                ) : (
+                  <FaPlay className="size-5 fill-blue-600" />
+                )}
               </button>
               <div ref={waveformRef} className="w-full min-w-[200px]" />
             </div>
