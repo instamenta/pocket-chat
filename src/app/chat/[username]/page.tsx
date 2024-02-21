@@ -166,7 +166,37 @@ export default function Chat({
     }
   };
 
-  const handleAudio = () => {};
+  const handleAudio = async (audioBlob: Blob) => {
+    const formData = new FormData();
+    formData.append('voice', audioBlob, 'voiceRecording.wav');
+    try {
+      const response = await fetch('http://localhost:3005/upload-audio', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        console.error('Upload failed:', await response.text());
+      }
+
+      const { id }: { id: string } = await response.json();
+
+      ws!.send(
+        JSON.stringify({
+          type: 'message',
+          sender: user.id,
+          recipient: recipient?.id,
+          content: '',
+          date: new Date().toISOString(),
+          images: [],
+          files: [id],
+        }),
+      );
+      console.log(`Voice message send ID: ${id}`);
+    } catch (error) {
+      console.error('Error uploading the audio:', error);
+    }
+  };
 
   return (
     <div className="bg-slate-100">
@@ -268,7 +298,7 @@ export default function Chat({
               onChange={handleFileChange}
               multiple
             />
-            <GrGallery className="w-6 h-6 fill-purple-600 " />
+            <GrGallery className="h-6 w-6 fill-purple-600 " />
             <span className="sr-only">Upload image</span>
           </label>
 

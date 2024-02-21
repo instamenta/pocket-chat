@@ -6,10 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/chat/[username]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/[username]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/test/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/test/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/functional/VoiceRecording.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/functional/VoiceRecording.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/micros/ReceivedMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/micros/ReceivedMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/micros/SentMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/micros/SentMessage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,27 +44,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "git-widget-placeholder": "master",
-    "go.import.settings.migrated": "true",
-    "javascript.nodejs.core.library.configured.version": "20.5.0",
-    "javascript.nodejs.core.library.typings.version": "20.5.9",
-    "last_opened_file_path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "/home/user/.nvm/versions/node/v20.5.0/bin/node",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "/home/user/Desktop/myProjects/chat-app/t3-hexagots/node_modules/prettier",
-    "settings.editor.selected.configurable": "copyright.filetypes.DTD",
-    "ts.external.directory.path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots/node_modules/typescript/lib"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.5.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.5.9&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/user/Desktop/myProjects/chat-app/t3-hexagots&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;/home/user/.nvm/versions/node/v20.5.0/bin/node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/home/user/Desktop/myProjects/chat-app/t3-hexagots/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;copyright.filetypes.DTD&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/user/Desktop/myProjects/chat-app/t3-hexagots/node_modules/typescript/lib&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/components" />
@@ -147,7 +148,10 @@
       <workItem from="1708289482196" duration="2902000" />
       <workItem from="1708354038784" duration="5537000" />
       <workItem from="1708371205503" duration="4468000" />
-      <workItem from="1708414741593" duration="5304000" />
+      <workItem from="1708414741593" duration="5335000" />
+      <workItem from="1708420820554" duration="18000" />
+      <workItem from="1708458649933" duration="4340000" />
+      <workItem from="1708527245853" duration="3860000" />
     </task>
     <servers />
   </component>

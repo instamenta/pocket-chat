@@ -15,8 +15,7 @@ const TestingPage: React.FC = () => {
 
   useEffect(() => {
     if (!navigator.mediaDevices || !MediaRecorder) {
-      console.error("Browser doesn't support audio recording");
-      return;
+      return console.error('Browser dont support audio recording');
     }
 
     // Initialize WaveSurfer for the waveform visualization

@@ -16,7 +16,7 @@ const Recorder: React.FC<RecorderProps> = ({ handleAudio }) => {
 
   useEffect(() => {
     if (!navigator.mediaDevices || !MediaRecorder) {
-      return console.error("Browser doesn't support audio recording");
+      return console.error('Browser dont support audio recording');
     }
 
     const initMediaRecording = async () => {
@@ -54,6 +54,7 @@ const Recorder: React.FC<RecorderProps> = ({ handleAudio }) => {
     console.log('Posting Audio...');
     setAudioChunks([]);
     handleAudio(audioBlob);
+    console.log('Posted Audio.');
   };
 
   const handleDelete = () => {
