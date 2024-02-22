@@ -77,6 +77,16 @@ export interface T_VideoCallInviteResponse {
   date: string;
 }
 
+export interface I_Notifications {
+  id: string,
+  type: string,
+  seen: boolean,
+  content: string,
+  sender_id: string,
+  created_at: string,
+  recipient_id: string,
+}
+
 export interface T_Comment {
   id: string;
   content: string;

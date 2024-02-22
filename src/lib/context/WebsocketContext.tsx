@@ -38,10 +38,14 @@ export const WebSocketProvider = ({
       setTimeout(connectWebSocket, 1000);
     };
 
-    ws.onerror = (error: Event) => console.error('WebSocket Error:', error);
+    ws.onerror = (error: Event) => {
+      console.error('WebSocket Error:', error);
+    };
 
     setWebSocket(ws);
   }, []);
+
+
 
   useEffect(() => {
     connectWebSocket();

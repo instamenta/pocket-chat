@@ -1,7 +1,7 @@
-import { MESSAGES_DYNAMIC, NOTIFICATION, NOTIFICATION_DYNAMIC } from '@/lib/variables';
+import { NOTIFICATION, NOTIFICATION_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
 import { handleResponse } from '@/lib/utilities';
-import { I_Message } from '@/lib/types';
+import { I_Notifications } from '@/lib/types';
 
 export const createNotification = async (body: {
   recipient: string;
@@ -25,8 +25,13 @@ export const martAllNotificationsAsSeen = async () =>
       method: NOTIFICATION.mark_all_notifications_as_seen.method,
       auth: true,
     }),
-  ).then((r) => handleResponse(r));
-
+  ).then(async (res): Promise<boolean> => {
+    if (!res || !res.ok) {
+      console.log('HTTP Error', res?.statusText);
+      return false;
+    }
+    return true;
+  });
 
 export const markNotificationAsSeen = async (id: string) =>
   fetch(
@@ -35,7 +40,24 @@ export const markNotificationAsSeen = async (id: string) =>
       method: NOTIFICATION_DYNAMIC.mark_notification_as_seen.method,
       auth: true,
     }),
-  ).then(async (res): Promise<I_Message[]> => {
+  ).then(async (res): Promise<boolean> => {
+    if (!res || !res.ok) {
+      console.log('HTTP Error', res?.statusText);
+      return false;
+    }
+    return true;
+  });
+
+export const listNotifications = async (
+  filter: 'all' | 'seen' | 'unseen' = 'all',
+) =>
+  fetch(
+    NOTIFICATION_DYNAMIC.list_notifications.url(filter),
+    initRequest({
+      method: NOTIFICATION_DYNAMIC.list_notifications.method,
+      auth: true,
+    }),
+  ).then(async (res): Promise<I_Notifications[]> => {
     if (!res || !res.ok) {
       console.log('HTTP Error', res?.statusText);
       return [];

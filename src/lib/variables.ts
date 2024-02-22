@@ -225,12 +225,17 @@ export const NOTIFICATION = {
     url: new URL(`${notification_endpoint}/`),
     method: 'PUT',
   } as T_rest,
+
 };
 
 export const NOTIFICATION_DYNAMIC = {
   mark_notification_as_seen: {
     url: (id: string) => new URL(`${notification_endpoint}/${id}`),
     method: 'PUT',
+  } as T_rest_build,
+  list_notifications: {
+    url: (filter: string) => new URL(`${notification_endpoint}/?filter=${filter}`),
+    method: 'GET',
   } as T_rest_build,
 };
 
