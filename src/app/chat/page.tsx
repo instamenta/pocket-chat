@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/Navbar/Navbar';
 import Link from 'next/link';
 import { listFriendsByUserId } from '@/lib/queries/friend';
 import { I_UserSchema } from '@/lib/types';

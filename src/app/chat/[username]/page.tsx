@@ -7,13 +7,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {
-  I_Friendship,
-  I_Message,
-  I_UserSchema,
-  T_VideoCallInviteResponse,
-} from '@/lib/types';
-import { blob_to_json } from '@/lib/utilities';
+import { I_Friendship, I_Message, I_UserSchema } from '@/lib/types';
 import { listMessagesByUsers } from '@/lib/queries/message';
 import { FaChevronLeft } from 'react-icons/fa6';
 import { useRouter } from 'next/navigation';
@@ -26,10 +20,7 @@ import Link from 'next/link';
 import { getBySenderAndRecipient } from '@/lib/queries/friend';
 import { useRecipient } from '@/lib/hooks';
 import { useUserContext } from '@/lib/context/UserContext';
-import {
-  useCallNotification,
-  useWebSocket,
-} from '@/lib/context/WebsocketContext';
+import { useWebSocket } from '@/lib/context/WebsocketContext';
 import { useEdgeStore } from '@/lib/store/edgestore';
 import { importImages } from '@/lib/utilities/files';
 import VoiceRecorder from '@/components/functional/VoiceRecording';
@@ -40,7 +31,7 @@ export default function Chat({
 }: {
   params: { username: string };
 }) {
-  const ws = useWebSocket();
+  const { webSocket: ws, emitter } = useWebSocket();
   const router = useRouter();
   const { user } = useUserContext();
   const { edgestore } = useEdgeStore();
@@ -56,45 +47,26 @@ export default function Chat({
   const textRef = useRef<HTMLTextAreaElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  useState(() => {
-    useRecipient(username, 'username', setRecipient).then(
-      async (recipientData) => {
-        if (!ws) return;
+  useEffect(() => {
+    useRecipient(username, 'username', setRecipient).then(async (data) => {
+      await Promise.all([
+        listMessagesByUsers(user.id, data!.id).then(setMessages),
+        getBySenderAndRecipient(user.id, data!.id).then(setFriendship),
+      ]);
+    });
+  }, []);
 
-        const conversationMessages = await listMessagesByUsers(
-          user.id,
-          recipientData!.id,
-        );
-        setMessages(conversationMessages);
-        getBySenderAndRecipient(user.id, recipientData!.id).then(setFriendship);
+  useEffect(() => {
+    if (!emitter) return;
 
-        ws.onmessage = (event: MessageEvent) => {
-          blob_to_json<I_Message | T_VideoCallInviteResponse>(
-            event.data,
-            (data) => {
-              if (!data) return console.log('Fail :///');
-              switch (data.type) {
-                case 'message': {
-                  console.log(data);
-                  setMessages((prev) => [data as I_Message, ...prev]);
-                  break;
-                }
-                case 'video-call-invite': {
-                  useCallNotification(data as T_VideoCallInviteResponse);
-                  break;
-                }
-                default:
-                  console.error(
-                    'Response type from socket not implemented',
-                    data,
-                  );
-              }
-            },
-          );
-        };
-      },
-    );
-  });
+    function handleMessage(data: I_Message) {
+      console.log(`Message: "${data.content}"`);
+      setMessages((prev) => [data, ...prev]);
+    }
+
+    emitter.on('message', handleMessage);
+    return () => emitter.off('message', handleMessage);
+  }, [emitter]);
 
   const handleScroll = () => {
     const $el = chatContainerRef.current;

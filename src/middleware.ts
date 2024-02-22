@@ -18,6 +18,7 @@ export function middleware(req: NextRequest) {
       nextUrl.pathname = '/feed';
       return NextResponse.redirect(nextUrl);
     }
+    // HERE
     return NextResponse.next();
   }
 

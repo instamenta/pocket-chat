@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { I_Recommendation, T_FeedStory } from '@/lib/types';
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/Navbar/Navbar';
 import { getRecommendations, likePublication } from '@/lib/queries/publication';
 import { FaAddressBook, FaCommentDots, FaRegHeart } from 'react-icons/fa';
 import { FaHeart, FaRegShareFromSquare } from 'react-icons/fa6';
