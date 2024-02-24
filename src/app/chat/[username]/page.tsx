@@ -31,7 +31,7 @@ export default function Chat({
 }: {
   params: { username: string };
 }) {
-  const { webSocket: ws, emitter } = useWebSocket();
+  const { webSocket: ws, emitter, connectWebSocket } = useWebSocket();
   const router = useRouter();
   const { user } = useUserContext();
   const { edgestore } = useEdgeStore();
@@ -86,6 +86,8 @@ export default function Chat({
   const sendMessage = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (!ws) connectWebSocket();
+
     let imageUrls: string[] = [];
     if (images?.length) {
       imageUrls = await importImages(edgestore, images);
@@ -120,6 +122,8 @@ export default function Chat({
   };
 
   const initiateVideoCall = async () => {
+    if (!ws) connectWebSocket();
+
     const videoCallRequest = {
       type: 'video-call-invite',
       sender: user?.id,
@@ -142,6 +146,8 @@ export default function Chat({
     const formData = new FormData();
     formData.append('voice', audioBlob, 'voiceRecording.wav');
     try {
+      if (!ws) connectWebSocket();
+
       const response = await fetch('http://localhost:3005/upload-audio', {
         method: 'POST',
         body: formData,

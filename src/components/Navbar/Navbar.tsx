@@ -14,13 +14,13 @@ const Navbar = () => {
         {/* Logo */}
         <Link
           href="/feed/"
-          className="flex gap-2 text-2xl font-bold text-blue-600 transition-transform hover:translate-x-4 hover:scale-125"
+          className="flex gap-2 text-xl font-bold text-blue-600 transition-transform hover:translate-x-4 hover:scale-125"
         >
           <Image
             src="https://flowbite.com/docs/images/logo.svg"
             alt="Flowbite Logo"
-            width={32}
-            height={32}
+            width={26}
+            height={26}
           />
           Pocket Chat
         </Link>

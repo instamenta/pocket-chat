@@ -20,11 +20,13 @@ type MittEvents = {
 type WebSocketContextType = {
   webSocket: WebSocket | null;
   emitter: Emitter<MittEvents> | null;
+  connectWebSocket: () => void;
 };
 
 const WebSocketContext = createContext<WebSocketContextType>({
   webSocket: null,
   emitter: null,
+  connectWebSocket: () => {},
 });
 
 export const useWebSocket = () => useContext(WebSocketContext);
@@ -44,11 +46,12 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
     ws.onopen = () => console.log('Connected to socket');
     ws.onclose = (event: CloseEvent) => {
       console.error('WebSocket Disconnected', event.reason);
-      setTimeout(connectWebSocket, 1000);
+      setTimeout(connectWebSocket, 2000);
     };
 
     ws.onerror = (error: Event) => {
       console.error('WebSocket Error:', error);
+      setTimeout(connectWebSocket, 2000);
     };
 
     ws.onmessage = (event: MessageEvent) => {
@@ -62,6 +65,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
               emitter.emit('message', data as I_Message);
               break;
             case 'video-call-invite':
+              console.log('--------------------------');
               useCallNotification(data as T_VideoCallInviteResponse);
               emitter.emit(
                 'video-call-invite',
@@ -87,7 +91,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   return (
-    <WebSocketContext.Provider value={{ webSocket, emitter }}>
+    <WebSocketContext.Provider value={{ webSocket, emitter, connectWebSocket }}>
       {children}
     </WebSocketContext.Provider>
   );

@@ -22,9 +22,9 @@ import { useUserContext } from '@/lib/context/UserContext';
 const Feed = () => {
   const { user } = useUserContext();
 
-  const [publications, setPublications] = useState<I_Recommendation[]>([]);
-  const [description, setDescription] = useState<string>('');
   const [stories, setStories] = useState<T_FeedStory[]>([]);
+  const [description, setDescription] = useState<string>('');
+  const [publications, setPublications] = useState<I_Recommendation[]>([]);
   const [selectedPublication, setSelectedPublication] =
     useState<I_Recommendation | null>(null);
 
@@ -48,11 +48,8 @@ const Feed = () => {
         const updatedPublications = [...currentPublications];
         const pub = { ...updatedPublications[index] };
         pub.liked_by_user = !pub.liked_by_user;
-        if (pub.liked_by_user) {
-          pub.likes_count++;
-        } else {
-          pub.likes_count--;
-        }
+        pub.liked_by_user ? pub.likes_count++ : pub.likes_count--;
+
         updatedPublications[index] = pub;
         return updatedPublications;
       });

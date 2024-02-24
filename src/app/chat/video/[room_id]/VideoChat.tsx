@@ -8,8 +8,6 @@ import { getFriendshipById } from '@/lib/queries/friend';
 import { usePeer } from '@/lib/hooks/peer';
 import { useUserContext } from '@/lib/context/UserContext';
 
-type PeerInstance = Peer | null;
-
 const VideoChat = ({
   params: { room_id },
 }: {
@@ -18,19 +16,18 @@ const VideoChat = ({
   const { user } = useUserContext();
 
   const [myId, setMyId] = useState<string>('');
-  const [peerId, setPeerId] = useState<string>('');
   const [recipient, setRecipient] = useState<I_UserSchema | null>(null);
 
   const localVideoRef = useRef<HTMLVideoElement>(null);
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
-  const peerRef = useRef<PeerInstance>(null);
+  const peerRef = useRef<Peer | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && typeof navigator !== 'undefined') {
       getFriendshipById(room_id).then(async (friendship) => {
-        if (!friendship) {
+        if (!friendship)
           return console.error('Friendship not found', friendship);
-        }
+
         const recipient_id =
           friendship.sender_id === user.id
             ? friendship.recipient_id
@@ -41,19 +38,25 @@ const VideoChat = ({
           'id',
           setRecipient,
         );
-        if (!recipientData) {
+
+        if (!recipientData)
           return console.error('Failed to get recipient or user data');
-        }
+        if (peerRef.current) return console.log('Peer already initiated');
 
-        if (peerRef.current) {
-          return console.log('Peer already initiated');
-        }
         const peer = usePeer(user.id, peerRef, localVideoRef, remoteVideoRef);
+        if (!peer) {
+          return console.log('Failed to create Peer connection');
+        }
 
-        peer?.on('open', (id) => {
-          console.log(`calling peer ${recipient_id} my id ${id}`);
+        peer.on('open', (id) => {
           setMyId(id);
-          callPeer(recipientData!.id);
+          callPeer(recipientData.id);
+          setTimeout(() => callPeer(recipientData!.id), 1_000);
+        });
+
+        peer.on('disconnected', () => {
+          console.log('Attempting to reconnect to peer');
+          peer.reconnect();
         });
       });
     }
@@ -69,63 +72,59 @@ const VideoChat = ({
 
   // event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   const callPeer = (customId?: string) => {
-    const id = customId ?? recipient!.id;
-
     console.log('calling peer');
 
+    const id = customId ?? recipient!.id;
     const call = peerRef.current?.call(
       id,
       localVideoRef.current?.srcObject as MediaStream,
     );
 
-    call?.on('stream', (remoteStream) => {
+    if (!call) return console.error('failed to get Peer call');
+
+    call.on('stream', (remoteStream) => {
       if (remoteVideoRef.current) {
         remoteVideoRef.current.srcObject = remoteStream;
       }
     });
 
-    call?.on('error', (err) => {
-      console.error(err);
-      alert(`An error occurred during the call: ${err.message}`);
+    call.on('error', (error) => {
+      console.error(error);
+      callPeer(id);
     });
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-200 p-4">
-      <h1 className="mb-4 text-2xl font-bold text-gray-800">Video Chat</h1>
-      <div className="mb-4 flex gap-4">
-        <video
-          className="w-1/2 rounded-lg"
-          playsInline
-          muted
-          ref={localVideoRef}
-          autoPlay
-        ></video>
-        <video
-          className="w-1/2 rounded-lg"
-          playsInline
-          ref={remoteVideoRef}
-          autoPlay
-        ></video>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-200">
+      <div className="flex w-full flex-grow flex-col">
+        <div className="h-1/2 w-full flex-grow outline outline-1">
+          <video
+            controls={true}
+            controlsList='nodownload '
+            className="h-full w-full object-cover"
+            playsInline
+            ref={localVideoRef}
+            autoPlay
+          ></video>
+        </div>
+        <div className="h-1/2 w-full flex-grow outline outline-1">
+          <video
+            controls={true}
+            controlsList='nodownload '
+            className="h-full w-full object-cover"
+            playsInline
+            ref={remoteVideoRef}
+            autoPlay
+          ></video>
+        </div>
       </div>
-      <div>
-        <input
-          className="mr-2 rounded-md border-2 border-gray-300 p-2"
-          type="text"
-          placeholder="Enter peer ID..."
-          value={peerId}
-          onChange={(e) => setPeerId(e.target.value)}
-        />
-        <button
-          className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-          onClick={() => callPeer()}
-        >
-          Call
-        </button>
-      </div>
-      <p className="mt-4">
-        My ID: <span className="font-semibold">{myId}</span>
-      </p>
+
+      <button
+        className="my-2 w-full justify-center rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+        onClick={() => callPeer()}
+      >
+        Call
+      </button>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { I_PopulatedNotification } from '@/lib/types';
 import { listNotifications } from '@/lib/queries/notification';
 import { VscBell, VscBellDot } from 'react-icons/vsc';
 import moment from 'moment';
+import Link from 'next/link';
 
 const NotificationsBell: React.FC = () => {
   const [toggle, setToggle] = React.useState<boolean>(false);
@@ -16,7 +17,6 @@ const NotificationsBell: React.FC = () => {
 
   useEffect(() => {
     listNotifications('all').then((data) => {
-      console.log(data);
       setNotifications(data);
       setHasNotifications(data.some((d) => d.type === 'unseen'));
     });
@@ -38,7 +38,7 @@ const NotificationsBell: React.FC = () => {
         )}
         {toggle && (
           <div
-            className="absolute mt-3 right-0 z-20 w-80 max-w-sm divide-y divide-gray-100 overflow-y-auto rounded-lg border bg-white shadow-xl "
+            className="absolute right-0 z-20 mt-3 w-80 max-w-sm divide-y divide-gray-100 overflow-y-auto rounded-lg border bg-white shadow-xl "
             style={{ maxHeight: '40vh' }}
           >
             <div className="block rounded-t-lg bg-gray-50 px-4 py-2 text-center font-medium text-gray-700 ">
@@ -76,7 +76,7 @@ const NotificationsBell: React.FC = () => {
                       <span className="font-semibold text-gray-900">
                         {notification.first_name + ' ' + notification.last_name}
                       </span>
-                      : "{notification.content}"
+                      : &quot;{notification.content}&quot;
                     </div>
                     <div className="text-xs text-blue-600 ">
                       {moment(notification.created_at).toNow()}
@@ -106,11 +106,13 @@ const NotificationsBell: React.FC = () => {
         )}
       </div>
 
-      {hasNotifications ? (
-        <BsSendExclamation className="my-auto ml-3 size-7 fill-slate-500 transition-all hover:fill-blue-600" />
-      ) : (
-        <BsSend className="my-auto ml-3 size-7 fill-slate-500 transition-all hover:fill-blue-600" />
-      )}
+      <Link href="/chat" className="my-auto ml-3">
+        {hasNotifications ? (
+          <BsSendExclamation className=" size-7 fill-slate-500 transition-all hover:fill-blue-600" />
+        ) : (
+          <BsSend className=" size-7 fill-slate-500 transition-all hover:fill-blue-600" />
+        )}
+      </Link>
     </>
   );
 };

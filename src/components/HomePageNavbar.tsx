@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { CiLogin } from 'react-icons/ci';
+import Image from 'next/image';
 
 const HomePageNavbar = () => {
   return (
@@ -12,11 +13,17 @@ const HomePageNavbar = () => {
         {/* LOGO/NAME PLACE HOLDER */}
         <Link
           href="/"
-          className="text-2xl font-bold text-blue-600 transition-transform hover:translate-x-4 hover:scale-125"
+          className="flex gap-2 text-2xl font-bold text-blue-600 transition-transform hover:translate-x-4 hover:scale-125"
         >
-          Chatter
+          <Image
+            src="https://flowbite.com/docs/images/logo.svg"
+            alt="Flowbite Logo"
+            width={32}
+            height={32}
+          />
+          Pocket Chat
         </Link>
-        <div className="flex flex-row items-center space-x-4 text-gray-800">
+        <div className="flex flex-row items-center space-x-4 text-gray-700">
           <Link href="/auth" className="flex hover:text-black font-semibold text-lg hover:underline">
             <span>Sign</span>
             <CiLogin className="w-7 h-7" />
