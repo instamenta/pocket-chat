@@ -6,13 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/chat/[username]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/[username]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/chat/video/[room_id]/VideoChat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/video/[room_id]/VideoChat.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/feed/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/feed/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HomePageNavbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HomePageNavbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/NotificationsBell.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/NotificationsBell.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/context/WebsocketContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/context/WebsocketContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/functional/VideoUpload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/functional/VideoUpload.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/utilities/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/utilities/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/variables.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/variables.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +55,7 @@
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.5.0&quot;,
     &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.5.9&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/user/Desktop/myProjects/chat-app/t3-hexagots&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/user/Desktop/myProjects/chat-app/t3-hexagots/src/lib/queries&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -69,11 +69,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/lib/queries" />
       <recent name="$PROJECT_DIR$/src/components" />
       <recent name="$PROJECT_DIR$/src/components/functional" />
       <recent name="$PROJECT_DIR$/public/svg" />
       <recent name="$PROJECT_DIR$/src/components/micros/action_buttons" />
-      <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/components/Navbar" />
@@ -156,7 +156,11 @@
       <workItem from="1708527245853" duration="3878000" />
       <workItem from="1708549981923" duration="4382000" />
       <workItem from="1708629545820" duration="12204000" />
-      <workItem from="1708702772716" duration="9226000" />
+      <workItem from="1708702772716" duration="9246000" />
+      <workItem from="1708804737429" duration="1041000" />
+      <workItem from="1708805853233" duration="3951000" />
+      <workItem from="1708888253713" duration="2634000" />
+      <workItem from="1708893754313" duration="5775000" />
     </task>
     <servers />
   </component>

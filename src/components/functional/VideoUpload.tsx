@@ -10,9 +10,13 @@ interface UploadStatus {
 
 interface VideoUploadProps {
   onUploadSuccess: (filename: string) => void;
+  customHeight?: string;
 }
 
-const VideoUpload: React.FC<VideoUploadProps> = ({ onUploadSuccess }) => {
+const VideoUpload: React.FC<VideoUploadProps> = ({
+                                                   onUploadSuccess,
+                                                   customHeight,
+}) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [framePreviewUrl, setFramePreviewUrl] = useState<string | null>(null);
   const [uploadStatus, setUploadStatus] = useState<UploadStatus>({
@@ -123,7 +127,7 @@ const VideoUpload: React.FC<VideoUploadProps> = ({ onUploadSuccess }) => {
   };
 
   return (
-    <section className="px-10 py-4" style={{ height: '50vh' }}>
+    <section className="px-10 py-4" style={{ height: customHeight ?? '50vh' }}>
       <div
         className="flex h-full w-full flex-col items-center justify-center bg-transparent transition-all hover:bg-slate-100"
         onDragOver={handleDragOver}

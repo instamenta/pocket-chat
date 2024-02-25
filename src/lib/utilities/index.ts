@@ -28,12 +28,23 @@ export function handleResponseVoid(res: Response) {
   }
 }
 
-export async function handleResponse<T>(res: Response): Promise<T | void>  {
+export async function handleResponse<T>(res: Response): Promise<T | void> {
   if (!res || !res.ok) {
     return console.error(
       `Failed to send request Status: ${res?.statusText}`,
       res.headers,
     );
+  }
+  return res.json();
+}
+
+export async function handleResponseList<T>(res: Response): Promise<T[]> {
+  if (!res || !res.ok) {
+    console.error(
+      `Failed to send request Status: ${res?.statusText}`,
+      res.headers,
+    );
+    return [];
   }
   return res.json();
 }
