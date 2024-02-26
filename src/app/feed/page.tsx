@@ -8,7 +8,6 @@ import { FaAddressBook, FaCommentDots, FaRegHeart } from 'react-icons/fa';
 import { FaHeart, FaRegShareFromSquare } from 'react-icons/fa6';
 import { CiSquarePlus } from 'react-icons/ci';
 import { TfiGallery } from 'react-icons/tfi';
-import { GrYoutube } from 'react-icons/gr';
 import { MdGroups, MdLiveTv, MdMore } from 'react-icons/md';
 import { RiLiveFill } from 'react-icons/ri';
 import { AiFillPlusCircle } from 'react-icons/ai';
@@ -18,6 +17,7 @@ import Link from 'next/link';
 import PublicationDetails from '@/components/modals/PublicationDetails';
 import { IoHeartHalfOutline } from 'react-icons/io5';
 import { useUserContext } from '@/lib/context/UserContext';
+import { SiYoutubeshorts } from 'react-icons/si';
 
 const Feed = () => {
   const { user } = useUserContext();
@@ -140,30 +140,33 @@ const Feed = () => {
 
       {/* Decoration's Section */}
       <section className="scrollbar-sm flex w-full flex-row gap-3 overflow-x-auto bg-slate-100 px-2 pb-2.5 pt-2 text-center font-semibold shadow-inner">
-        <div className="flex flex-row gap-1.5 rounded-2xl border-t border-t-slate-200 bg-white px-4 py-1.5 drop-shadow-lg">
-          <GrYoutube className="h-6 w-6 fill-purple-500" />
-          <span>Reels</span>
-        </div>
+        <Link
+          href="/feed/short"
+          className="flex flex-row gap-1.5 rounded-2xl border-t border-t-slate-200 bg-white px-4 py-1.5 drop-shadow-lg"
+        >
+          <SiYoutubeshorts className="size-6 fill-red-500" />
+          <span>Shorts</span>
+        </Link>
 
         <div className="flex flex-row gap-1.5 rounded-2xl border-t border-t-slate-200 bg-white px-4 py-1.5 drop-shadow-lg">
-          <RiLiveFill className="h-6 w-6 fill-pink-600" />
+          <RiLiveFill className="size-6 fill-pink-600" />
           <span>Live</span>
         </div>
         <div className="flex flex-row gap-1.5 rounded-2xl border-t border-t-slate-200 bg-white px-4 py-1.5 drop-shadow-lg">
-          <MdGroups className="h-6 w-6 fill-blue-600" />
+          <MdGroups className="size-6 fill-blue-600" />
           <span>Group</span>
         </div>
 
         <div className="flex flex-row gap-1.5 rounded-2xl border-t border-t-slate-200 bg-white px-4 py-1.5 drop-shadow-lg">
-          <MdLiveTv className="h-6 w-6 fill-red-600" />
+          <MdLiveTv className="size-6 fill-red-600" />
           <span>Room</span>
         </div>
         <div className="flex flex-row gap-1.5 rounded-2xl border-t border-t-slate-200 bg-white px-4 py-1.5 drop-shadow-lg">
-          <FaAddressBook className="h-6 w-6 fill-green-600 py-0.5" />
+          <FaAddressBook className="size-6 fill-green-600 py-0.5" />
           <span>People</span>
         </div>
         <div className="flex flex-row gap-1.5 rounded-2xl border-t border-t-slate-200 bg-white px-4 py-1.5 drop-shadow-lg">
-          <MdMore className="h-6 w-6 fill-yellow-900" />
+          <MdMore className="size-6 fill-yellow-900" />
           <span>More</span>
         </div>
       </section>
@@ -234,7 +237,7 @@ const Feed = () => {
             {/* Publication Rating */}
             <div className="flex w-full justify-between px-4 pb-2 pt-4">
               <div className="flex content-center gap-1">
-                <IoHeartHalfOutline className="h-6 w-6 fill-red-600 " />
+                <IoHeartHalfOutline className="size-6 fill-red-600 " />
                 <span>{publication.likes_count}</span>
               </div>
               <div className="flex gap-2">

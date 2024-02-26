@@ -3,12 +3,24 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { I_ShortPopulated } from '@/lib/types';
 import { listShorts } from '@/lib/queries/short';
+import { FaShare } from 'react-icons/fa6';
+import Link from 'next/link';
+import DropdownMenu from '@/components/Navbar/DropdownMenu';
+import { GrDislike, GrLike } from 'react-icons/gr';
+import { MdOutlineInsertComment } from 'react-icons/md';
+import { IoShareSocialSharp } from 'react-icons/io5';
+import { GoSearch } from 'react-icons/go';
+import { LuChevronLeft } from 'react-icons/lu';
+import { BsChevronLeft } from "react-icons/bs";
 
 export default function ShortsPage() {
   const [shorts, setShorts] = useState<I_ShortPopulated[]>([]);
   const [shortIndex, setShortIndex] = useState<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
+  const [videoProgress, setVideoProgress] = useState(
+    shorts.map(() => ({ currentTime: 0, duration: 1 })),
+  );
 
   useEffect(() => {
     const fetchShorts = async () => {
@@ -104,35 +116,123 @@ export default function ShortsPage() {
     videoElement.paused ? videoElement.play() : videoElement.pause();
   };
 
+  const handleTimeUpdate =
+    (index: number) =>
+    (event: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+      const { currentTime, duration } = event.target as unknown as {
+        currentTime: number;
+        duration: number;
+      };
+      setVideoProgress((prevProgress) => {
+        const newProgress = [...prevProgress];
+        newProgress[index] = { currentTime, duration };
+        return newProgress;
+      });
+    };
+
   return (
-    <div
-      ref={containerRef}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      className="flex h-screen flex-col items-center overflow-hidden"
-      style={{ scrollSnapType: 'y mandatory' }}
-    >
-      {shorts.map((short, index) => (
-        <div
-          key={short.id}
-          className="h-screen w-screen object-contain"
-          style={{ scrollSnapAlign: 'start' }}
-        >
-          <video
-            ref={(el) => (videoRefs.current[index] = el)}
-            data-index={index}
-            className="h-screen w-screen bg-gray-950 object-contain"
-            onClick={handlePause}
-          >
-            <source
-              src={'http://localhost:3005/video/' + short.video_url}
-              type="video/mp4"
-            />
-            Your browser does not support the video tag.
-          </video>
+    <>
+      <nav className="absolute left-0 right-0 z-20 flex w-full justify-between p-4">
+        <Link href="/feed">
+          <BsChevronLeft className="size-8 fill-white my-auto" />
+        </Link>
+        <div className="flex content-center gap-3">
+          <GoSearch className="my-auto size-8 fill-white" />
+          <DropdownMenu />
         </div>
-      ))}
-    </div>
+      </nav>
+      <div
+        ref={containerRef}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        className="white-to-transparent-bottom-gradient flex h-screen flex-col items-center overflow-hidden"
+        style={{ scrollSnapType: 'y mandatory' }}
+      >
+        {shorts.map((short, index) => (
+          <article
+            key={short.id}
+            className="relative h-screen w-screen object-contain"
+            style={{ scrollSnapAlign: 'start' }}
+          >
+            <div className="absolute bottom-0 left-0 z-30 h-1 w-full bg-slate-300">
+              <div
+                className="h-full bg-red-600"
+                style={{
+                  width: `${
+                    videoProgress[index]?.currentTime &&
+                    videoProgress[index]?.duration
+                      ? (videoProgress[index].currentTime /
+                          videoProgress[index].duration) *
+                        100
+                      : 0
+                  }%`,
+                }}
+              ></div>
+            </div>
+
+            <section className="absolute bottom-0 mb-4 flex flex-col p-4 text-xl">
+              <div className="flex gap-3">
+                <img
+                  src={short.user_picture}
+                  className="mt-2 size-8 rounded-full outline outline-2 outline-blue-600"
+                  alt="user picture"
+                />
+                <div className="flex flex-col">
+                  <span className="mb-2 pt-3 text-sm text-gray-500">
+                    @{short.username}
+                  </span>
+                  <p className="w-4/5 text-wrap text-sm text-gray-300">
+                    {short.description ||
+                      'Lorem ipsum nogen bushen piben doren mochen bipen mopen priben ...more'}
+                  </p>
+                </div>
+              </div>
+              <div></div>
+            </section>
+            <section className="absolute bottom-0 right-0 z-20 mb-4 flex h-full flex-col justify-end gap-3 border-red-600 pr-3 align-middle text-sm text-gray-300">
+              <div className="flex flex-col justify-center gap-1 rounded-full bg-black bg-opacity-5 text-center align-middle">
+                <GrDislike className="mx-auto size-7" />
+                <span>24k</span>
+              </div>
+              <div className="flex flex-col justify-center gap-1 rounded-full bg-black bg-opacity-5 text-center align-middle">
+                <GrLike className="mx-auto size-7" />
+                <span>128</span>
+              </div>
+              <div className="flex flex-col justify-center gap-1 rounded-full bg-black bg-opacity-5 text-center align-middle">
+                <MdOutlineInsertComment className="mx-auto size-7" />
+                <span>47</span>
+              </div>
+              <div className="flex flex-col justify-center gap-1 rounded-full bg-black bg-opacity-5 text-center align-middle">
+                <FaShare className="mx-auto size-7" />
+                <span>Repost</span>
+              </div>
+              <div className="flex flex-col justify-center gap-1 rounded-full bg-black bg-opacity-5 text-center align-middle">
+                <IoShareSocialSharp className="mx-auto size-7" />
+                <span>Share</span>
+              </div>
+              <img
+                src={short.user_picture}
+                className="mx-auto mt-2 size-10 rounded-xl"
+                alt="user picture"
+              />
+            </section>
+            <video
+              ref={(el) => (videoRefs.current[index] = el)}
+              data-index={index}
+              className="h-screen w-screen object-contain"
+              onClick={handlePause}
+              onTimeUpdate={handleTimeUpdate(index)}
+            >
+              <source
+                src={'http://localhost:3005/video/' + short.video_url}
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </article>
+        ))}
+      </div>
+    </>
   );
 }

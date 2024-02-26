@@ -146,3 +146,8 @@ body {
 .shadow-outline {
     text-shadow: -1px -1px 0 #183b44, 1px -1px 0 #183b44, -1px 1px 0 #183b44, 1px 1px 0 #183b44;
 }
+
+.white-to-transparent-bottom-gradient {
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(75,75,79,1) 19%, rgba(75,75,79,1) 60%, rgba(75,75,79,1) 100%, rgba(255,255,255,0.4374124649859944) 100%);
+}
