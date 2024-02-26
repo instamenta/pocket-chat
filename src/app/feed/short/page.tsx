@@ -183,8 +183,7 @@ export default function ShortsPage() {
                     @{short.username}
                   </span>
                   <p className="w-4/5 text-wrap text-sm text-gray-300">
-                    {short.description ||
-                      'Lorem ipsum nogen bushen piben doren mochen bipen mopen priben ...more'}
+                    {short.description}
                   </p>
                 </div>
               </div>
