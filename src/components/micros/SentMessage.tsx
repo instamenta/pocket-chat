@@ -57,7 +57,11 @@ const SentMessage = ({ message }: { message: I_Message }) => {
         {message.files?.length ? (
           <div className="flex w-full gap-3">
             <button onClick={togglePlayback} className="text-white">
-              {isPlaying ? <FaPause className="size-5" /> : <FaPlay className="size-5" />}
+              {isPlaying ? (
+                <FaPause className="size-5" />
+              ) : (
+                <FaPlay className="size-5" />
+              )}
             </button>
             <div ref={waveformRef} className="w-full min-w-[200px]" />
           </div>

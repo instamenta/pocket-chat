@@ -5,8 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/edgestore/[...edgestore]/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/edgestore/[...edgestore]/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/auth/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/chat/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/chat/video/[room_id]/VideoChat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/video/[room_id]/VideoChat.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/feed/short/create/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/feed/short/create/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/feed/short/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/feed/short/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/feed/story/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/feed/story/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/friends/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/friends/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HomePageNavbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HomePageNavbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar/DropdownMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/DropdownMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Providers.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chat-bubbles/FileMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat-bubbles/FileMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chat-bubbles/ImageMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat-bubbles/ImageMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chat-bubbles/MultiImageMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat-bubbles/MultiImageMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chat-bubbles/TextMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat-bubbles/TextMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chat-bubbles/VoiceMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat-bubbles/VoiceMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/edgestore/MultiImageDropzone.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/edgestore/MultiImageDropzone.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/edgestore/SingleImageDropzone.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/edgestore/SingleImageDropzone.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/functional/VideoUpload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/functional/VideoUpload.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/micros/SentMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/micros/SentMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modals/PublicationDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/PublicationDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/actions/authentication.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/actions/authentication.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/hooks/peer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/hooks/peer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/queries/comment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/comment.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/queries/notification.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/notification.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/queries/publication.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/publication.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/store/edgestore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/store/edgestore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/store/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/types/enumerations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types/enumerations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/variables.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/variables.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +189,8 @@
       <workItem from="1708888253713" duration="2634000" />
       <workItem from="1708893754313" duration="5828000" />
       <workItem from="1708979154398" duration="2514000" />
-      <workItem from="1708983403642" duration="3010000" />
+      <workItem from="1708983403642" duration="3669000" />
+      <workItem from="1709044694870" duration="3133000" />
     </task>
     <servers />
   </component>

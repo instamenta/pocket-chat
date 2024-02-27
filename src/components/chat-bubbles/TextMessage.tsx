@@ -11,7 +11,7 @@ const TextMessage = () => {
       {/* Message Section */}
       <div className="leading-1.5 flex w-full max-w-[320px] flex-col rounded-e-xl rounded-es-xl border-gray-200 bg-white px-4 pb-2 shadow-xl">
         <p className="py-2.5 text-sm font-normal text-gray-900">
-          That's awesome. I think our users will really appreciate the
+          That&apos;s awesome. I think our users will really appreciate the
           improvements.
         </p>
         <span className="text-sm font-normal text-gray-500">Delivered</span>

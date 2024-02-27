@@ -24,9 +24,12 @@ const HomePageNavbar = () => {
           Pocket Chat
         </Link>
         <div className="flex flex-row items-center space-x-4 text-gray-700">
-          <Link href="/auth" className="flex hover:text-black font-semibold text-lg hover:underline">
+          <Link
+            href="/auth"
+            className="flex text-lg font-semibold hover:text-black hover:underline"
+          >
             <span>Sign</span>
-            <CiLogin className="w-7 h-7" />
+            <CiLogin className="h-7 w-7" />
           </Link>
         </div>
       </div>

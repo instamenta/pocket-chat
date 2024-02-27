@@ -117,8 +117,6 @@ export async function action_handleSignUp(
     .catch(console.error);
   if (!user) return { message: 'Failed to set user data' };
 
-
-
   useUser.getState().setUser(user);
   redirect('/');
 }

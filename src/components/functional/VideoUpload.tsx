@@ -14,8 +14,8 @@ interface VideoUploadProps {
 }
 
 const VideoUpload: React.FC<VideoUploadProps> = ({
-                                                   onUploadSuccess,
-                                                   customHeight,
+  onUploadSuccess,
+  customHeight,
 }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [framePreviewUrl, setFramePreviewUrl] = useState<string | null>(null);

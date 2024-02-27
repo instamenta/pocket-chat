@@ -97,9 +97,12 @@ const StoryFeed = () => {
       onTouchStart={handleInteractionStart}
       onTouchEnd={handleInteractionEnd}
     >
-      <div className="absolute top-0 z-10 flex w-full justify-center gap-2 bg-slate-100 drop-shadow-2xl pb-0.5 px-2">
+      <div className="absolute top-0 z-10 flex w-full justify-center gap-2 bg-slate-100 px-2 pb-0.5 drop-shadow-2xl">
         {currentUserStories.map((_, index) => (
-          <div key={index} className="w-full rounded-xl overflow-hidden bg-gray-600 ">
+          <div
+            key={index}
+            className="w-full overflow-hidden rounded-xl bg-gray-600 "
+          >
             <div
               className={`h-2 ${
                 index === currentStoryIndex ? 'bg-blue-600' : 'bg-gray-400'
@@ -122,7 +125,7 @@ const StoryFeed = () => {
           </div>
         ) : null,
       )}
-      <div className="absolute bottom-0 z-10 flex flex-row bg-white w-full justify-center">
+      <div className="absolute bottom-0 z-10 flex w-full flex-row justify-center bg-white">
         <CiSquarePlus className="my-auto h-12 w-12 fill-blue-600 transition-all hover:scale-110" />
         <textarea
           id="editor"
@@ -134,7 +137,6 @@ const StoryFeed = () => {
           required
         ></textarea>
         <TfiGallery className="my-auto h-10 w-12 rounded-xl fill-green-600 px-1 transition-all hover:scale-110 hover:bg-slate-200 hover:fill-green-700 " />
-
       </div>
     </div>
   );

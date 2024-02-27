@@ -8,11 +8,12 @@ import { EdgeStoreProvider } from '@/lib/store/edgestore';
 import { ToastContainer } from 'react-toastify';
 import { UserProvider } from '@/lib/context/UserContext';
 import { WebSocketProvider } from '@/lib/context/WebsocketContext';
+import { WebVitals } from '@/components/web_vitals';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Chatter',
+  title: 'Pocket Chat',
   description: 'Chat online',
 };
 
@@ -21,9 +22,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // @ts-ignore
   return (
     <html lang="en" className="h-screen">
       <body className={inter.className}>
+        <WebVitals />
         <EdgeStoreProvider>
           <ToastContainer />
           <UserProvider>

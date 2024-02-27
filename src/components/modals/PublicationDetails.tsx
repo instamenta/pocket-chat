@@ -97,7 +97,7 @@ const PublicationDetails = ({
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-40 px-2">
       <div className="relative flex min-h-screen items-center justify-center">
-        <div className="mx-auto w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-lg mb-10">
+        <div className="mx-auto mb-10 w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-lg">
           <nav className="flex flex-row-reverse px-2 py-1">
             <button
               onClick={onClose}
@@ -201,7 +201,7 @@ const PublicationDetails = ({
                           @{comment.username}
                         </span>
                       </div>
-                      <div className="mr-2 text-lg font-semibold cursor-pointer">
+                      <div className="mr-2 cursor-pointer text-lg font-semibold">
                         ...
                       </div>
                     </div>

@@ -18,8 +18,8 @@ export default function Authenticate(): React.JSX.Element {
         <Link
           href="/auth/sign-in"
           type="submit"
-          className="w-full rounded-2xl border-2 border-orange-600 bg-orange-600 py-2 text-white
-            transition-all hover:drop-shadow-xl text-center"
+          className="w-full rounded-2xl border-2 border-orange-600 bg-orange-600 py-2 text-center
+            text-white transition-all hover:drop-shadow-xl"
         >
           Sign In
         </Link>
@@ -27,8 +27,8 @@ export default function Authenticate(): React.JSX.Element {
         <Link
           href="/auth/sign-up"
           type="submit"
-          className="w-full rounded-2xl border-2 border-orange-600  bg-white py-2 text-orange-600
-            transition-all hover:drop-shadow-xl text-center"
+          className="w-full rounded-2xl border-2 border-orange-600  bg-white py-2 text-center
+            text-orange-600 transition-all hover:drop-shadow-xl"
         >
           Sign Up
         </Link>

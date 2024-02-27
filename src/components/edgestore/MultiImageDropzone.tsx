@@ -145,7 +145,9 @@ const MultiImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
         {(!value || value.length < (dropzoneOptions?.maxFiles ?? 0)) && (
           <div
             {...getRootProps({
-              className: dropZoneClassName + 'm-auto w-full bg-slate-100 hover:bg-slate-300 mb-4 h-20',
+              className:
+                dropZoneClassName +
+                'm-auto w-full bg-slate-100 hover:bg-slate-300 mb-4 h-20',
             })}
           >
             {/* Main File Input */}
@@ -214,7 +216,7 @@ MultiImageDropzone.displayName = 'MultiImageDropzone';
 const Button = React.forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement>
-// eslint-disable-next-line react/prop-types
+  // eslint-disable-next-line react/prop-types
 >(({ className, ...props }, ref) => {
   return (
     <button

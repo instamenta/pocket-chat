@@ -10,8 +10,7 @@ import { GrDislike, GrLike } from 'react-icons/gr';
 import { MdOutlineInsertComment } from 'react-icons/md';
 import { IoShareSocialSharp } from 'react-icons/io5';
 import { GoSearch } from 'react-icons/go';
-import { LuChevronLeft } from 'react-icons/lu';
-import { BsChevronLeft } from "react-icons/bs";
+import { BsChevronLeft } from 'react-icons/bs';
 
 export default function ShortsPage() {
   const [shorts, setShorts] = useState<I_ShortPopulated[]>([]);
@@ -134,7 +133,7 @@ export default function ShortsPage() {
     <>
       <nav className="absolute left-0 right-0 z-20 flex w-full justify-between p-4">
         <Link href="/feed">
-          <BsChevronLeft className="size-8 fill-white my-auto" />
+          <BsChevronLeft className="my-auto size-8 fill-white" />
         </Link>
         <div className="flex content-center gap-3">
           <GoSearch className="my-auto size-8 fill-white" />
@@ -179,7 +178,7 @@ export default function ShortsPage() {
                   alt="user picture"
                 />
                 <div className="flex flex-col">
-                  <span className="mb-2 pt-3 text-sm text-gray-500">
+                  <span className="mb-2 pt-3 text-sm text-white">
                     @{short.username}
                   </span>
                   <p className="w-4/5 text-wrap text-sm text-gray-300">
@@ -219,6 +218,8 @@ export default function ShortsPage() {
             <video
               ref={(el) => (videoRefs.current[index] = el)}
               data-index={index}
+              loop
+              playsInline
               className="h-screen w-screen object-contain"
               onClick={handlePause}
               onTimeUpdate={handleTimeUpdate(index)}

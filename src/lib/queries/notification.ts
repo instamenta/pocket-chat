@@ -1,7 +1,7 @@
 import { NOTIFICATION, NOTIFICATION_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
 import { handleResponse } from '@/lib/utilities';
-import { I_Notifications, I_PopulatedNotification } from '@/lib/types';
+import { I_PopulatedNotification } from '@/lib/types';
 
 export const createNotification = async (body: {
   recipient: string;

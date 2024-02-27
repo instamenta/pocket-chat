@@ -12,10 +12,13 @@ export const listCommentsByPublication = async (publicationId: string) =>
     }),
   ).then((r) => handleResponse<T_PopulatedComment[]>(r));
 
-export const createComment = async (publicationId: string, body: {
-  userId: string;
-  content: string;
-}) =>
+export const createComment = async (
+  publicationId: string,
+  body: {
+    userId: string;
+    content: string;
+  },
+) =>
   fetch(
     COMMENTS_DYNAMIC.create_comment.url(publicationId),
     initRequest({

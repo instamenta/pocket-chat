@@ -53,11 +53,14 @@ export const getPublicationsByUserId = async (userId: string) =>
     }),
   ).then((r) => handleResponse<I_Publication[]>(r));
 
-export const updatePublication = async (id: string, body: {
-  content?: string;
-  images?: string[];
-  publication_status?: string;
-}) =>
+export const updatePublication = async (
+  id: string,
+  body: {
+    content?: string;
+    images?: string[];
+    publication_status?: string;
+  },
+) =>
   fetch(
     PUBLICATIONS_DYNAMIC.update_publication.url(id),
     initRequest({

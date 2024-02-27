@@ -30,7 +30,8 @@ const VideoChat = ({
   const [audioMuted, setAudioMuted] = useState<boolean>(false);
   const [videoPaused, setVideoPaused] = useState<boolean>(false);
 
-  const [myId, setMyId] = useState<string>('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [__, setMyId] = useState<string>('');
   const [recipient, setRecipient] = useState<I_UserSchema | null>(null);
 
   const localVideoRef = useRef<HTMLVideoElement>(null);
@@ -155,7 +156,7 @@ const VideoChat = ({
               autoPlay
             ></video>
           ) : (
-            <div className="flex h-full text-white bg-slate-700  w-full flex-col content-center justify-center">
+            <div className="flex h-full w-full flex-col  content-center justify-center bg-slate-700 text-white">
               <div className="w-full px-20">
                 <img
                   src={recipient?.picture}
@@ -163,10 +164,10 @@ const VideoChat = ({
                   className="aspect-square w-full rounded-full"
                 />
               </div>
-              <div className='py-4'>
+              <div className="py-4">
                 <LoadingSpinner />
               </div>
-              <span className="capitalize text-center text-xl">
+              <span className="text-center text-xl capitalize">
                 Waiting for{' '}
                 <strong>
                   {recipient?.first_name + ' ' + recipient?.last_name}

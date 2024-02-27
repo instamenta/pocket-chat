@@ -78,27 +78,26 @@ export interface T_VideoCallInviteResponse {
 }
 
 export interface I_Notifications {
-  id: string,
-  type: 'all' | 'seen' | 'unseen',
-  seen: boolean,
-  content: string,
-  sender_id: string,
-  created_at: string,
-  recipient_id: string,
+  id: string;
+  type: 'all' | 'seen' | 'unseen';
+  seen: boolean;
+  content: string;
+  sender_id: string;
+  created_at: string;
+  recipient_id: string;
 }
 
-
 export interface I_PopulatedNotification {
-  id: string
-  type: string
-  boolean: string
-  content: string
-  sender_id: string
-  created_at: string
-  recipient_id: string
-  picture: string
-  first_name: string
-  last_name: string
+  id: string;
+  type: string;
+  boolean: string;
+  content: string;
+  sender_id: string;
+  created_at: string;
+  recipient_id: string;
+  picture: string;
+  first_name: string;
+  last_name: string;
 }
 
 export interface T_Comment {
@@ -196,13 +195,13 @@ export interface I_Short {
 }
 
 export interface I_ShortPopulated {
-  id: string
-  user_id: string
-  user_picture: string
-  username: string
-  first_name: string
-  last_name: string
-  video_url: string
-  description: string
-  created_at: string
+  id: string;
+  user_id: string;
+  user_picture: string;
+  username: string;
+  first_name: string;
+  last_name: string;
+  video_url: string;
+  description: string;
+  created_at: string;
 }

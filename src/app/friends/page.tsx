@@ -9,7 +9,7 @@ import {
   listFriendRequestsOnly,
   listFriendSentOnly,
   sendFriendRequest,
-  T_friendRequestLists
+  T_friendRequestLists,
 } from '@/lib/queries/friend';
 
 // TODO ADD MUTUAL FRIENDS
@@ -25,13 +25,13 @@ const Discover = () => {
     Promise.all([
       listFriendRequestsOnly(),
       listFriendSentOnly(),
-      listFriendRecommendations()
+      listFriendRecommendations(),
     ]).then(
       ([friendRequestsReceived, friendRequestsSent, friendRecommendations]) => {
         setSent(friendRequestsSent);
         setReceived(friendRequestsReceived);
         setRecommendations(friendRecommendations);
-      }
+      },
     );
   }, []);
 
@@ -39,7 +39,7 @@ const Discover = () => {
   const handleAcceptFriendRequest = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: string,
-    index: number
+    index: number,
   ) => {
     event.preventDefault();
     await acceptFriendRequest(id);
@@ -52,7 +52,7 @@ const Discover = () => {
   const handleDeclineFriendRequest = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: string,
-    index: number
+    index: number,
   ) => {
     event.preventDefault();
     await declineFriendRequest(id);
@@ -66,7 +66,7 @@ const Discover = () => {
   const handleCancelFriendRequest = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: string,
-    index: number
+    index: number,
   ) => {
     event.preventDefault();
     await deleteFriendRequest(id);
@@ -80,7 +80,7 @@ const Discover = () => {
   const handleSendFriendRequest = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: string,
-    index: number
+    index: number,
   ) => {
     event.preventDefault();
     await sendFriendRequest(id);
@@ -100,12 +100,12 @@ const Discover = () => {
       </div>
 
       {/* GRID CONTAINER */}
-      <section className="grid grid-cols-2 gap-5 pb-8 px-8 pt-8">
+      <section className="grid grid-cols-2 gap-5 px-8 pb-8 pt-8">
         {/* CARDS */}
         {received.map((user, index) => (
           <div
             key={index}
-            className="mb-2 flex flex-col overflow-hidden  transition-all hover:drop-shadow-2xl hover:scale-105"
+            className="mb-2 flex flex-col overflow-hidden  transition-all hover:scale-105 hover:drop-shadow-2xl"
           >
             <div>
               <img
@@ -168,7 +168,7 @@ const Discover = () => {
         {sent.map((user, index) => (
           <div
             key={index}
-            className="mb-2 flex flex-col overflow-hidden rounded-xl shadow-xl transition-all hover:drop-shadow-2xl hover:scale-105"
+            className="mb-2 flex flex-col overflow-hidden rounded-xl shadow-xl transition-all hover:scale-105 hover:drop-shadow-2xl"
           >
             <div>
               <img
@@ -217,12 +217,12 @@ const Discover = () => {
       </div>
 
       {/* GRID CONTAINER */}
-      <section className="grid grid-cols-2 gap-5 pb-8 px-8 pt-8">
+      <section className="grid grid-cols-2 gap-5 px-8 pb-8 pt-8">
         {/* CARDS */}
         {recommendations.map((user, index) => (
           <div
             key={index}
-            className="mb-2 flex flex-col overflow-hidden rounded-xl shadow-xl transition-all hover:drop-shadow-2xl hover:scale-105"
+            className="mb-2 flex flex-col overflow-hidden rounded-xl shadow-xl transition-all hover:scale-105 hover:drop-shadow-2xl"
           >
             <div>
               <img

@@ -6,7 +6,6 @@ import TextArea from '@/components/functional/TextArea';
 import { createShort } from '@/lib/queries/short';
 import { useRouter } from 'next/navigation';
 
-
 const CreateShort = () => {
   const router = useRouter();
 

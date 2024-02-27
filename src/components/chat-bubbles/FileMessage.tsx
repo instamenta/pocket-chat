@@ -9,7 +9,7 @@ const FileMessage = () => {
         alt="Bonnie Green image"
       />
       <div className="flex flex-col gap-1">
-        <div className="leading-1.5 shadow-xl flex w-full max-w-[326px] flex-col rounded-e-xl rounded-es-xl border-gray-200 bg-white px-4 pb-2">
+        <div className="leading-1.5 flex w-full max-w-[326px] flex-col rounded-e-xl rounded-es-xl border-gray-200 bg-white px-4 pb-2 shadow-xl">
           <div className="my-2.5 flex items-start rounded-xl bg-gray-50 p-2">
             <div className="me-2">
               <span className="flex items-center gap-2 pb-2 text-sm font-medium text-gray-900">

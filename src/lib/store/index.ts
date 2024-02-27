@@ -47,7 +47,7 @@ const useUser = create<IUserStore>((set, get) => ({
       console.log('NO WINDOW');
       return null;
     }
-    const isAuth= extractAuthToken();
+    const isAuth = extractAuthToken();
     if (!isAuth) {
       set({ user: { ...emptyUser } });
       localStorage.removeItem('user');

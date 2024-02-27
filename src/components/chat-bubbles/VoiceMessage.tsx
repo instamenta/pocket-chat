@@ -2,13 +2,13 @@ import React from 'react';
 
 const VoiceMessage = () => {
   return (
-    <div className="flex items-start gap-2.5 mt-6">
+    <div className="mt-6 flex items-start gap-2.5">
       <img
         className="h-8 w-8 rounded-full"
         src="/docs/images/people/profile-picture-3.jpg"
         alt="Jese image"
       />
-      <div className="bg-white leading-1.5 flex w-full max-w-[320px] flex-col gap-2.5 rounded-e-xl rounded-es-xl border-gray-200 p-4 pb-2 shadow-xl">
+      <div className="leading-1.5 flex w-full max-w-[320px] flex-col gap-2.5 rounded-e-xl rounded-es-xl border-gray-200 bg-white p-4 pb-2 shadow-xl">
         <div className=" flex items-center space-x-2 rtl:space-x-reverse">
           <button
             className="inline-flex items-center self-center rounded-lg bg-gray-100 p-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-50"
@@ -31,21 +31,8 @@ const VoiceMessage = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <rect
-              y="17"
-              width="3"
-              height="6"
-              rx="1.5"
-              fill="#6B7280"
-            />
-            <rect
-              x="7"
-              y="15.5"
-              width="3"
-              height="9"
-              rx="1.5"
-              fill="#6B7280"
-            />
+            <rect y="17" width="3" height="6" rx="1.5" fill="#6B7280" />
+            <rect x="7" y="15.5" width="3" height="9" rx="1.5" fill="#6B7280" />
             <rect
               x="21"
               y="6.5"
@@ -62,22 +49,8 @@ const VoiceMessage = () => {
               rx="1.5"
               fill="#6B7280"
             />
-            <rect
-              x="28"
-              y="3"
-              width="3"
-              height="34"
-              rx="1.5"
-              fill="#6B7280"
-            />
-            <rect
-              x="35"
-              y="3"
-              width="3"
-              height="34"
-              rx="1.5"
-              fill="#6B7280"
-            />
+            <rect x="28" y="3" width="3" height="34" rx="1.5" fill="#6B7280" />
+            <rect x="35" y="3" width="3" height="34" rx="1.5" fill="#6B7280" />
             <rect
               x="42"
               y="5.5"
@@ -86,14 +59,7 @@ const VoiceMessage = () => {
               rx="1.5"
               fill="#6B7280"
             />
-            <rect
-              x="49"
-              y="10"
-              width="3"
-              height="20"
-              rx="1.5"
-              fill="#6B7280"
-            />
+            <rect x="49" y="10" width="3" height="20" rx="1.5" fill="#6B7280" />
             <rect
               x="56"
               y="13.5"
@@ -102,14 +68,7 @@ const VoiceMessage = () => {
               rx="1.5"
               fill="#6B7280"
             />
-            <rect
-              x="63"
-              y="16"
-              width="3"
-              height="8"
-              rx="1.5"
-              fill="#6B7280"
-            />
+            <rect x="63" y="16" width="3" height="8" rx="1.5" fill="#6B7280" />
             <rect
               x="70"
               y="12.5"
@@ -118,22 +77,8 @@ const VoiceMessage = () => {
               rx="1.5"
               fill="#E5E7EB"
             />
-            <rect
-              x="77"
-              y="3"
-              width="3"
-              height="34"
-              rx="1.5"
-              fill="#E5E7EB"
-            />
-            <rect
-              x="84"
-              y="3"
-              width="3"
-              height="34"
-              rx="1.5"
-              fill="#E5E7EB"
-            />
+            <rect x="77" y="3" width="3" height="34" rx="1.5" fill="#E5E7EB" />
+            <rect x="84" y="3" width="3" height="34" rx="1.5" fill="#E5E7EB" />
             <rect
               x="91"
               y="0.5"
@@ -150,14 +95,7 @@ const VoiceMessage = () => {
               rx="1.5"
               fill="#E5E7EB"
             />
-            <rect
-              x="105"
-              y="2"
-              width="3"
-              height="36"
-              rx="1.5"
-              fill="#E5E7EB"
-            />
+            <rect x="105" y="2" width="3" height="36" rx="1.5" fill="#E5E7EB" />
             <rect
               x="112"
               y="6.5"
@@ -166,14 +104,7 @@ const VoiceMessage = () => {
               rx="1.5"
               fill="#E5E7EB"
             />
-            <rect
-              x="119"
-              y="9"
-              width="3"
-              height="22"
-              rx="1.5"
-              fill="#E5E7EB"
-            />
+            <rect x="119" y="9" width="3" height="22" rx="1.5" fill="#E5E7EB" />
             <rect
               x="126"
               y="11.5"
@@ -182,46 +113,11 @@ const VoiceMessage = () => {
               rx="1.5"
               fill="#E5E7EB"
             />
-            <rect
-              x="133"
-              y="2"
-              width="3"
-              height="36"
-              rx="1.5"
-              fill="#E5E7EB"
-            />
-            <rect
-              x="140"
-              y="2"
-              width="3"
-              height="36"
-              rx="1.5"
-              fill="#E5E7EB"
-            />
-            <rect
-              x="147"
-              y="7"
-              width="3"
-              height="26"
-              rx="1.5"
-              fill="#E5E7EB"
-            />
-            <rect
-              x="154"
-              y="9"
-              width="3"
-              height="22"
-              rx="1.5"
-              fill="#E5E7EB"
-            />
-            <rect
-              x="161"
-              y="9"
-              width="3"
-              height="22"
-              rx="1.5"
-              fill="#E5E7EB"
-            />
+            <rect x="133" y="2" width="3" height="36" rx="1.5" fill="#E5E7EB" />
+            <rect x="140" y="2" width="3" height="36" rx="1.5" fill="#E5E7EB" />
+            <rect x="147" y="7" width="3" height="26" rx="1.5" fill="#E5E7EB" />
+            <rect x="154" y="9" width="3" height="22" rx="1.5" fill="#E5E7EB" />
+            <rect x="161" y="9" width="3" height="22" rx="1.5" fill="#E5E7EB" />
             <rect
               x="168"
               y="13.5"
@@ -230,14 +126,7 @@ const VoiceMessage = () => {
               rx="1.5"
               fill="#E5E7EB"
             />
-            <rect
-              x="175"
-              y="16"
-              width="3"
-              height="8"
-              rx="1.5"
-              fill="#E5E7EB"
-            />
+            <rect x="175" y="16" width="3" height="8" rx="1.5" fill="#E5E7EB" />
             <rect
               x="182"
               y="17.5"
@@ -252,9 +141,7 @@ const VoiceMessage = () => {
             3:42
           </span>
         </div>
-        <span className="text-sm font-normal text-gray-500">
-          Delivered
-        </span>
+        <span className="text-sm font-normal text-gray-500">Delivered</span>
       </div>
       <button
         id="dropdownMenuIconButton"
@@ -282,42 +169,27 @@ const VoiceMessage = () => {
           aria-labelledby="dropdownMenuIconButton"
         >
           <li>
-            <a
-              href="#"
-              className="block px-4 py-2 hover:bg-gray-100"
-            >
+            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
               Reply
             </a>
           </li>
           <li>
-            <a
-              href="#"
-              className="block px-4 py-2 hover:bg-gray-100"
-            >
+            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
               Forward
             </a>
           </li>
           <li>
-            <a
-              href="#"
-              className="block px-4 py-2 hover:bg-gray-100"
-            >
+            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
               Copy
             </a>
           </li>
           <li>
-            <a
-              href="#"
-              className="block px-4 py-2 hover:bg-gray-100"
-            >
+            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
               Report
             </a>
           </li>
           <li>
-            <a
-              href="#"
-              className="block px-4 py-2 hover:bg-gray-100"
-            >
+            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
               Delete
             </a>
           </li>
