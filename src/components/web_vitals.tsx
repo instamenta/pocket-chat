@@ -2,7 +2,8 @@
 
 import { useReportWebVitals } from 'next/web-vitals';
 
-export function WebVitals() {
+// @ts-ignore
+export function WebVitals(): React.JSX {
   useReportWebVitals((metric) => {
     console.log(metric);
   });
