@@ -8,3 +8,4 @@ export function WebVitals(): React.JSX {
     console.log(metric);
   });
 }
+

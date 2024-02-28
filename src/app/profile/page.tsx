@@ -1,7 +1,7 @@
 'use client';
 
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { FaAddressCard, FaChevronLeft } from 'react-icons/fa6';
+import { FaAddressCard } from 'react-icons/fa6';
 import {
   CiEdit,
   CiGlobe,
@@ -26,7 +26,8 @@ import { personal_data_schema } from '@/lib/validation/schemas';
 import { toast } from 'react-toastify';
 import TextArea from '@/components/functional/TextArea';
 import { useUserContext } from '@/lib/context/UserContext';
-import useUser from '@/lib/store'; // TODO ADD EDIT PROFILE
+import useUser from '@/lib/store';
+import SimplifiedNavbar from '@/components/Navbar/SimplifiedNavbar'; // TODO ADD EDIT PROFILE
 
 type T_personalInfo = {
   email: string;
@@ -188,24 +189,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-white pb-10 text-black">
       {/* NAVIGATION BAR */}
-      <nav className="flex justify-between px-3 pt-3">
-        <button
-          className="flex justify-center align-middle"
-          onClick={(event) => {
-            event.preventDefault();
-            router.push('/');
-          }}
-        >
-          <FaChevronLeft className="h-6 w-6" />
-        </button>
-
-        <div className="m-auto w-full text-center">
-          <h1 className="select-none pb-5 text-xl font-medium">Edit Profile</h1>
-        </div>
-        <button className="flex justify-center align-middle">
-          <GoGear className="h-7 w-7" />
-        </button>
-      </nav>
+      <SimplifiedNavbar title={'Edit Profile'} />
 
       {/* TOP CONTAINER */}
       <section className="flex flex-col justify-center py-7 align-middle">

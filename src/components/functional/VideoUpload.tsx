@@ -11,11 +11,13 @@ interface UploadStatus {
 interface VideoUploadProps {
   onUploadSuccess: (filename: string) => void;
   customHeight?: string;
+  customUploadButtonText?: string;
 }
 
 const VideoUpload: React.FC<VideoUploadProps> = ({
   onUploadSuccess,
   customHeight,
+  customUploadButtonText
 }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [framePreviewUrl, setFramePreviewUrl] = useState<string | null>(null);
@@ -178,7 +180,7 @@ const VideoUpload: React.FC<VideoUploadProps> = ({
             hover:border-black hover:bg-transparent hover:text-black"
             onClick={handleUpload}
           >
-            Upload Video
+            {customUploadButtonText ?? 'Upload Video'}
           </button>
           {uploadStatus.status === 'uploading' && (
             <>
