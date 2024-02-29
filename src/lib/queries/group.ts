@@ -1,6 +1,6 @@
-import { GROUP } from '@/lib/variables';
+import { GROUP, GROUP_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
-import { handleResponse, handleResponseList } from '@/lib/utilities';
+import { handleResponse, handleResponseList, handleResponseVoid } from '@/lib/utilities';
 import { I_Group } from '@/lib/types';
 
 export const createGroup = async (
@@ -26,11 +26,35 @@ export const listGroups = async () =>
     }),
   ).then((r) => handleResponseList<I_Group>(r));
 
-// export const listShortsByUserId = async (id: string) =>
-//   fetch(
-//     GROUP_DYNAMIC.list_shorts_by_user_id.url(id),
-//     initRequest({
-//       method: GROUP_DYNAMIC.list_shorts_by_user_id.method,
-//       auth: true,
-//     }),
-//   ).then((r) => handleResponseList<I_ShortPopulated>(r));
+export const listGroupsByUser = async (id: string) =>
+  fetch(
+    GROUP_DYNAMIC.list_groups_by_user.url(id),
+    initRequest({
+      method: GROUP_DYNAMIC.list_groups_by_user.method,
+      auth: true,
+    }),
+  ).then((r) => handleResponseList<I_Group>(r));
+
+
+export const getGroupById = async (id: string) =>
+  fetch(
+    GROUP_DYNAMIC.get_group_by_id.url(id),
+    initRequest({
+      method: GROUP_DYNAMIC.get_group_by_id.method,
+      auth: true,
+    }),
+  ).then((r) => handleResponse<I_Group>(r));
+
+
+
+export const joinGroup = async (groupId: string) =>
+  fetch(
+    GROUP_DYNAMIC.join_group.url(groupId),
+    initRequest({
+      method: GROUP_DYNAMIC.join_group.method,
+      auth: true,
+    }),
+  ).then(handleResponseVoid);
+
+
+

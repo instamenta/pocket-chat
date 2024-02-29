@@ -111,6 +111,7 @@ const Feed = () => {
           </div>
           {/* Each Story */}
           {stories.map((story, index) => (
+
             <Link
               href="/feed/story"
               className="aspect-phone-portrait relative rounded-2xl border-2 border-white bg-slate-300 outline outline-blue-600"
@@ -152,10 +153,10 @@ const Feed = () => {
           <RiLiveFill className="size-6 fill-pink-600" />
           <span>Live</span>
         </div>
-        <div className="flex flex-row gap-1.5 rounded-2xl border-t border-t-slate-200 bg-white px-4 py-1.5 drop-shadow-lg">
+        <Link href='/group' className="flex flex-row gap-1.5 rounded-2xl border-t border-t-slate-200 bg-white px-4 py-1.5 drop-shadow-lg">
           <MdGroups className="size-6 fill-blue-600" />
           <span>Group</span>
-        </div>
+        </Link>
 
         <div className="flex flex-row gap-1.5 rounded-2xl border-t border-t-slate-200 bg-white px-4 py-1.5 drop-shadow-lg">
           <MdLiveTv className="size-6 fill-red-600" />
