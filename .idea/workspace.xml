@@ -6,13 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/feed/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/feed/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/group/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/group/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/group/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/group/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/functional/ImageCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/functional/ImageCarousel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/queries/group.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/group.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/variables.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/variables.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/feed/short/create/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/publish/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/publish/story/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar/PublishDropdown.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/PublishDropdown.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modals/Publish/Post.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/Publish/Post.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modals/Publish/Short.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/Publish/Short.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +170,7 @@
       <workItem from="1709239567358" duration="6526000" />
       <workItem from="1709580364901" duration="2840000" />
       <workItem from="1709623103077" duration="746000" />
-      <workItem from="1709666025912" duration="6052000" />
+      <workItem from="1709666025912" duration="8526000" />
     </task>
     <servers />
   </component>

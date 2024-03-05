@@ -9,6 +9,9 @@ import { PiShootingStarBold } from 'react-icons/pi';
 import { MdGroups3 } from 'react-icons/md';
 import { FaCalendarPlus } from 'react-icons/fa';
 import PublishShortModal from '@/components/modals/Publish/Short';
+import PublishPublicationModal from '@/components/modals/Publish/Post';
+import PublishStoryModal from '@/components/modals/Publish/Story';
+import PublishGroupPublicationModal from '@/components/modals/Publish/Group';
 
 type T_States =
   | 'none'
@@ -37,8 +40,9 @@ const PublishDropdown = () => {
               <span className="px-2.5 text-lg font-semibold">Publish</span>
             </div>
             <ul className="flex flex-col gap-4 px-2 py-4">
-              <li className="no-wrap flex gap-2 cursor-pointer transition-all border-y border-white shadow-inner hover:bg-gray-100 rounded-2xl pr-2 border-y-slate-100"
-              onClick={() => setState('publication')}
+              <li
+                className="no-wrap flex cursor-pointer gap-2 rounded-2xl border-y border-white border-y-slate-100 pr-2 shadow-inner transition-all hover:bg-gray-100"
+                onClick={() => setState('publication')}
               >
                 <div className="flex-center my-auto flex aspect-square content-center rounded-full bg-slate-200 p-2">
                   <FaRegPenToSquare className="size-6" />
@@ -52,8 +56,9 @@ const PublishDropdown = () => {
                   </span>
                 </div>
               </li>
-              <li className="no-wrap flex gap-2 cursor-pointer transition-all border-y border-white shadow-inner hover:bg-gray-100 rounded-2xl pr-2 border-y-slate-100"
-              onClick={() => setState('story')}
+              <li
+                className="no-wrap flex cursor-pointer gap-2 rounded-2xl border-y border-white border-y-slate-100 pr-2 shadow-inner transition-all hover:bg-gray-100"
+                onClick={() => setState('story')}
               >
                 <div className="flex-center my-auto flex aspect-square content-center rounded-full bg-slate-200 p-2">
                   <IoIosBook className="size-6" />
@@ -67,8 +72,9 @@ const PublishDropdown = () => {
                   </span>
                 </div>
               </li>
-              <li className="no-wrap flex gap-2 cursor-pointer transition-all border-y border-white shadow-inner hover:bg-gray-100 rounded-2xl pr-2 border-y-slate-100"
-              onClick={() => setState('short')}
+              <li
+                className="no-wrap flex cursor-pointer gap-2 rounded-2xl border-y border-white border-y-slate-100 pr-2 shadow-inner transition-all hover:bg-gray-100"
+                onClick={() => setState('short')}
               >
                 <div className="flex-center my-auto flex aspect-square content-center rounded-full bg-slate-200 p-2">
                   <SiYoutubeshorts className="size-6" />
@@ -82,8 +88,9 @@ const PublishDropdown = () => {
                   </span>
                 </div>
               </li>
-              <li className="no-wrap flex gap-2 cursor-pointer transition-all border-y border-white shadow-inner hover:bg-gray-100 rounded-2xl pr-2 border-y-slate-100"
-              onClick={() => setState('milestone')}
+              <li
+                className="no-wrap flex cursor-pointer gap-2 rounded-2xl border-y border-white border-y-slate-100 pr-2 shadow-inner transition-all hover:bg-gray-100"
+                onClick={() => setState('milestone')}
               >
                 <div className="flex-center my-auto flex aspect-square content-center rounded-full bg-slate-200 p-2">
                   <PiShootingStarBold className="size-6" />
@@ -97,8 +104,9 @@ const PublishDropdown = () => {
                   </span>
                 </div>
               </li>
-              <li className="no-wrap flex gap-2 cursor-pointer transition-all border-y border-white shadow-inner hover:bg-gray-100 rounded-2xl pr-2 border-y-slate-100"
-              onClick={() => setState('group')}
+              <li
+                className="no-wrap flex cursor-pointer gap-2 rounded-2xl border-y border-white border-y-slate-100 pr-2 shadow-inner transition-all hover:bg-gray-100"
+                onClick={() => setState('group')}
               >
                 <div className="flex-center my-auto flex aspect-square content-center rounded-full bg-slate-200 p-2">
                   <MdGroups3 className="size-6" />
@@ -113,8 +121,9 @@ const PublishDropdown = () => {
                   </span>
                 </div>
               </li>
-              <li className="no-wrap flex gap-2 cursor-pointer transition-all border-y border-white shadow-inner hover:bg-gray-100 rounded-2xl pr-2 border-y-slate-100"
-              onClick={() => setState('event')}
+              <li
+                className="no-wrap flex cursor-pointer gap-2 rounded-2xl border-y border-white border-y-slate-100 pr-2 shadow-inner transition-all hover:bg-gray-100"
+                onClick={() => setState('event')}
               >
                 <div className="flex-center my-auto flex aspect-square content-center rounded-full bg-slate-200 p-2">
                   <FaCalendarPlus className="size-6" />
@@ -136,17 +145,17 @@ const PublishDropdown = () => {
       {state !== 'none' ? (
         <section
           className="absolute left-0 top-0 z-30 flex h-screen items-center justify-center p-10"
-          style={{ backgroundColor: 'rgba(255,255,255,0.62)', width: '97vw' }}
+          style={{ backgroundColor: 'rgba(255,255,255,0.69)', width: '97vw' }}
           onClick={() => {
             setState('none');
           }}
         >
-          <article className="relative m-8 w-full rounded-xl border-2 border-blue-600 bg-white p-4 drop-shadow-2xl">
-            {state === 'publication' ? <></> : null}
-            {state === 'story' ? <></> : null}
-            {state === 'group' ? <></> : null}
+          <article className="relative m-8 flex w-full flex-col content-center justify-center rounded-xl border-2 border-blue-600 bg-white p-4 drop-shadow-2xl">
+            {state === 'publication' ? <PublishPublicationModal /> : null}
+            {state === 'story' ? <PublishStoryModal /> : null}
+            {state === 'group' ? <PublishGroupPublicationModal /> : null}
             {state === 'event' ? <></> : null}
-            {state === 'short' ? < PublishShortModal /> : null}
+            {state === 'short' ? <PublishShortModal /> : null}
             {state === 'milestone' ? <></> : null}
           </article>
         </section>

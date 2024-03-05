@@ -1,23 +1,34 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
+import TextArea from '@/components/functional/TextArea';
+import { useEdgeStore } from '@/lib/store/edgestore';
 import {
-  type FileState,
+  FileState,
   MultiImageDropzone,
 } from '@/components/edgestore/MultiImageDropzone';
-import React, { useState } from 'react';
-import { useEdgeStore } from '@/lib/store/edgestore';
 import { createPublication } from '@/lib/queries/publication';
-import { FaChevronLeft } from 'react-icons/fa6';
-import { GoGear } from 'react-icons/go';
-import { useRouter } from 'next/navigation';
-import TextArea from '@/components/functional/TextArea';
+import { MdGroups2 } from 'react-icons/md';
+import { I_Group } from '@/lib/types';
+import { useUserContext } from '@/lib/context/UserContext';
+import { listGroupsByUser } from '@/lib/queries/group';
 
-const CreatePublication = () => {
+const PublishGroupPublicationModal = () => {
   const { edgestore } = useEdgeStore();
-  const router = useRouter();
 
   const [fileStates, setFileStates] = useState<FileState[]>([]);
   const [description, setDescription] = useState<string>('');
+  const [groups, setGroups] = useState<I_Group[]>([]);
+  const [picked, setPicked] = useState<I_Group | null>(null);
+  const { user } = useUserContext();
+
+  useEffect(() => {
+    if (!user) return;
+    listGroupsByUser(user.id).then((d) => {
+      setGroups(d);
+      if (d.length) setPicked(d[0]);
+    });
+  }, [user]);
 
   function updateFileProgress(key: string, progress: FileState['progress']) {
     setFileStates((fileStates) => {
@@ -73,31 +84,23 @@ const CreatePublication = () => {
 
   return (
     <>
-      <nav className="flex justify-between px-3 pt-3">
-        <button
-          className="flex justify-center align-middle"
-          onClick={(event) => {
-            event.preventDefault();
-            router.push('/');
-          }}
-        >
-          <FaChevronLeft className="h-6 w-6" />
-        </button>
-        <div className="m-auto w-full text-center">
-          <h1 className="select-none pb-5 text-xl font-medium">
-            Create Publication
-          </h1>
-        </div>
-        <button className="flex justify-center align-middle">
-          <GoGear className="h-7 w-7" />
-        </button>
-      </nav>
-      <section className="px-4">
+      <div className="my-4 flex flex-col justify-center gap-2">
+        <MdGroups2 className="mx-auto size-24" />
+        <h2 className="mx-auto text-center text-xl font-semibold">
+          Publish to Group
+        </h2>
+      </div>
+
+      <div className="px-4">
         <div className="mb-4 w-full rounded-lg border border-gray-200 bg-gray-50 ">
-          <TextArea description={description} setDescription={setDescription} />
+          <TextArea
+            small={true}
+            description={description}
+            setDescription={setDescription}
+          />
         </div>
-      </section>
-      <section className="px-4">
+      </div>
+      <div className="px-4">
         <MultiImageDropzone
           className="bg-slate-200"
           value={fileStates}
@@ -111,8 +114,24 @@ const CreatePublication = () => {
             setFileStates([...fileStates, ...addedFiles]);
           }}
         />
-      </section>
-      <section className="flex w-full justify-center border-y-2 border-dashed border-slate-400 bg-slate-100 px-10 pb-4 pt-4">
+      </div>
+      <div className="w-full px-4 py-2 ">
+        <div className="rounded-xl py-2 outline outline-1 outline-slate-500">
+          <div className="">
+            {picked ? (
+              <span>{picked.name}</span>
+            ) : (
+              <span className="px-4">No groups</span>
+            )}
+          </div>
+          <ul className="">
+            {groups.map((group, index) => (
+              <li key={index}>{group.name}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="flex w-full justify-center px-10 pb-4 pt-4">
         <button
           onClick={handleSubmit}
           className="w-full rounded-md bg-blue-600 py-1 text-lg font-semibold text-white outline outline-2 outline-blue-600
@@ -120,9 +139,9 @@ const CreatePublication = () => {
         >
           Upload
         </button>
-      </section>
+      </div>
     </>
   );
 };
 
-export default CreatePublication;
+export default PublishGroupPublicationModal;
