@@ -6,14 +6,14 @@ import Swipe from 'react-easy-swipe';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 
 export default function ImageCarousel({ images }: { images: string[] }) {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [slide, setSlide] = useState(0);
 
   const handleNextSlide = () => {
-    setCurrentSlide(currentSlide === images.length - 1 ? 0 : currentSlide + 1);
+    setSlide(slide === images.length - 1 ? 0 : slide + 1);
   };
 
   const handlePrevSlide = () => {
-    setCurrentSlide(currentSlide === 0 ? images.length - 1 : currentSlide - 1);
+    setSlide(slide === 0 ? images.length - 1 : slide - 1);
   };
 
   return (
@@ -29,7 +29,7 @@ export default function ImageCarousel({ images }: { images: string[] }) {
           className="relative z-10 h-full w-full"
         >
           {images.map((image, index) => {
-            if (index === currentSlide) {
+            if (index === slide) {
               return (
                 <Image
                   key={index}
@@ -53,13 +53,13 @@ export default function ImageCarousel({ images }: { images: string[] }) {
           return (
             <div
               className={
-                index === currentSlide
+                index === slide
                   ? 'mx-2 mb-2 h-4 w-4 cursor-pointer rounded-full bg-gray-700'
                   : 'mx-2 mb-2 h-4 w-4 cursor-pointer rounded-full bg-gray-300'
               }
               key={index}
               onClick={() => {
-                setCurrentSlide(index);
+                setSlide(index);
               }}
             />
           );

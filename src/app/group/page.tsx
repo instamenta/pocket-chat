@@ -57,9 +57,11 @@ export default function GroupList() {
                       </span>
                     </div>
 
-                    <div className="min-h-8 w-full ">
-                      <p>{group.description}</p>
-                    </div>
+                    {group.description !== '' ? (
+                      <div className="min-h-8 py-4 w-full font-light text-slate-700">
+                        <p>{group.description}</p>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
 
@@ -71,7 +73,7 @@ export default function GroupList() {
               <div className="flex flex-col px-4 pb-4">
                 <Link
                   href={`/group/${group.id}`}
-                  className="w-full px-8 text-center rounded-md bg-blue-200 py-1 font-semibold text-blue-600 shadow-inner "
+                  className="w-full rounded-md bg-blue-200 px-8 py-1 text-center font-semibold text-blue-600 shadow-inner "
                 >
                   View Group
                 </Link>

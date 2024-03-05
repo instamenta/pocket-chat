@@ -1,7 +1,7 @@
 import { GROUP, GROUP_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
 import { handleResponse, handleResponseList, handleResponseVoid } from '@/lib/utilities';
-import { I_Group } from '@/lib/types';
+import { I_Group, I_Recommendation } from '@/lib/types';
 
 export const createGroup = async (
   name: string,
@@ -35,7 +35,6 @@ export const listGroupsByUser = async (id: string) =>
     }),
   ).then((r) => handleResponseList<I_Group>(r));
 
-
 export const getGroupById = async (id: string) =>
   fetch(
     GROUP_DYNAMIC.get_group_by_id.url(id),
@@ -44,8 +43,6 @@ export const getGroupById = async (id: string) =>
       auth: true,
     }),
   ).then((r) => handleResponse<I_Group>(r));
-
-
 
 export const joinGroup = async (groupId: string) =>
   fetch(
@@ -56,5 +53,12 @@ export const joinGroup = async (groupId: string) =>
     }),
   ).then(handleResponseVoid);
 
-
+export const listGroupPublication = async (id: string) =>
+  fetch(
+    GROUP_DYNAMIC.list_publications.url(id),
+    initRequest({
+      method: GROUP_DYNAMIC.list_publications.method,
+      auth: true,
+    }),
+  ).then((r) => handleResponseList<I_Recommendation>(r));
 

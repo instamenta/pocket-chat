@@ -6,6 +6,7 @@ import Link from 'next/link';
 import NotificationsBell from '@/components/Navbar/NotificationsBell';
 import Image from 'next/image';
 import DropdownMenu from '@/components/Navbar/DropdownMenu';
+import PublishDropdown from '@/components/Navbar/PublishDropdown';
 
 const Navbar = () => {
   return (
@@ -27,6 +28,9 @@ const Navbar = () => {
         {/* Main Navigation */}
         <div className="flex flex-row items-center space-x-4 text-gray-800">
           <div className="flex flex-row content-center justify-center align-middle">
+            {/* Publish */}
+            < PublishDropdown />
+
             {/* Notifications */}
             <NotificationsBell />
 

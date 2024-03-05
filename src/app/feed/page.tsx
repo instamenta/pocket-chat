@@ -6,8 +6,6 @@ import Navbar from '@/components/Navbar/Navbar';
 import { getRecommendations, likePublication } from '@/lib/queries/publication';
 import { FaAddressBook, FaCommentDots, FaRegHeart } from 'react-icons/fa';
 import { FaHeart, FaRegShareFromSquare } from 'react-icons/fa6';
-import { CiSquarePlus } from 'react-icons/ci';
-import { TfiGallery } from 'react-icons/tfi';
 import { MdGroups, MdLiveTv, MdMore } from 'react-icons/md';
 import { RiLiveFill } from 'react-icons/ri';
 import { AiFillPlusCircle } from 'react-icons/ai';
@@ -18,6 +16,7 @@ import PublicationDetails from '@/components/modals/PublicationDetails';
 import { IoHeartHalfOutline } from 'react-icons/io5';
 import { useUserContext } from '@/lib/context/UserContext';
 import { SiYoutubeshorts } from 'react-icons/si';
+import QuickPost from '@/components/modals/QuickPost';
 
 const Feed = () => {
   const { user } = useUserContext();
@@ -75,19 +74,7 @@ const Feed = () => {
         />
       )}
 
-      <section className="flex flex-row justify-between gap-1 px-4 py-2">
-        <CiSquarePlus className="my-auto h-12 w-12 fill-blue-600 transition-all hover:scale-110" />
-        <textarea
-          id="editor"
-          rows={1}
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
-          className="block w-full border-0 bg-white px-2 pt-3 text-sm text-gray-800 outline-none focus:ring-0"
-          placeholder="Share your experience with everybody."
-          required
-        ></textarea>
-        <TfiGallery className="my-auto h-10 w-12 rounded-xl fill-green-600 px-1 transition-all hover:scale-110 hover:bg-slate-200 hover:fill-green-700 " />
-      </section>
+      <QuickPost description={description} setDescription={setDescription} />
 
       {/* Story Section */}
       <div className="drop-shadow-md">
@@ -111,7 +98,6 @@ const Feed = () => {
           </div>
           {/* Each Story */}
           {stories.map((story, index) => (
-
             <Link
               href="/feed/story"
               className="aspect-phone-portrait relative rounded-2xl border-2 border-white bg-slate-300 outline outline-blue-600"
@@ -153,7 +139,10 @@ const Feed = () => {
           <RiLiveFill className="size-6 fill-pink-600" />
           <span>Live</span>
         </div>
-        <Link href='/group' className="flex flex-row gap-1.5 rounded-2xl border-t border-t-slate-200 bg-white px-4 py-1.5 drop-shadow-lg">
+        <Link
+          href="/group"
+          className="flex flex-row gap-1.5 rounded-2xl border-t border-t-slate-200 bg-white px-4 py-1.5 drop-shadow-lg"
+        >
           <MdGroups className="size-6 fill-blue-600" />
           <span>Group</span>
         </Link>

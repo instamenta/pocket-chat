@@ -270,10 +270,6 @@ export const GROUP = {
     url: new URL(`${endpoints.group}/`),
     method: 'GET',
   } as T_Rest,
-  list_publications: {
-    url: new URL(`${endpoints.group}/post`),
-    method: 'GET',
-  } as T_Rest,
   create_group: {
     url: new URL(`${endpoints.group}/`),
     method: 'POST',
@@ -319,6 +315,10 @@ export const GROUP_DYNAMIC = {
       new URL(`${endpoints.group}/${id1}/${id2}`),
     method: 'DELETE',
   } as T_Rest2Param,
+  list_publications: {
+    url: (id) => new URL(`${endpoints.group}/post/${id}`),
+    method: 'GET',
+  } as T_Rest1Param,
 };
 
 export const JWT = { token_name: 'X-Authorization-Token' };
