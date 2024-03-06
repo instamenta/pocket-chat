@@ -20,6 +20,7 @@ const PublishGroupPublicationModal = () => {
   const [description, setDescription] = useState<string>('');
   const [groups, setGroups] = useState<I_Group[]>([]);
   const [picked, setPicked] = useState<I_Group | null>(null);
+  const [toggle, setToggle] = useState<boolean>(false);
   const { user } = useUserContext();
 
   useEffect(() => {
@@ -29,6 +30,11 @@ const PublishGroupPublicationModal = () => {
       if (d.length) setPicked(d[0]);
     });
   }, [user]);
+
+  const handleGroupClick = (group: I_Group) => {
+    setPicked(group);
+    setToggle(prev => !prev);
+  };
 
   function updateFileProgress(key: string, progress: FileState['progress']) {
     setFileStates((fileStates) => {
@@ -91,6 +97,50 @@ const PublishGroupPublicationModal = () => {
         </h2>
       </div>
 
+      <div className="relative w-full px-4 py-2 pb-6">
+        <div
+          className="rounded-xl py-2 outline outline-1 outline-slate-500"
+          onClick={() => setToggle((prev) => !prev)}
+        >
+          <div className="">
+            {picked ? (
+              <div className="flex flex-nowrap gap-2 px-4">
+                <div>
+                  <img src={picked.image_url} className="size-6" alt="pic" />
+                </div>
+                <span className="my-auto text-sm font-semibold">
+                  {picked.name}
+                </span>
+              </div>
+            ) : (
+              <span className="px-4">No groups</span>
+            )}
+          </div>
+          {toggle && (
+            <div className="absolute left-0 mt-3 w-full px-4">
+              <ul className=" divide-y divide-gray-400 rounded-md border bg-white shadow-md">
+                {groups.map((group, index) => (
+                  <li
+                    key={index}
+                    className={`flex flex-nowrap gap-2 px-4 py-2 hover:bg-blue-50 ${
+                      group.id === picked?.id ? 'bg-slate-200' : ''
+                    }`}
+                    onClick={() => handleGroupClick(group)}
+                  >
+                    <div>
+                      <img src={group.image_url} className="size-6" alt="pic" />
+                    </div>
+                    <span className="my-auto text-sm font-semibold">
+                      {group.name}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+
       <div className="px-4">
         <div className="mb-4 w-full rounded-lg border border-gray-200 bg-gray-50 ">
           <TextArea
@@ -115,22 +165,7 @@ const PublishGroupPublicationModal = () => {
           }}
         />
       </div>
-      <div className="w-full px-4 py-2 ">
-        <div className="rounded-xl py-2 outline outline-1 outline-slate-500">
-          <div className="">
-            {picked ? (
-              <span>{picked.name}</span>
-            ) : (
-              <span className="px-4">No groups</span>
-            )}
-          </div>
-          <ul className="">
-            {groups.map((group, index) => (
-              <li key={index}>{group.name}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
+
       <div className="flex w-full justify-center px-10 pb-4 pt-4">
         <button
           onClick={handleSubmit}

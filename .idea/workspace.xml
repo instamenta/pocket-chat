@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/feed/short/create/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/publish/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/publish/story/page.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Navbar/PublishDropdown.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/PublishDropdown.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modals/Publish/Post.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/Publish/Post.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modals/Publish/Short.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/Publish/Short.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modals/Publish/Group.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/Publish/Group.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +166,9 @@
       <workItem from="1709239567358" duration="6526000" />
       <workItem from="1709580364901" duration="2840000" />
       <workItem from="1709623103077" duration="746000" />
-      <workItem from="1709666025912" duration="8526000" />
+      <workItem from="1709666025912" duration="10897000" />
+      <workItem from="1709704260477" duration="646000" />
+      <workItem from="1709739897652" duration="2639000" />
     </task>
     <servers />
   </component>

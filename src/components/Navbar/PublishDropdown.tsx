@@ -144,13 +144,19 @@ const PublishDropdown = () => {
 
       {state !== 'none' ? (
         <section
-          className="absolute left-0 top-0 z-30 flex h-screen items-center justify-center p-10"
+          className="absolute left-0 top-0 z-20 flex h-screen items-center justify-center p-10"
           style={{ backgroundColor: 'rgba(255,255,255,0.69)', width: '97vw' }}
           onClick={() => {
             setState('none');
           }}
         >
-          <article className="relative m-8 flex w-full flex-col content-center justify-center rounded-xl border-2 border-blue-600 bg-white p-4 drop-shadow-2xl">
+          <article
+            id="publish-modal"
+            className="relative z-30 m-8 flex w-full flex-col content-center justify-center rounded-xl border-2 border-blue-600 bg-white p-4 drop-shadow-2xl"
+            onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) =>
+              e.stopPropagation()
+            }
+          >
             {state === 'publication' ? <PublishPublicationModal /> : null}
             {state === 'story' ? <PublishStoryModal /> : null}
             {state === 'group' ? <PublishGroupPublicationModal /> : null}
