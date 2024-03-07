@@ -21,7 +21,7 @@ const PublishShortModal = () => {
   return (
     <>
       <div className="my-4 flex flex-col justify-center gap-2">
-        <SiYoutubeshorts className="size-24 mx-auto" />
+        <SiYoutubeshorts className="mx-auto size-24 fill-red-600" />
         <h2 className="mx-auto text-center text-xl font-semibold">
           Publish Short
         </h2>
@@ -33,13 +33,17 @@ const PublishShortModal = () => {
             rows={4}
             description={description}
             setDescription={setDescription}
-            placeholder="Share your experience with everybody."
+            placeholder="Description"
             small={true}
           />
         </section>
       </div>
       <div className="">
-        <VideoUpload onUploadSuccess={handleUpload} customHeight={'100%'} />
+        <VideoUpload
+          onUploadSuccess={handleUpload}
+          customHeight={'100%'}
+          className="rounded-2xl bg-white text-red-600 outline outline-2 mb-4 outline-red-600"
+        />
       </div>
     </>
   );

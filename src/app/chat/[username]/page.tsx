@@ -20,7 +20,7 @@ import Link from 'next/link';
 import { getBySenderAndRecipient } from '@/lib/queries/friend';
 import { useRecipient } from '@/lib/hooks';
 import { useUserContext } from '@/lib/context/UserContext';
-import { useWebSocket } from '@/lib/context/WebsocketContext';
+import { useWebSocket, wsSendMessage } from '@/lib/context/WebsocketContext';
 import { useEdgeStore } from '@/lib/store/edgestore';
 import { importImages } from '@/lib/utilities/files';
 import VoiceRecorder from '@/components/functional/VoiceRecording';
@@ -93,16 +93,14 @@ export default function Chat({
       imageUrls = await importImages(edgestore, images);
     }
 
-    ws!.send(
-      JSON.stringify({
-        type: 'message',
-        sender: user.id,
-        recipient: recipient?.id,
-        content: message,
-        date: new Date().toISOString(),
-        images: imageUrls,
-      }),
-    );
+    wsSendMessage({
+      ws: ws,
+      sender: user.id,
+      recipient: recipient?.id,
+      content: message,
+      images: imageUrls,
+    });
+
     setMessage('');
     setImages(null);
     setPickerState(false);

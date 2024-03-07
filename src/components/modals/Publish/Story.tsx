@@ -45,7 +45,7 @@ const PublishStoryModal = () => {
   return (
     <>
       <div className="my-4 flex flex-col justify-center gap-2">
-        <GoBook className="mx-auto size-24" />
+        <GoBook className="mx-auto size-24 fill-purple-600" />
         <h2 className="mx-auto text-center text-xl font-semibold">
           Publish Story
         </h2>
@@ -55,19 +55,19 @@ const PublishStoryModal = () => {
         width={1}
         height={1}
         value={file}
-        className="m-auto border-2 w-full aspect-phone-portrait bg-white transition-all hover:bg-slate-200"
+        className="aspect-phone-portrait m-auto w-full border-2 bg-white transition-all hover:bg-slate-200"
         onChange={setFile}
       />
 
       <button
-        className="mx-10 my-6 flex items-center gap-4 rounded-md bg-white px-5 outline outline-2 outline-slate-300
-          transition-all hover:scale-110 hover:outline-blue-600 text-slate-600 hover:text-blue-600"
+        className="mx-10 my-6 flex items-center gap-4 rounded-md bg-white px-5 text-slate-600 outline outline-2
+          outline-slate-300 transition-all hover:scale-110 hover:text-purple-600 hover:outline-purple-600"
         onClick={handleImageUpload}
       >
         <div className="scale-150 rounded-full bg-white">
-          <IoCloudUploadOutline className="h-10 w-10 transition-all hover:scale-110" />
+          <IoCloudUploadOutline className="h-10 w-10 text-purple-600 transition-all hover:scale-110" />
         </div>
-        <span className="text-2xl font-semibold text-center ml-4">Upload</span>
+        <span className="ml-4 text-center text-2xl font-semibold">Upload</span>
       </button>
     </>
   );

@@ -1,6 +1,10 @@
 import { GROUP, GROUP_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
-import { handleResponse, handleResponseList, handleResponseVoid } from '@/lib/utilities';
+import {
+  handleResponse,
+  handleResponseList,
+  handleResponseVoid,
+} from '@/lib/utilities';
 import { I_Group, I_Recommendation } from '@/lib/types';
 
 export const createGroup = async (
@@ -14,6 +18,21 @@ export const createGroup = async (
       method: GROUP.create_group.method,
       auth: true,
       body: { name, description, imageUrl },
+    }),
+  ).then((r) => handleResponse<{ id: string }>(r));
+
+export const createGroupPublication = async (
+  description: string,
+  images: string[],
+  groupId: string,
+  publication_status: 'draft' | 'published' = 'published',
+) =>
+  fetch(
+    GROUP.create_publication.url,
+    initRequest({
+      method: GROUP.create_publication.method,
+      auth: true,
+      body: { description, images, groupId, publication_status },
     }),
   ).then((r) => handleResponse<{ id: string }>(r));
 
@@ -61,4 +80,3 @@ export const listGroupPublication = async (id: string) =>
       auth: true,
     }),
   ).then((r) => handleResponseList<I_Recommendation>(r));
-

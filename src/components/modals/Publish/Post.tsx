@@ -10,7 +10,6 @@ import {
 import { createPublication } from '@/lib/queries/publication';
 import { FaRegPenToSquare } from 'react-icons/fa6';
 
-
 const PublishPublicationModal = () => {
   const { edgestore } = useEdgeStore();
 
@@ -72,7 +71,7 @@ const PublishPublicationModal = () => {
   return (
     <>
       <div className="my-4 flex flex-col justify-center gap-2">
-        <FaRegPenToSquare className="size-24 mx-auto" />
+        <FaRegPenToSquare className="mx-auto size-24 fill-blue-600" />
         <h2 className="mx-auto text-center text-xl font-semibold">
           Publish Publication
         </h2>
@@ -80,7 +79,11 @@ const PublishPublicationModal = () => {
 
       <section className="px-4">
         <div className="mb-4 w-full rounded-lg border border-gray-200 bg-gray-50 ">
-          <TextArea small={true} description={description} setDescription={setDescription} />
+          <TextArea
+            small={true}
+            description={description}
+            setDescription={setDescription}
+          />
         </div>
       </section>
       <section className="px-4">
@@ -98,8 +101,7 @@ const PublishPublicationModal = () => {
           }}
         />
       </section>
-      <section
-        className="flex w-full justify-center px-10 pb-4 pt-4">
+      <section className="flex w-full justify-center px-10 pb-4 pt-4">
         <button
           onClick={handleSubmit}
           className="w-full rounded-md bg-blue-600 py-1 text-lg font-semibold text-white outline outline-2 outline-blue-600

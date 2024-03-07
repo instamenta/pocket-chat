@@ -207,29 +207,65 @@ export interface I_ShortPopulated {
 }
 
 export interface I_Group {
-  id: string,
-  owner_id: string,
-  name: string,
-  description: string,
-  created_at: string,
-  members_count: number,
-  image_url: string,
+  id: string;
+  owner_id: string;
+  name: string;
+  description: string;
+  created_at: string;
+  members_count: number;
+  image_url: string;
 }
 
 export interface I_GroupMember {
-  id: string,
-  group_id: string,
-  user_id: string,
-  member_since: string,
-  role: group_roles,
+  id: string;
+  group_id: string;
+  user_id: string;
+  member_since: string;
+  role: group_roles;
 }
 
 export interface I_GroupMemberPopulated {
-  user_id: string
-  username: string
-  first_name: string
-  last_name: string
-  picture: string
-  role: group_roles
-  member_since: string
+  user_id: string;
+  username: string;
+  first_name: string;
+  last_name: string;
+  picture: string;
+  role: group_roles;
+  member_since: string;
 }
+
+export type E_LiveStates = 'active' | 'paused' | 'ended';
+
+export type T_LivePopulated = {
+  user_id: string;
+  user_picture: string;
+  username: string;
+  first_name: string;
+  last_name: string;
+  state: E_LiveStates;
+  created_at: string;
+  id: string;
+};
+
+export type T_LiveMessagePopulated = {
+  id: string;
+  user_id: string;
+  user_picture: string;
+  username: string;
+  first_name: string;
+  last_name: string;
+  content: string;
+  created_at: string;
+};
+
+export type I_JoinLiveRequest = {
+  type: socket_events;
+  liveId: string;
+};
+
+export type I_LiveMessageRequest = {
+  sender: string;
+  content: string;
+  liveId: string;
+  type: socket_events;
+};

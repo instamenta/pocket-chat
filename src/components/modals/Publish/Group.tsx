@@ -7,14 +7,15 @@ import {
   FileState,
   MultiImageDropzone,
 } from '@/components/edgestore/MultiImageDropzone';
-import { createPublication } from '@/lib/queries/publication';
 import { MdGroups2 } from 'react-icons/md';
 import { I_Group } from '@/lib/types';
 import { useUserContext } from '@/lib/context/UserContext';
-import { listGroupsByUser } from '@/lib/queries/group';
+import { createGroupPublication, listGroupsByUser } from '@/lib/queries/group';
+import { useRouter } from 'next/navigation';
 
 const PublishGroupPublicationModal = () => {
   const { edgestore } = useEdgeStore();
+  const router = useRouter();
 
   const [fileStates, setFileStates] = useState<FileState[]>([]);
   const [description, setDescription] = useState<string>('');
@@ -33,7 +34,7 @@ const PublishGroupPublicationModal = () => {
 
   const handleGroupClick = (group: I_Group) => {
     setPicked(group);
-    setToggle(prev => !prev);
+    setToggle((prev) => !prev);
   };
 
   function updateFileProgress(key: string, progress: FileState['progress']) {
@@ -53,6 +54,8 @@ const PublishGroupPublicationModal = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
+    if (!picked) return console.error('No group picked');
+
     const imageUrls: string[] = [];
 
     await Promise.all(
@@ -78,20 +81,18 @@ const PublishGroupPublicationModal = () => {
       }),
     );
 
-    const id = await createPublication({
-      publication_status: 'published',
-      description: description,
-      images: imageUrls,
-    });
-    if (!id) {
+    const response = await createGroupPublication(description, imageUrls, picked.id);
+    if (!response) {
       return console.error('Failed to create post');
     }
+
+    router.push(`/group/${response.id}`);
   };
 
   return (
     <>
-      <div className="my-4 flex flex-col justify-center gap-2">
-        <MdGroups2 className="mx-auto size-24" />
+      <div className="my-4 flex flex-col justify-center">
+        <MdGroups2 className="mx-auto size-28 fill-green-600" />
         <h2 className="mx-auto text-center text-xl font-semibold">
           Publish to Group
         </h2>
@@ -147,6 +148,7 @@ const PublishGroupPublicationModal = () => {
             small={true}
             description={description}
             setDescription={setDescription}
+            placeholder='Description'
           />
         </div>
       </div>
@@ -169,8 +171,8 @@ const PublishGroupPublicationModal = () => {
       <div className="flex w-full justify-center px-10 pb-4 pt-4">
         <button
           onClick={handleSubmit}
-          className="w-full rounded-md bg-blue-600 py-1 text-lg font-semibold text-white outline outline-2 outline-blue-600
-        transition-all hover:bg-white hover:text-blue-600"
+          className="w-full rounded-md bg-green-600 py-1 text-lg font-semibold text-white outline outline-2 outline-green-600
+        transition-all hover:bg-white hover:text-green-600"
         >
           Upload
         </button>

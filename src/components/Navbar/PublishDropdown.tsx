@@ -12,6 +12,8 @@ import PublishShortModal from '@/components/modals/Publish/Short';
 import PublishPublicationModal from '@/components/modals/Publish/Post';
 import PublishStoryModal from '@/components/modals/Publish/Story';
 import PublishGroupPublicationModal from '@/components/modals/Publish/Group';
+import PublishLiveModal from '@/components/modals/Publish/Live';
+import { RiLiveFill } from 'react-icons/ri';
 
 type T_States =
   | 'none'
@@ -20,7 +22,8 @@ type T_States =
   | 'group'
   | 'event'
   | 'short'
-  | 'milestone';
+  | 'milestone'
+  | 'live';
 
 const PublishDropdown = () => {
   const [toggle, setToggle] = React.useState<boolean>(false);
@@ -90,22 +93,6 @@ const PublishDropdown = () => {
               </li>
               <li
                 className="no-wrap flex cursor-pointer gap-2 rounded-2xl border-y border-white border-y-slate-100 pr-2 shadow-inner transition-all hover:bg-gray-100"
-                onClick={() => setState('milestone')}
-              >
-                <div className="flex-center my-auto flex aspect-square content-center rounded-full bg-slate-200 p-2">
-                  <PiShootingStarBold className="size-6" />
-                </div>
-                <div className="my-auto flex flex-col justify-start">
-                  <span className="text-sm font-semibold text-slate-800">
-                    Milestone
-                  </span>
-                  <span className="text-sm font-light text-slate-600">
-                    Add a life event
-                  </span>
-                </div>
-              </li>
-              <li
-                className="no-wrap flex cursor-pointer gap-2 rounded-2xl border-y border-white border-y-slate-100 pr-2 shadow-inner transition-all hover:bg-gray-100"
                 onClick={() => setState('group')}
               >
                 <div className="flex-center my-auto flex aspect-square content-center rounded-full bg-slate-200 p-2">
@@ -118,6 +105,38 @@ const PublishDropdown = () => {
                   </span>
                   <span className="text-sm font-light text-slate-600">
                     Share a post in group
+                  </span>
+                </div>
+              </li>
+              <li
+                className="no-wrap flex cursor-pointer gap-2 rounded-2xl border-y border-white border-y-slate-100 pr-2 shadow-inner transition-all hover:bg-gray-100"
+                onClick={() => setState('live')}
+              >
+                <div className="flex-center my-auto flex aspect-square content-center rounded-full bg-slate-200 p-2">
+                  <RiLiveFill className="size-6" />
+                </div>
+                <div className="my-auto flex flex-col justify-start">
+                  <span className="text-sm font-semibold text-slate-800">
+                    Live
+                  </span>
+                  <span className="text-sm font-light text-slate-600">
+                    Start live event
+                  </span>
+                </div>
+              </li>
+              <li
+                className="no-wrap flex cursor-pointer gap-2 rounded-2xl border-y border-white border-y-slate-100 pr-2 shadow-inner transition-all hover:bg-gray-100"
+                onClick={() => setState('milestone')}
+              >
+                <div className="flex-center my-auto flex aspect-square content-center rounded-full bg-slate-200 p-2">
+                  <PiShootingStarBold className="size-6" />
+                </div>
+                <div className="my-auto flex flex-col justify-start">
+                  <span className="text-sm font-semibold text-slate-800">
+                    Milestone
+                  </span>
+                  <span className="text-sm font-light text-slate-600">
+                    Add a life event
                   </span>
                 </div>
               </li>
@@ -152,7 +171,18 @@ const PublishDropdown = () => {
         >
           <article
             id="publish-modal"
-            className="relative z-30 m-8 flex w-full flex-col content-center justify-center rounded-xl border-2 border-blue-600 bg-white p-4 drop-shadow-2xl"
+            className={`relative z-30 m-8 flex w-full flex-col content-center justify-center rounded-xl border-2  bg-white p-4 drop-shadow-2xl
+            ${
+              state === 'live'
+                ? 'border-pink-600'
+                : state === 'short'
+                  ? 'border-red-600'
+                  : state === 'group'
+                    ? 'border-green-600'
+                    : state === 'story'
+                      ? 'border-purple-600'
+                      : 'border-blue-600'
+            }`}
             onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) =>
               e.stopPropagation()
             }
@@ -160,8 +190,9 @@ const PublishDropdown = () => {
             {state === 'publication' ? <PublishPublicationModal /> : null}
             {state === 'story' ? <PublishStoryModal /> : null}
             {state === 'group' ? <PublishGroupPublicationModal /> : null}
-            {state === 'event' ? <></> : null}
             {state === 'short' ? <PublishShortModal /> : null}
+            {state === 'live' ? <PublishLiveModal /> : null}
+            {state === 'event' ? <></> : null}
             {state === 'milestone' ? <></> : null}
           </article>
         </section>

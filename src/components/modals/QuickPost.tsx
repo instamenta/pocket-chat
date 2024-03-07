@@ -5,12 +5,16 @@ import { TfiGallery } from 'react-icons/tfi';
 const QuickPost = ({
   description,
   setDescription,
+  className = '',
 }: {
   description: string;
   setDescription: (data: string) => void;
+  className?: string;
 }) => {
   return (
-    <section className="flex flex-row justify-between gap-1 px-4 py-2">
+    <section
+      className={`flex flex-row justify-between gap-1 bg-white px-4 py-2 ${className}`}
+    >
       <CiSquarePlus className="my-auto h-12 w-12 fill-blue-600 transition-all hover:scale-110" />
       <textarea
         id="editor"

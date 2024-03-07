@@ -11,6 +11,7 @@ import Cookie from 'js-cookie';
 import { blob_to_json } from '@/lib/utilities';
 
 import mitt, { Emitter } from 'mitt';
+import { socket_events } from '@/lib/types/enumerations';
 
 type MittEvents = {
   message: I_Message;
@@ -54,21 +55,21 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
       setTimeout(connectWebSocket, 2000);
     };
 
-    ws.onmessage = (event: MessageEvent) => {
+    ws.onmessage = (event: MessageEvent) =>
       blob_to_json<I_Message | T_VideoCallInviteResponse>(
         event.data,
         (data) => {
           if (!data) return console.log('Fail :///');
           console.log(`Emitting event ${data.type}`);
+
           switch (data.type) {
-            case 'message':
-              emitter.emit('message', data as I_Message);
+            case socket_events.MESSAGE:
+              emitter.emit(socket_events.MESSAGE, data as I_Message);
               break;
-            case 'video-call-invite':
-              console.log('--------------------------');
+            case socket_events.VIDEO_CALL_INVITE:
               useCallNotification(data as T_VideoCallInviteResponse);
               emitter.emit(
-                'video-call-invite',
+                socket_events.VIDEO_CALL_INVITE,
                 data as T_VideoCallInviteResponse,
               );
               break;
@@ -77,7 +78,6 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
           }
         },
       );
-    };
 
     setWebSocket(ws);
     setEmitter(emitter);
@@ -99,4 +99,79 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
 
 export function useCallNotification(callData: T_VideoCallInviteResponse) {
   toast((t) => <VideoChatInvitation {...t} data={callData} />, toast_config);
+}
+
+export function wsJoinLive({
+  ws,
+  liveId,
+}: {
+  ws?: WebSocket | null;
+  liveId?: string | null;
+}) {
+  if (!ws) return console.error('Websocket not found');
+  if (!liveId) return console.error('No liveId');
+
+  ws.send(
+    JSON.stringify({
+      type: socket_events.JOIN_LIVE,
+      liveId,
+    }),
+  );
+}
+
+export function wsSendLiveMessage({
+  ws,
+  liveId,
+  sender,
+  content,
+}: {
+  ws?: WebSocket | null;
+  liveId?: string | null;
+  sender?: string | null;
+  content?: string | null;
+}) {
+  if (!ws) return console.error('Websocket not found');
+  if (!liveId) return console.error('No liveId');
+  if (!sender) return console.error('No sender');
+  if (!content) return console.error('No content');
+
+  ws.send(
+    JSON.stringify({
+      type: socket_events.LIVE_MESSAGE,
+      liveId,
+      sender,
+      content,
+    }),
+  );
+}
+
+export function wsSendMessage({
+  ws,
+  sender,
+  recipient,
+  content = '',
+  date,
+  images,
+}: {
+  content: string;
+  images: string[];
+  ws?: WebSocket | null;
+  sender?: string | null;
+  recipient?: string | null;
+  date?: Date;
+}) {
+  if (!ws) return console.error('Websocket not found');
+  if (!sender) return console.error('No Sender');
+  if (!recipient) return console.error('No Recipient');
+
+  ws.send(
+    JSON.stringify({
+      type: socket_events.MESSAGE,
+      sender,
+      recipient,
+      content,
+      date: date ? date.toISOString() : new Date().toISOString(),
+      images,
+    }),
+  );
 }

@@ -4,6 +4,7 @@ const API_URL = 'http://localhost:3002/api';
 
 const endpoints = {
   user: `${API_URL}/user`,
+  live: `${API_URL}/live`,
   story: `${API_URL}/story`,
   group: `${API_URL}/group`,
   short: `${API_URL}/short`,
@@ -275,7 +276,7 @@ export const GROUP = {
     method: 'POST',
   } as T_Rest,
   create_publication: {
-    url: new URL(`${endpoints.group}/`),
+    url: new URL(`${endpoints.group}/post`),
     method: 'POST',
   } as T_Rest,
 };
@@ -317,6 +318,28 @@ export const GROUP_DYNAMIC = {
   } as T_Rest2Param,
   list_publications: {
     url: (id) => new URL(`${endpoints.group}/post/${id}`),
+    method: 'GET',
+  } as T_Rest1Param,
+};
+
+export const LIVE = {
+  create_live: {
+    url: new URL(`${endpoints.live}/`),
+    method: 'POST',
+  } as T_Rest,
+  list_lives: {
+    url: new URL(`${endpoints.live}/`),
+    method: 'GET',
+  } as T_Rest,
+};
+
+export const LIVE_DYNAMIC = {
+  update_live_state: {
+    url: (state: string) => new URL(`${endpoints.live}/${state}`),
+    method: 'PUT',
+  } as T_Rest1Param,
+  list_live_messages: {
+    url: (id: string) => new URL(`${endpoints.live}/${id}`),
     method: 'GET',
   } as T_Rest1Param,
 };

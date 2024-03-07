@@ -12,12 +12,14 @@ interface VideoUploadProps {
   onUploadSuccess: (filename: string) => void;
   customHeight?: string;
   customUploadButtonText?: string;
+  className?: string;
 }
 
 const VideoUpload: React.FC<VideoUploadProps> = ({
   onUploadSuccess,
   customHeight,
-  customUploadButtonText
+  customUploadButtonText,
+  className,
 }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [framePreviewUrl, setFramePreviewUrl] = useState<string | null>(null);
@@ -176,8 +178,8 @@ const VideoUpload: React.FC<VideoUploadProps> = ({
             accept="video/*"
           />
           <button
-            className="mt-4 rounded border-2 bg-slate-400 px-4 py-2 font-bold text-white transition-all
-            hover:border-black hover:bg-transparent hover:text-black"
+            className={`mt-4 rounded border-2 ${className ? className: 'bg-slate-400 text-white'}  px-4 py-2 font-bold transition-all
+            hover:border-black hover:bg-transparent hover:text-black`}
             onClick={handleUpload}
           >
             {customUploadButtonText ?? 'Upload Video'}
