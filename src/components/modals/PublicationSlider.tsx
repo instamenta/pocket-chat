@@ -105,7 +105,7 @@ const PublicationSlider = ({
           {/* Images Grid Container */}
           <div
             onClick={() => handleOpenPublicationDetails(publication)}
-            className={`grid  ${
+            className={`grid ${
               publication.images.length === 1 ? 'grid-cols-1' : 'grid-cols-2'
             }`}
           >
@@ -113,11 +113,11 @@ const PublicationSlider = ({
             {publication.images
               .slice(0, 4)
               .map((image: string, index: number) => (
-                <div key={index} className="aspect-square overflow-hidden">
+                <div key={index} className="overflow-hidden">
                   <img
                     src={image}
                     alt="image"
-                    className="aspect-square overflow-hidden object-center"
+                    className="object-contain"
                   />
                 </div>
               ))}

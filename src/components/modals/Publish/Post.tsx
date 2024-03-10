@@ -9,9 +9,11 @@ import {
 } from '@/components/edgestore/MultiImageDropzone';
 import { createPublication } from '@/lib/queries/publication';
 import { FaRegPenToSquare } from 'react-icons/fa6';
+import { useRouter } from 'next/navigation';
 
 const PublishPublicationModal = () => {
   const { edgestore } = useEdgeStore();
+  const router = useRouter();
 
   const [fileStates, setFileStates] = useState<FileState[]>([]);
   const [description, setDescription] = useState<string>('');
@@ -66,6 +68,7 @@ const PublishPublicationModal = () => {
     if (!id) {
       return console.error('Failed to create post');
     }
+    router.push('/publ')
   };
 
   return (

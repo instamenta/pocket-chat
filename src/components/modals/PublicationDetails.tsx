@@ -202,7 +202,7 @@ const PublicationDetails = ({
             </div>
           </div>
           <section className="flex flex-col gap-4 border-y px-4 py-2">
-            {comments.length ? (
+            {comments.length === 100 ? (
               <div className="w-full text-center text-slate-500">
                 Load more...
               </div>
