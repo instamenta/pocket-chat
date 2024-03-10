@@ -5,8 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/app/live/[id]/WatchLive.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/live/[id]/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/live/host/[id]/HostLive.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/live/host/[id]/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/live/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/live/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/chat/video/[room_id]/VideoChat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/video/[room_id]/VideoChat.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/feed/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/feed/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/group/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/group/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/functional/ImageCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/functional/ImageCarousel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modals/PublicationDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/PublicationDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modals/PublicationSlider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/PublicationSlider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/web_vitals.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/web_vitals.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/context/WebsocketContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/context/WebsocketContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/hooks/peer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/hooks/peer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/queries/comment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/comment.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/queries/publication.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/publication.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/types/enumerations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types/enumerations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/variables.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/variables.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,34 +59,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.5.0&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.5.9&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/user/Desktop/myProjects/chat-app/t3-hexagots&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;/home/user/.nvm/versions/node/v20.5.0/bin/node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/home/user/Desktop/myProjects/chat-app/t3-hexagots/node_modules/prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/user/Desktop/myProjects/chat-app/t3-hexagots/node_modules/typescript/lib&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "git-widget-placeholder": "master",
+    "go.import.settings.migrated": "true",
+    "javascript.nodejs.core.library.configured.version": "20.5.0",
+    "javascript.nodejs.core.library.typings.version": "20.5.9",
+    "last_opened_file_path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots/src/app/live/[id]",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "/home/user/.nvm/versions/node/v20.5.0/bin/node",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "/home/user/Desktop/myProjects/chat-app/t3-hexagots/node_modules/prettier",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots/node_modules/typescript/lib"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/live/[id]" />
       <recent name="$PROJECT_DIR$/src/components/modals/Publish" />
       <recent name="$PROJECT_DIR$/src/lib/queries" />
       <recent name="$PROJECT_DIR$/src/app/feed/group" />
       <recent name="$PROJECT_DIR$/src/components" />
-      <recent name="$PROJECT_DIR$/src/components/functional" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/app" />
@@ -173,7 +192,9 @@
       <workItem from="1709802520959" duration="180000" />
       <workItem from="1709838931780" duration="6370000" />
       <workItem from="1709909493363" duration="2942000" />
-      <workItem from="1709912462039" duration="40000" />
+      <workItem from="1709912462039" duration="73000" />
+      <workItem from="1709979246625" duration="18663000" />
+      <workItem from="1710080172661" duration="10984000" />
     </task>
     <servers />
   </component>

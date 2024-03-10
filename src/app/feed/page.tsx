@@ -10,6 +10,7 @@ import { SiYoutubeshorts } from 'react-icons/si';
 import QuickPost from '@/components/modals/QuickPost';
 import PublicationSlider from '@/components/modals/PublicationSlider';
 import StorySlider from '@/components/modals/StorySlider';
+import { getRecommendations } from '@/lib/queries/publication';
 
 const Feed = () => {
   const [description, setDescription] = useState<string>('');
@@ -65,7 +66,7 @@ const Feed = () => {
       {/* Publications Container */}
       <section className="w-full bg-slate-200 pt-2 shadow-inner">
         {/* Each Publication */}
-        <PublicationSlider />
+        <PublicationSlider dataPromise={getRecommendations()} />
       </section>
     </>
   );

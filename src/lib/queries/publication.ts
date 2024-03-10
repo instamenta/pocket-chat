@@ -1,7 +1,7 @@
 import { PUBLICATIONS, PUBLICATIONS_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
 import { I_Publication, I_Recommendation } from '@/lib/types';
-import { handleResponse } from '@/lib/utilities';
+import { handleResponse, handleResponseList } from '@/lib/utilities';
 
 export const listPublications = async () =>
   fetch(
@@ -19,7 +19,7 @@ export const getRecommendations = async () =>
       method: PUBLICATIONS.get_recommendations.method,
       auth: true,
     }),
-  ).then((r) => handleResponse<I_Recommendation[]>(r));
+  ).then((r) => handleResponseList<I_Recommendation>(r));
 
 export const createPublication = async (body: {
   description: string;

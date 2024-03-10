@@ -2,7 +2,13 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { JWT, socket_url } from '@/lib/variables';
-import { I_Message, T_VideoCallInviteResponse } from '@/lib/types';
+import {
+  I_LiveMessageRequest,
+  I_Message,
+  T_JoinLiveResponse,
+  T_LiveMessageResponse,
+  T_VideoCallInviteResponse,
+} from '@/lib/types';
 import { toast } from 'react-toastify';
 import VideoChatInvitation, {
   toast_config,
@@ -14,8 +20,10 @@ import mitt, { Emitter } from 'mitt';
 import { socket_events } from '@/lib/types/enumerations';
 
 type MittEvents = {
-  message: I_Message;
-  'video-call-invite': T_VideoCallInviteResponse;
+  [socket_events.MESSAGE]: I_Message;
+  [socket_events.JOIN_LIVE]: T_JoinLiveResponse;
+  [socket_events.LIVE_MESSAGE]: T_LiveMessageResponse;
+  [socket_events.VIDEO_CALL_INVITE]: T_VideoCallInviteResponse;
 };
 
 type WebSocketContextType = {
@@ -47,37 +55,54 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
     ws.onopen = () => console.log('Connected to socket');
     ws.onclose = (event: CloseEvent) => {
       console.error('WebSocket Disconnected', event.reason);
+      // @ts-ignore
+      emitter?.off('*');
+      ws.close();
       setTimeout(connectWebSocket, 2000);
     };
 
     ws.onerror = (error: Event) => {
       console.error('WebSocket Error:', error);
+      // @ts-ignore
+      emitter?.off('*');
+      ws.close();
       setTimeout(connectWebSocket, 2000);
     };
 
     ws.onmessage = (event: MessageEvent) =>
-      blob_to_json<I_Message | T_VideoCallInviteResponse>(
-        event.data,
-        (data) => {
-          if (!data) return console.log('Fail :///');
-          console.log(`Emitting event ${data.type}`);
+      blob_to_json<
+        | I_Message
+        | T_VideoCallInviteResponse
+        | T_LiveMessageResponse
+        | T_JoinLiveResponse
+      >(event.data, (data) => {
+        if (!data) return console.log('Fail :///');
+        console.log(`Emitting event ${data.type}`);
 
-          switch (data.type) {
-            case socket_events.MESSAGE:
-              emitter.emit(socket_events.MESSAGE, data as I_Message);
-              break;
-            case socket_events.VIDEO_CALL_INVITE:
-              useCallNotification(data as T_VideoCallInviteResponse);
-              emitter.emit(
-                socket_events.VIDEO_CALL_INVITE,
-                data as T_VideoCallInviteResponse,
-              );
-              break;
-            default:
-              console.error('Response type from socket not implemented', data);
-          }
-        },
-      );
+        switch (data.type) {
+          case socket_events.MESSAGE:
+            emitter.emit(socket_events.MESSAGE, data as I_Message);
+            break;
+          case socket_events.JOIN_LIVE:
+            emitter.emit(socket_events.JOIN_LIVE, data as T_JoinLiveResponse);
+            break;
+          case socket_events.LIVE_MESSAGE:
+            emitter.emit(
+              socket_events.LIVE_MESSAGE,
+              data as T_LiveMessageResponse,
+            );
+            break;
+          case socket_events.VIDEO_CALL_INVITE:
+            useCallNotification(data as T_VideoCallInviteResponse);
+            emitter.emit(
+              socket_events.VIDEO_CALL_INVITE,
+              data as T_VideoCallInviteResponse,
+            );
+            break;
+          default:
+            console.error('Response type from socket not implemented', data);
+        }
+      });
 
     setWebSocket(ws);
     setEmitter(emitter);
@@ -87,6 +112,8 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
     connectWebSocket();
     return () => {
       webSocket?.close();
+      // @ts-ignore
+      emitter?.off('*');
     };
   }, []);
 
@@ -108,7 +135,7 @@ export function wsJoinLive({
   ws?: WebSocket | null;
   liveId?: string | null;
 }) {
-  if (!ws) return console.error('Websocket not found');
+  if (!ws || !ws.readyState) return console.error('Websocket not found');
   if (!liveId) return console.error('No liveId');
 
   ws.send(
@@ -133,16 +160,16 @@ export function wsSendLiveMessage({
   if (!ws) return console.error('Websocket not found');
   if (!liveId) return console.error('No liveId');
   if (!sender) return console.error('No sender');
-  if (!content) return console.error('No content');
+  if (!content || !content.length) return console.error('No content');
 
-  ws.send(
-    JSON.stringify({
-      type: socket_events.LIVE_MESSAGE,
-      liveId,
-      sender,
-      content,
-    }),
-  );
+  const request: I_LiveMessageRequest = {
+    type: socket_events.LIVE_MESSAGE,
+    content,
+    sender,
+    liveId,
+  };
+
+  ws.send(JSON.stringify(request));
 }
 
 export function wsSendMessage({

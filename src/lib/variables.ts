@@ -198,7 +198,7 @@ export const COMMENTS_DYNAMIC = {
     method: 'DELETE',
   } as T_Rest1Param,
   like_comment: {
-    url: (id: string) => new URL(`${endpoints.comment}/${id}/like`),
+    url: (id: string) => new URL(`${endpoints.comment}/${id}`),
     method: 'PUT',
   } as T_Rest1Param,
 };

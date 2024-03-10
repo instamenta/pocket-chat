@@ -35,11 +35,6 @@ export function usePeer(
       });
     });
 
-  peer.on('error', (err) => {
-    console.error(err);
-    alert(`An error occurred: ${err.message}`);
-  });
-
   peer.on('disconnected', () =>
     console.log('Connection lost. Please reconnect.'),
   );

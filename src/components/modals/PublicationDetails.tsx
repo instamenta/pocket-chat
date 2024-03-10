@@ -15,17 +15,22 @@ import { BiSend } from 'react-icons/bi';
 import { likePublication } from '@/lib/queries/publication';
 import {
   createComment,
+  likeComment,
   listCommentsByPublication,
 } from '@/lib/queries/comment';
 
 const PublicationDetails = ({
   publication,
   onClose,
+  setPublication,
   publications,
   setPublications,
   user,
 }: {
   publication: I_Recommendation;
+  setPublication: (
+    value: React.SetStateAction<I_Recommendation | null>,
+  ) => void;
   onClose: () => void;
   publications: I_Recommendation[];
   setPublications: (value: React.SetStateAction<I_Recommendation[]>) => void;
@@ -38,30 +43,47 @@ const PublicationDetails = ({
     listCommentsByPublication(publication.id).then((d) => setComments(d ?? []));
   }, []);
 
+  const handleLikeComment = (
+    event: React.MouseEvent<SVGElement, MouseEvent>,
+    id: string,
+  ) => {
+    event.preventDefault();
+    const index = comments.findIndex((data) => data.id === id);
+
+    likeComment(id).then((status) => {
+      if (!status) {
+        return console.log('Failed to like or dislike post');
+      }
+      setComments((prev) => {
+        const updatedComments = [...prev];
+        const comm = { ...updatedComments[index] };
+        comm.liked_by_user = !comm.liked_by_user;
+        comm.liked_by_user ? comm.likes_count++ : comm.likes_count--;
+        updatedComments[index] = comm;
+        return updatedComments;
+      });
+    });
+  };
+
   const handleLike = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     id: string,
   ) => {
     event.preventDefault();
+
     const index = publications.findIndex((data) => data.id === id);
 
     likePublication(id).then((status) => {
       if (!status) {
-        console.log('Failed to like or dislike post');
-        return publications;
+        return console.log('Failed to like or dislike post');
       }
-      setPublications((currentPublications) => {
-        const updatedPublications = [...currentPublications];
+      setPublications((prev) => {
+        const updatedPublications = [...prev];
         const pub = { ...updatedPublications[index] };
         pub.liked_by_user = !pub.liked_by_user;
-        if (pub.liked_by_user) {
-          pub.likes_count++;
-        } else {
-          pub.likes_count--;
-        }
+        pub.liked_by_user ? pub.likes_count++ : pub.likes_count--;
         updatedPublications[index] = pub;
-        publication = pub;
-
+        setPublication(pub);
         return updatedPublications;
       });
     });
@@ -89,6 +111,7 @@ const PublicationDetails = ({
         picture: user.picture,
         first_name: user.first_name,
         last_name: user.last_name,
+        likes_count: 0,
       },
     ]);
     setNewComment('');
@@ -110,7 +133,7 @@ const PublicationDetails = ({
           {/* Modal content */}
           <div className="">
             {/* Images */}
-            <div className="w-full bg-slate-300 shadow-inner">
+            <div className="h-auto w-full bg-slate-300 shadow-inner">
               <ImageCarousel images={publication.images} />
             </div>
 
@@ -161,10 +184,13 @@ const PublicationDetails = ({
                 </div>
                 <span>Like</span>
               </div>
-              <div className="flex flex-row flex-nowrap gap-1">
+              <label
+                htmlFor="comment"
+                className="flex flex-row flex-nowrap gap-1"
+              >
                 <FaCommentDots className="h-5 w-5 fill-gray-600" />
                 <span>Comment</span>
-              </div>
+              </label>
               <div className="flex flex-row flex-nowrap gap-1">
                 <BiSend className="h-5 w-5" />
                 <span>Send</span>
@@ -191,8 +217,8 @@ const PublicationDetails = ({
                       alt="profile-pic"
                     />
                   </div>
-                  <div className="flex w-full flex-col rounded-r-lg rounded-br-lg bg-gray-100 p-2">
-                    <div className="flex justify-between">
+                  <div className="flex flex-col" style={{width: '80%'}}>
+                    <div className="flex justify-between rounded-r-lg rounded-br-lg bg-gray-100 p-2">
                       <div className="flex flex-col pb-2">
                         <span className="font-semibold capitalize">
                           {comment.first_name + ' ' + comment.last_name}
@@ -205,13 +231,20 @@ const PublicationDetails = ({
                         ...
                       </div>
                     </div>
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 bg-gray-100 px-2 pb-2">
                       <span>{comment.content}</span>
                     </div>
+
+                    {/* Comment Likes and Handler */}
+                    <div className="mt-2 flex flex-row content-center gap-2 text-sm text-black">
+                      <span>{comment.likes_count}</span>
+                      <FaRegHeart
+                        onClick={(event) => handleLikeComment(event, comment.id)}
+                        className={`h-4 w-4 ${comment.liked_by_user ? 'fill-red-600' : ''}`}
+                      />
+                    </div>
+
                   </div>
-                </div>
-                <div className="mt-2 flex w-1/4 flex-row-reverse content-center gap-2 text-sm">
-                  10 <FaRegHeart className="h-4 w-4" />
                 </div>
               </div>
             ))}
@@ -223,7 +256,7 @@ const PublicationDetails = ({
           </section>
 
           <form>
-            <label htmlFor="chat" className="sr-only">
+            <label htmlFor="comment" className="sr-only">
               Your message
             </label>
             <div className="flex items-center rounded-lg bg-gray-50 px-3 py-2 ">
@@ -281,7 +314,7 @@ const PublicationDetails = ({
                 <span className="sr-only">Add emoji</span>
               </button>
               <textarea
-                id="chat"
+                id="comment"
                 rows={1}
                 value={newComment}
                 onChange={(e) => setNewComment(() => e.target.value)}

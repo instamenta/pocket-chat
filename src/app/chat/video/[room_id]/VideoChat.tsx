@@ -97,11 +97,19 @@ const VideoChat = ({
 
     if (!call) return console.error('failed to get Peer call');
 
-    call.on('stream', (remoteStream) => {
+    const onStream = (stream: MediaStream) => {
+      console.log('ON STREAM');
+
       if (remoteVideoRef.current) {
-        remoteVideoRef.current.srcObject = remoteStream;
+        remoteVideoRef.current!.srcObject = stream;
         setCallActive(true);
+      } else {
+        setTimeout(onStream, 1000, stream);
       }
+    };
+
+    call.on('stream', (stream) => {
+      onStream(stream);
     });
 
     call.on('error', (error) => {
@@ -146,35 +154,35 @@ const VideoChat = ({
           ></video>
         </div>
         <div className="aspect-square w-full flex-grow outline outline-1">
-          {callActive ? (
-            <video
-              controls={true}
-              controlsList="nodownload "
-              className="aspect-square h-full w-full object-cover"
-              playsInline
-              ref={remoteVideoRef}
-              autoPlay
-            ></video>
-          ) : (
-            <div className="flex h-full w-full flex-col  content-center justify-center bg-slate-700 text-white">
-              <div className="w-full px-20">
-                <img
-                  src={recipient?.picture}
-                  alt={'User Pic'}
-                  className="aspect-square w-full rounded-full"
-                />
-              </div>
-              <div className="py-4">
-                <LoadingSpinner />
-              </div>
-              <span className="text-center text-xl capitalize">
-                Waiting for{' '}
-                <strong>
-                  {recipient?.first_name + ' ' + recipient?.last_name}
-                </strong>
-              </span>
+          <video
+            controls={true}
+            controlsList="nodownload "
+            className={`aspect-square h-full w-full object-cover ${callActive ? 'visible' : 'hidden'}`}
+            playsInline
+            ref={remoteVideoRef}
+            autoPlay
+          ></video>
+          {/* ON NO VIDEO */}
+          <div
+            className={`flex h-full w-full flex-col  content-center justify-center bg-slate-700 text-white ${callActive ? 'hidden' : 'visible'}`}
+          >
+            <div className="w-full px-20">
+              <img
+                src={recipient?.picture}
+                alt={'User Pic'}
+                className="aspect-square w-full rounded-full"
+              />
             </div>
-          )}
+            <div className="py-4">
+              <LoadingSpinner />
+            </div>
+            <span className="text-center text-xl capitalize">
+              Waiting for{' '}
+              <strong>
+                {recipient?.first_name + ' ' + recipient?.last_name}
+              </strong>
+            </span>
+          </div>
         </div>
       </div>
 

@@ -4,19 +4,24 @@ import { IoHeartHalfOutline } from 'react-icons/io5';
 import { FaHeart, FaRegShareFromSquare } from 'react-icons/fa6';
 import { FaCommentDots, FaRegHeart } from 'react-icons/fa';
 import { BiSend } from 'react-icons/bi';
-import { getRecommendations, likePublication } from '@/lib/queries/publication';
+import { likePublication } from '@/lib/queries/publication';
 import { I_Recommendation } from '@/lib/types';
 import PublicationDetails from '@/components/modals/PublicationDetails';
 import { useUserContext } from '@/lib/context/UserContext';
 
-const PublicationSlider = () => {
+const PublicationSlider = ({
+  dataPromise,
+}: {
+  dataPromise:  Promise<I_Recommendation[]>;
+}) => {
   const { user } = useUserContext();
 
   const [publications, setPublications] = useState<I_Recommendation[]>([]);
-  const [selectedPublication, setSelectedPublication] = useState<I_Recommendation | null>(null);
+  const [selectedPublication, setSelectedPublication] =
+    useState<I_Recommendation | null>(null);
 
   useEffect(() => {
-    getRecommendations().then((d) => setPublications(d ?? []));
+    dataPromise.then((d) => setPublications(d ?? []));
   }, []);
 
   const handleLike = (
@@ -51,6 +56,7 @@ const PublicationSlider = () => {
       {/* Publication Details Overlay */}
       {selectedPublication && user && (
         <PublicationDetails
+          setPublication={setSelectedPublication}
           publication={selectedPublication}
           onClose={() => setSelectedPublication(null)}
           publications={publications}
@@ -78,9 +84,9 @@ const PublicationSlider = () => {
               />
             </div>
             <div className="ml-4 flex flex-col justify-between py-1">
-                <span className="font-semibold capitalize">
-                  {publication.first_name + ' ' + publication.last_name}
-                </span>
+              <span className="font-semibold capitalize">
+                {publication.first_name + ' ' + publication.last_name}
+              </span>
               <div className="text-gray-600">
                 @<span className="font-light">{publication.username}</span>
               </div>
@@ -88,9 +94,9 @@ const PublicationSlider = () => {
           </Link>
           {publication.description ? (
             <div className="text-pretty px-4 pb-2">
-                <span className="font-medium text-gray-900">
-                  {publication.description}
-                </span>
+              <span className="font-medium text-gray-900">
+                {publication.description}
+              </span>
             </div>
           ) : null}
           {/* Image TOP Outline */}

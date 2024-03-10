@@ -18,15 +18,18 @@ export default function ImageCarousel({ images }: { images: string[] }) {
 
   return (
     <div className="relative">
-      <AiOutlineLeft
-        onClick={handlePrevSlide}
-        className="absolute inset-y-1/2 left-0 z-20 mx-auto cursor-pointer text-5xl text-gray-400"
-      />
+      {images.length < 1 ? (
+        <AiOutlineLeft
+          onClick={handlePrevSlide}
+          className="absolute inset-y-1/2 left-0 z-20 m-auto cursor-pointer text-5xl text-gray-400"
+        />
+      ) : null}
+
       <div className="relative m-auto flex h-[50vh] w-full overflow-hidden">
         <Swipe
           onSwipeLeft={handleNextSlide}
           onSwipeRight={handlePrevSlide}
-          className="relative z-10 h-full w-full"
+          className="relative z-10 h-auto w-full"
         >
           {images.map((image, index) => {
             if (index === slide) {
@@ -43,28 +46,32 @@ export default function ImageCarousel({ images }: { images: string[] }) {
           })}
         </Swipe>
       </div>
-      <AiOutlineRight
-        onClick={handleNextSlide}
-        className="absolute inset-y-1/2 right-0 z-20 m-auto cursor-pointer text-5xl text-gray-400"
-      />
+      {images.length < 1 ? (
+        <AiOutlineRight
+          onClick={handleNextSlide}
+          className="absolute inset-y-1/2 right-0 z-20 m-auto cursor-pointer text-5xl text-gray-400"
+        />
+      ) : null}
 
-      <div className="relative flex justify-center p-2">
-        {images.map((_, index) => {
-          return (
-            <div
-              className={
-                index === slide
-                  ? 'mx-2 mb-2 h-4 w-4 cursor-pointer rounded-full bg-gray-700'
-                  : 'mx-2 mb-2 h-4 w-4 cursor-pointer rounded-full bg-gray-300'
-              }
-              key={index}
-              onClick={() => {
-                setSlide(index);
-              }}
-            />
-          );
-        })}
-      </div>
+      {images.length < 1 ? (
+        <div className="relative flex justify-center p-2">
+          {images.map((_, index) => {
+            return (
+              <div
+                className={
+                  index === slide
+                    ? 'mx-2 mb-2 h-4 w-4 cursor-pointer rounded-full bg-gray-700'
+                    : 'mx-2 mb-2 h-4 w-4 cursor-pointer rounded-full bg-gray-300'
+                }
+                key={index}
+                onClick={() => {
+                  setSlide(index);
+                }}
+              />
+            );
+          })}
+        </div>
+      ) : null}
     </div>
   );
 }

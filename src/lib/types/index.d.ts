@@ -109,16 +109,17 @@ export interface T_Comment {
 }
 
 export interface T_PopulatedComment {
-  id: string;
-  content: string;
-  created_at: string;
-  publication_id: string;
-  user_id: string;
-  username: string;
-  picture: string;
-  liked_by_user: boolean;
-  first_name: string;
-  last_name: string;
+  id: string
+  content: string
+  created_at: string
+  publication_id: string
+  user_id: string
+  username: string
+  picture: string
+  liked_by_user: boolean
+  first_name: string
+  last_name: string
+  likes_count: number
 }
 
 export enum E_PublicationStatus {
@@ -247,21 +248,15 @@ export type T_LivePopulated = {
   id: string;
 };
 
-export type T_LiveMessagePopulated = {
-  id: string;
-  user_id: string;
-  user_picture: string;
-  username: string;
-  first_name: string;
-  last_name: string;
-  content: string;
-  created_at: string;
-};
-
 export type I_JoinLiveRequest = {
   type: socket_events;
   liveId: string;
 };
+
+export type I_LeaveLiveRequest = {
+  type: socket_events,
+  liveId: string,
+}
 
 export type I_LiveMessageRequest = {
   sender: string;
@@ -269,3 +264,22 @@ export type I_LiveMessageRequest = {
   liveId: string;
   type: socket_events;
 };
+
+export interface T_LiveMessagePopulated {
+  message_id: string,
+  user_id: string,
+  user_picture: string,
+  username: string,
+  first_name: string,
+  last_name: string,
+  content: string,
+  live_id: string,
+  created_at: string,
+}
+
+export type T_LiveMessageResponse = T_LiveMessagePopulated & { type: socket_events };
+
+export type T_JoinLiveResponse = {
+  type: socket_events,
+  hostPeerId: string,
+}
