@@ -68,7 +68,7 @@ const PublicationSlider = ({
       {publications.map((publication, index) => (
         <article
           key={index}
-          className="mb-3 flex flex-col border border-t-2 border-t-gray-300 bg-white drop-shadow"
+          className="mb-6 flex flex-col border border-t-2 border-t-gray-300 bg-white drop-shadow"
         >
           {/* Publisher Data */}
           <Link

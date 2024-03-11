@@ -120,6 +120,7 @@ export interface T_PopulatedComment {
   first_name: string
   last_name: string
   likes_count: number
+  edit?: boolean
 }
 
 export enum E_PublicationStatus {
@@ -156,6 +157,7 @@ export interface I_Recommendation {
   liked_by_user: boolean;
   first_name: string;
   last_name: string;
+  is_friend_with_user: boolean,
 }
 
 type E_StoryVisibility = 'public' | 'private' | 'archive';

@@ -10,14 +10,18 @@ import { IoMdClose } from 'react-icons/io';
 import ImageCarousel from '@/components/functional/ImageCarousel';
 import { IoHeartHalfOutline, IoPersonAdd } from 'react-icons/io5';
 import { FaHeart, FaRegShareFromSquare } from 'react-icons/fa6';
-import { FaCommentDots, FaRegHeart } from 'react-icons/fa';
+import { FaCommentDots, FaRegHeart, FaRegTrashAlt } from 'react-icons/fa';
 import { BiSend } from 'react-icons/bi';
 import { likePublication } from '@/lib/queries/publication';
 import {
   createComment,
+  deleteComment,
   likeComment,
   listCommentsByPublication,
 } from '@/lib/queries/comment';
+import { sendFriendRequest } from '@/lib/queries/friend';
+import { CiEdit } from 'react-icons/ci';
+import { MdReport } from 'react-icons/md';
 
 const PublicationDetails = ({
   publication,
@@ -40,6 +44,7 @@ const PublicationDetails = ({
   const [newComment, setNewComment] = useState<string>('');
 
   useEffect(() => {
+    console.log(publication);
     listCommentsByPublication(publication.id).then((d) => setComments(d ?? []));
   }, []);
 
@@ -63,6 +68,10 @@ const PublicationDetails = ({
         return updatedComments;
       });
     });
+  };
+
+  const handleSendFriendRequest = (id: string) => {
+    sendFriendRequest(id).then();
   };
 
   const handleLike = (
@@ -117,18 +126,32 @@ const PublicationDetails = ({
     setNewComment('');
   };
 
+  const handleDeleteComment = (commentId: string) => {
+    deleteComment(commentId).then((success) => {
+      if (!success) return console.error('Failed to delete Comment');
+      setComments((prev) => prev.filter((c) => c.id !== commentId));
+    });
+  };
+
+  const handleToggleCommentEdit = (index: number) => {
+    const newComments = [...comments];
+    const target = newComments[index];
+    target.edit = target.edit !== true;
+
+    newComments[index] = target;
+    setComments(newComments);
+  };
+
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-40 px-2">
       <div className="relative flex min-h-screen items-center justify-center">
-        <div className="mx-auto mb-10 w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-lg">
-          <nav className="flex flex-row-reverse px-2 py-1">
-            <button
-              onClick={onClose}
-              className="rounded-full transition-all hover:scale-110 hover:bg-slate-100"
-            >
-              <IoMdClose className="h-8 w-8" />
-            </button>
-          </nav>
+        <div className="mx-auto my-10 w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-lg">
+          <button
+            onClick={onClose}
+            className="rounded-full transition-all hover:scale-110 hover:bg-slate-100 absolute top-12 right-2 z-20"
+          >
+            <IoMdClose className="h-8 w-8" />
+          </button>
 
           {/* Modal content */}
           <div className="">
@@ -138,13 +161,13 @@ const PublicationDetails = ({
             </div>
 
             <div className="flex w-full flex-row content-center justify-between border-t p-4">
-              <div className="flex gap-5">
+              <div className="flex gap-3">
                 <img
                   src={publication.picture}
                   alt="user-pic"
                   className="h-16 w-16 overflow-hidden rounded-full"
                 />
-                <div>
+                <div className='my-auto'>
                   <h2 className="text-lg font-bold capitalize">
                     {publication.first_name + ' ' + publication.last_name}
                   </h2>
@@ -152,7 +175,15 @@ const PublicationDetails = ({
                 </div>
               </div>
               <div className="my-auto">
-                <IoPersonAdd className="h-7 w-7" />
+                {user.id !== publication.publisher_id &&
+                !publication.is_friend_with_user ? (
+                  <IoPersonAdd
+                    className="h-7 w-7"
+                    onClick={() =>
+                      handleSendFriendRequest(publication.publisher_id)
+                    }
+                  />
+                ) : null}
               </div>
             </div>
             <div className="px-4">
@@ -160,17 +191,19 @@ const PublicationDetails = ({
             </div>
             <div className="flex w-full justify-between px-4 pb-2 pt-4">
               <div className="flex content-center gap-1">
-                <IoHeartHalfOutline className="h-6 w-6 fill-red-600 " />
+                <IoHeartHalfOutline className="h-6 w-6" />
                 <span>{publication.likes_count}</span>
               </div>
               <div className="flex gap-2">
                 <div className="flex gap-2">
-                  <span>{publication.comments_count + ' ' + 'comments'}</span>
+                  <span>{publication.comments_count + ' ' + 'comments'}</span> &middot;
                   <span>{24 + ' ' + 'reposts'}</span>
                 </div>
               </div>
             </div>
-            <div className="flex w-full flex-nowrap justify-evenly gap-4 border-t-2 border-t-slate-300 py-3 text-center font-semibold">
+
+            <div
+              className="flex w-full flex-nowrap justify-evenly gap-4 border-t-2 border-t-slate-300 py-3 text-center font-semibold mt-2">
               <div className="flex flex-row flex-nowrap gap-1">
                 <div
                   className="hover:cursor-pointer"
@@ -201,6 +234,7 @@ const PublicationDetails = ({
               </div>
             </div>
           </div>
+          {/* Comment Section */}
           <section className="flex flex-col gap-4 border-y px-4 py-2">
             {comments.length === 100 ? (
               <div className="w-full text-center text-slate-500">
@@ -217,7 +251,7 @@ const PublicationDetails = ({
                       alt="profile-pic"
                     />
                   </div>
-                  <div className="flex flex-col" style={{width: '80%'}}>
+                  <div className="flex flex-col" style={{ width: '80%' }}>
                     <div className="flex justify-between rounded-r-lg rounded-br-lg bg-gray-100 p-2">
                       <div className="flex flex-col pb-2">
                         <span className="font-semibold capitalize">
@@ -227,8 +261,43 @@ const PublicationDetails = ({
                           @{comment.username}
                         </span>
                       </div>
-                      <div className="mr-2 cursor-pointer text-lg font-semibold">
-                        ...
+                      <div className="relative">
+                        <div
+                          onClick={() => handleToggleCommentEdit(index)}
+                          className="mr-2 cursor-pointer text-lg font-semibold"
+                        >
+                          ...
+                        </div>
+                        {comment.edit ? (
+                          <div className="absolute -right-5 top-8 ">
+                            <ul className="divide-y divide-gray-200 rounded-md bg-white px-2 py-3 drop-shadow-xl">
+                              {comment.user_id === user.id ? (
+                                <>
+                                  <li
+                                    className="flex content-center  justify-start gap-1 pb-1 text-sm"
+                                    onClick={() =>
+                                      handleDeleteComment(comment.id)
+                                    }
+                                  >
+                                    <FaRegTrashAlt className="my-auto" />
+                                    <span>Delete</span>
+                                  </li>
+                                  <li className="flex content-center justify-start gap-1 pt-1 text-sm">
+                                    <CiEdit className="my-auto size-4" />
+                                    <span>Edit</span>
+                                  </li>
+                                </>
+                              ) : (
+                                <>
+                                  <li className="flex content-center  justify-start gap-1 pb-1 text-sm">
+                                    <MdReport className="my-auto size-5" />
+                                    <span>Report</span>
+                                  </li>
+                                </>
+                              )}
+                            </ul>
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                     <div className="flex gap-4 bg-gray-100 px-2 pb-2">
@@ -239,23 +308,24 @@ const PublicationDetails = ({
                     <div className="mt-2 flex flex-row content-center gap-2 text-sm text-black">
                       <span>{comment.likes_count}</span>
                       <FaRegHeart
-                        onClick={(event) => handleLikeComment(event, comment.id)}
+                        onClick={(event) =>
+                          handleLikeComment(event, comment.id)
+                        }
                         className={`h-4 w-4 ${comment.liked_by_user ? 'fill-red-600' : ''}`}
                       />
                     </div>
-
                   </div>
                 </div>
               </div>
             ))}
             {!comments.length ? (
-              <div className="flex w-full content-center">
-                <span className="my-auto text-center">No Comments</span>
+              <div className="flex w-full content-center my-3">
+                <span className="my-auto text-center mx-auto">No Comments</span>
               </div>
             ) : null}
           </section>
 
-          <form>
+          <form className='pb-5'>
             <label htmlFor="comment" className="sr-only">
               Your message
             </label>
@@ -333,7 +403,8 @@ const PublicationDetails = ({
                   fill="currentColor"
                   viewBox="0 0 18 20"
                 >
-                  <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
+                  <path
+                    d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
                 </svg>
                 <span className="sr-only">Send message</span>
               </button>

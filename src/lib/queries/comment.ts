@@ -35,7 +35,16 @@ export const deleteComment = async (commentId: string) =>
       method: COMMENTS_DYNAMIC.delete_comment.method,
       auth: true,
     }),
-  ).then((r) => handleResponse<void>(r));
+  ).then((res) => {
+    if (!res || !res.ok) {
+      console.error(
+        `Failed to send request Status: ${res?.statusText}`,
+        res.headers,
+      );
+      return false;
+    }
+    return true;
+  });
 
 export const likeComment = async (commentId: string) =>
   fetch(
