@@ -10,6 +10,7 @@ import { initRequest } from '@/lib';
 import { I_UserSchema } from '@/lib/types';
 import useUser from '@/lib/store';
 import { useRouter } from 'next/navigation';
+import { useSuccessNotification } from '@/components/toast/CustomToasts';
 
 export default function SignIn() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -50,6 +51,8 @@ export default function SignIn() {
 
       return setMessage('Invalid Credentials');
     }
+
+    useSuccessNotification('Successfully Signed In', {position: 'bottom-right'});
 
     const { id }: { id: string } = await response.json();
 

@@ -14,6 +14,7 @@ import PublishStoryModal from '@/components/modals/Publish/Story';
 import PublishGroupPublicationModal from '@/components/modals/Publish/Group';
 import PublishLiveModal from '@/components/modals/Publish/Live';
 import { RiLiveFill } from 'react-icons/ri';
+import CreateGroup from '@/components/modals/Create/Group';
 
 type T_States =
   | 'none'
@@ -23,7 +24,8 @@ type T_States =
   | 'event'
   | 'short'
   | 'milestone'
-  | 'live';
+  | 'live'
+  | 'create-group';
 
 const PublishDropdown = () => {
   const [toggle, setToggle] = React.useState<boolean>(false);
@@ -93,7 +95,7 @@ const PublishDropdown = () => {
               </li>
               <li
                 className="no-wrap flex cursor-pointer gap-2 rounded-2xl border-y border-white border-y-slate-100 pr-2 shadow-inner transition-all hover:bg-gray-100"
-                onClick={() => setState('group')}
+                onClick={() => setState('create-group')}
               >
                 <div className="flex-center my-auto flex aspect-square content-center rounded-full bg-slate-200 p-2">
                   <MdGroups3 className="size-6" />
@@ -102,6 +104,23 @@ const PublishDropdown = () => {
                 <div className="my-auto flex flex-col justify-start">
                   <span className="text-sm font-semibold text-slate-800">
                     Group
+                  </span>
+                  <span className="text-sm font-light text-slate-600">
+                    Create group
+                  </span>
+                </div>
+              </li>
+              <li
+                className="no-wrap flex cursor-pointer gap-2 rounded-2xl border-y border-white border-y-slate-100 pr-2 shadow-inner transition-all hover:bg-gray-100"
+                onClick={() => setState('group')}
+              >
+                <div className="flex-center my-auto flex aspect-square content-center rounded-full bg-slate-200 p-2">
+                  <MdGroups3 className="size-6" />
+                </div>
+
+                <div className="my-auto flex flex-col justify-start">
+                  <span className="text-sm font-semibold text-slate-800">
+                    Group Post
                   </span>
                   <span className="text-sm font-light text-slate-600">
                     Share a post in group
@@ -163,7 +182,7 @@ const PublishDropdown = () => {
 
       {state !== 'none' ? (
         <section
-          className="absolute left-0 top-0 z-20 flex h-screen items-center justify-center p-10"
+          className="absolute left-0 top-0 z-20 flex h-screen items-center justify-center px-4 py-8"
           style={{ backgroundColor: 'rgba(255,255,255,0.69)', width: '97vw' }}
           onClick={() => {
             setState('none');
@@ -194,6 +213,7 @@ const PublishDropdown = () => {
             {state === 'live' ? <PublishLiveModal /> : null}
             {state === 'event' ? <></> : null}
             {state === 'milestone' ? <></> : null}
+            {state === 'create-group' ? <CreateGroup /> : null}
           </article>
         </section>
       ) : null}

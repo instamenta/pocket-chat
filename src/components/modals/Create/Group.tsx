@@ -2,12 +2,17 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import SimplifiedNavbar from '@/components/Navbar/SimplifiedNavbar';
 import TextArea from '@/components/functional/TextArea';
 import { HiMiniUserGroup } from 'react-icons/hi2';
 import { createGroup } from '@/lib/queries/group';
 import { SingleImageDropzone } from '@/components/edgestore/SingleImageDropzone';
 import { useEdgeStore } from '@/lib/store/edgestore';
+import {
+  useErrorNotification,
+  useSuccessNotification,
+  useWarnNotification,
+} from '@/components/toast/CustomToasts';
+import { MdGroups2 } from 'react-icons/md';
 
 export default function CreateGroup() {
   const router = useRouter();
@@ -22,43 +27,48 @@ export default function CreateGroup() {
   ) => {
     event.preventDefault();
 
-      switch (true) {
+    switch (true) {
       case !image:
+        useWarnNotification('Group image is required', {
+          position: 'top-center',
+        });
         return console.error('Group image is required');
       case groupName.trim().length < 1:
+        useWarnNotification('Group name is required', {
+          position: 'top-center',
+        });
         return console.error('Group name is required');
     }
 
     // @ts-ignore
     const { url } = await edgestore.publicFiles.upload({ file: image });
 
-    const result = await createGroup(
-      groupName.trim(),
-      description.trim(),
-      url,
-    );
+    const result = await createGroup(groupName.trim(), description.trim(), url);
 
-    if (!result) return console.error('Failed to create group');
+    if (!result) {
+      useErrorNotification('Failed to create group', {
+        position: 'bottom-right',
+      });
+      return console.error('Failed to create group');
+    }
+
+    useSuccessNotification('Group created', { position: 'bottom-right' });
 
     router.push(`/group/${result.id}`);
   };
 
   return (
     <>
-      {/* Navbar */}
-      <SimplifiedNavbar title={'Create Group'} />
+      <div className="my-4 flex flex-col justify-center">
+        <MdGroups2 className="mx-auto size-28 fill-blue-600" />
+        <h2 className="mx-auto text-center text-xl font-semibold">
+          Create Group
+        </h2>
+      </div>
 
-      <form
-        className="flex h-screen flex-col justify-around border-t border-t-slate-400 align-middle"
-        style={{ height: '93vh' }}
-      >
+      <form className="relative w-full px-4 py-2 pb-6">
         {/* Image Upload*/}
-        <section className="w-full gap-4 rounded-3xl bg-purple-100 py-6">
-          <div className="flex w-full justify-center pb-2">
-            <span className="mx-auto text-center text-lg font-semibold text-slate-700">
-              Group Picture
-            </span>
-          </div>
+        <section className="w-full gap-4 rounded-3xl">
           <SingleImageDropzone
             height={100}
             width={100}
@@ -68,7 +78,7 @@ export default function CreateGroup() {
           />
         </section>
 
-        <section className="rounded-3xl bg-blue-100 p-10">
+        <section className="rounded-3xl pt-2">
           <label className="font-semibold text-slate-700" htmlFor="name">
             Name
           </label>
@@ -100,11 +110,11 @@ export default function CreateGroup() {
           </div>
         </section>
 
-        <section className="flex w-full justify-center bg-green-200 py-8">
+        <section className="flex w-full justify-center px-10 pb-4 pt-6">
           <button
             onClick={handleSubmit}
-            className="rounded-xl bg-white px-8 py-2 font-semibold outline outline-2 outline-slate-700
-        transition-all hover:scale-110
+            className="w-full rounded-md bg-blue-600 py-1 text-lg font-semibold text-white outline outline-2 outline-blue-600
+        transition-all hover:bg-white hover:text-blue-600
         "
           >
             Create Group

@@ -5,6 +5,7 @@ import TextArea from '@/components/functional/TextArea';
 import { useRouter } from 'next/navigation';
 import { SiLivewire } from 'react-icons/si';
 import { createLive } from '@/lib/queries/live';
+import { useErrorNotification, useSuccessNotification } from '@/components/toast/CustomToasts';
 
 const PublishLiveModal = () => {
   const router = useRouter();
@@ -18,8 +19,10 @@ const PublishLiveModal = () => {
 
     const response = await createLive();
     if (!response) {
-      return console.error('Failed to create live');
+      useErrorNotification('Failed to start live', {position: 'top-center'});
+      return console.error('Failed to start live');
     }
+    useSuccessNotification('Successfully started live', {position: 'bottom-center'});
 
     router.push(`/live/host/${response.id}`);
   };

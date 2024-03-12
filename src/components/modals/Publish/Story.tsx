@@ -5,9 +5,13 @@ import { useRouter } from 'next/navigation';
 import { GoBook } from 'react-icons/go';
 import { useEdgeStore } from '@/lib/store/edgestore';
 import { createStory } from '@/lib/queries/story';
-import { toast } from 'react-toastify';
 import { SingleImageDropzone } from '@/components/edgestore/SingleImageDropzone';
 import { IoCloudUploadOutline } from 'react-icons/io5';
+import {
+  useErrorNotification,
+  useSuccessNotification,
+  useWarnNotification,
+} from '@/components/toast/CustomToasts';
 
 const PublishStoryModal = () => {
   const router = useRouter();
@@ -20,24 +24,23 @@ const PublishStoryModal = () => {
   ) => {
     event.preventDefault();
 
-    if (!file) return;
+    if (!file) {
+      useWarnNotification('Pick image', { position: 'top-center' });
+      return console.warn('Image is required');
+    }
     const r = await edgestore.publicFiles.upload({ file });
 
     const response = await createStory(r.url);
     if (!response) {
-      toast(() => (
-        <div className="bg-red-400 outline outline-2 outline-red-600">
-          <p className="m-auto text-center font-bold">Fail</p>
-        </div>
-      ));
+      useErrorNotification('Failed to create story', {
+        position: 'top-center',
+      });
       return console.log('Empty response body');
     }
 
-    toast(() => (
-      <div className="outline outline-2 outline-green-600">
-        <p className="m-auto text-center font-bold">Success</p>
-      </div>
-    ));
+    useSuccessNotification('Successfully created story', {
+      position: 'bottom-center',
+    });
 
     router.push('/feed');
   };

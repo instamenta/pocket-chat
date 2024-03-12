@@ -6,6 +6,10 @@ import TextArea from '@/components/functional/TextArea';
 import { useRouter } from 'next/navigation';
 import { createShort } from '@/lib/queries/short';
 import { SiYoutubeshorts } from 'react-icons/si';
+import {
+  useErrorNotification,
+  useSuccessNotification,
+} from '@/components/toast/CustomToasts';
 
 const PublishShortModal = () => {
   const router = useRouter();
@@ -13,8 +17,17 @@ const PublishShortModal = () => {
   const [description, setDescription] = useState<string>('');
 
   const handleUpload = async (filename: string) => {
-    // const storyId =
-    await createShort(filename, description);
+    const storyId = await createShort(filename, description);
+    if (!storyId) {
+      useErrorNotification('Failed to create short', {
+        position: 'top-center',
+      });
+      return console.error('Failed to create story');
+    }
+
+    useSuccessNotification('Successfully created short', {
+      position: 'bottom-center',
+    });
     router.push('/feed/short');
   };
 
@@ -42,7 +55,7 @@ const PublishShortModal = () => {
         <VideoUpload
           onUploadSuccess={handleUpload}
           customHeight={'100%'}
-          className="rounded-2xl bg-white text-red-600 outline outline-2 mb-4 outline-red-600"
+          className="mb-4 rounded-2xl bg-white text-red-600 outline outline-2 outline-red-600"
         />
       </div>
     </>

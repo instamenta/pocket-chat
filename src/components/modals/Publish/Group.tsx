@@ -12,6 +12,7 @@ import { I_Group } from '@/lib/types';
 import { useUserContext } from '@/lib/context/UserContext';
 import { createGroupPublication, listGroupsByUser } from '@/lib/queries/group';
 import { useRouter } from 'next/navigation';
+import { useErrorNotification, useSuccessNotification } from '@/components/toast/CustomToasts';
 
 const PublishGroupPublicationModal = () => {
   const { edgestore } = useEdgeStore();
@@ -76,6 +77,7 @@ const PublishGroupPublicationModal = () => {
           imageUrls.push(res.url);
         } catch (error) {
           console.error(error);
+          useErrorNotification('Internal Error');
           updateFileProgress(addedFileState.key, 'ERROR');
         }
       }),
@@ -83,9 +85,11 @@ const PublishGroupPublicationModal = () => {
 
     const response = await createGroupPublication(description, imageUrls, picked.id);
     if (!response) {
+      useErrorNotification('Failed to create post', {position: 'top-center'});
       return console.error('Failed to create post');
     }
 
+    useSuccessNotification('Successfully created group publication', {position: 'bottom-center'});
     router.push(`/group/${response.id}`);
   };
 
@@ -168,7 +172,7 @@ const PublishGroupPublicationModal = () => {
         />
       </div>
 
-      <div className="flex w-full justify-center px-10 pb-4 pt-4">
+      <section className="flex w-full justify-center px-10 pb-4 pt-4">
         <button
           onClick={handleSubmit}
           className="w-full rounded-md bg-green-600 py-1 text-lg font-semibold text-white outline outline-2 outline-green-600
@@ -176,7 +180,7 @@ const PublishGroupPublicationModal = () => {
         >
           Upload
         </button>
-      </div>
+      </section>
     </>
   );
 };

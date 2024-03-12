@@ -11,6 +11,7 @@ import {
   sendFriendRequest,
   T_friendRequestLists,
 } from '@/lib/queries/friend';
+import { useErrorNotification } from '@/components/toast/CustomToasts';
 
 // TODO ADD MUTUAL FRIENDS
 
@@ -42,7 +43,9 @@ const Discover = () => {
     index: number,
   ) => {
     event.preventDefault();
-    await acceptFriendRequest(id);
+    await acceptFriendRequest(id).catch(() => {
+      useErrorNotification('Operation failed');
+    });
     recommendations.push(received[index]);
     received.splice(index, 1);
     setReceived([...received]);
@@ -55,7 +58,9 @@ const Discover = () => {
     index: number,
   ) => {
     event.preventDefault();
-    await declineFriendRequest(id);
+    await declineFriendRequest(id).catch(() => {
+      useErrorNotification('Operation failed');
+    });
     recommendations.push(received[index]);
     received.splice(index, 1);
     setReceived([...received]);
@@ -69,7 +74,9 @@ const Discover = () => {
     index: number,
   ) => {
     event.preventDefault();
-    await deleteFriendRequest(id);
+    await deleteFriendRequest(id).catch(() => {
+      useErrorNotification('Operation failed');
+    });
     recommendations.push(sent[index]);
     sent.splice(index, 1);
     setSent([...sent]);
@@ -83,7 +90,9 @@ const Discover = () => {
     index: number,
   ) => {
     event.preventDefault();
-    await sendFriendRequest(id);
+    await sendFriendRequest(id).catch(() => {
+      useErrorNotification('Operation failed');
+    });
     sent.push(recommendations[index]);
     recommendations.splice(index, 1);
     setSent([...sent]);

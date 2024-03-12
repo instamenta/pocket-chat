@@ -10,6 +10,7 @@ import { initRequest } from '@/lib';
 import { I_UserSchema } from '@/lib/types';
 import useUser from '@/lib/store';
 import { useRouter } from 'next/navigation';
+import { useSuccessNotification } from '@/components/toast/CustomToasts';
 
 export default function SignUp() {
   const [message, setMessage] = React.useState<string>();
@@ -63,6 +64,8 @@ export default function SignUp() {
 
       return setMessage('Invalid Credentials');
     }
+
+    useSuccessNotification('Successfully Signed Up', {position: 'bottom-right'});
 
     const { id }: { id: string } = await response.json();
 

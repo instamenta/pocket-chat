@@ -10,6 +10,7 @@ import {
 import { createPublication } from '@/lib/queries/publication';
 import { FaRegPenToSquare } from 'react-icons/fa6';
 import { useRouter } from 'next/navigation';
+import { useErrorNotification, useSuccessNotification } from '@/components/toast/CustomToasts';
 
 const PublishPublicationModal = () => {
   const { edgestore } = useEdgeStore();
@@ -66,9 +67,11 @@ const PublishPublicationModal = () => {
       images: imageUrls,
     });
     if (!id) {
+      useErrorNotification('Failed to create post', {position: 'top-center'});
       return console.error('Failed to create post');
     }
-    router.push('/publ')
+    useSuccessNotification('Successfully created group publication', {position: 'bottom-center'});
+    router.push('/feed');
   };
 
   return (

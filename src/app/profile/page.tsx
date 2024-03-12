@@ -27,7 +27,12 @@ import { toast } from 'react-toastify';
 import TextArea from '@/components/functional/TextArea';
 import { useUserContext } from '@/lib/context/UserContext';
 import useUser from '@/lib/store';
-import SimplifiedNavbar from '@/components/Navbar/SimplifiedNavbar'; // TODO ADD EDIT PROFILE
+import SimplifiedNavbar from '@/components/Navbar/SimplifiedNavbar';
+import {
+  useErrorNotification,
+  useSuccessNotification,
+  useWarnNotification,
+} from '@/components/toast/CustomToasts'; // TODO ADD EDIT PROFILE
 
 type T_personalInfo = {
   email: string;
@@ -66,26 +71,23 @@ const Profile = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
-    if (!file) return;
+    if (!file) {
+      useWarnNotification('Image is required', { position: 'top-center' });
+      return console.warn('Image is required');
+    }
     const r = await edgestore.publicFiles.upload({ file });
 
     const response = await updateProfilePicture(r.url);
     if (!response) {
-      toast(() => (
-        <div className="bg-red-400 outline outline-2 outline-red-600">
-          <p className="m-auto text-center font-bold">Failed to update info.</p>
-        </div>
-      ));
+      useErrorNotification('Failed to update', {
+        position: 'top-center',
+      });
       return console.log('Empty response body');
     }
 
-    toast(() => (
-      <div className="outline outline-2 outline-green-600">
-        <p className="m-auto text-center font-bold">
-          Successfully updated info
-        </p>
-      </div>
-    ));
+    useSuccessNotification('Successfully updated', {
+      position: 'bottom-center',
+    });
 
     useUser.getState().setUser(response.userData);
     setUser(response.userData);
