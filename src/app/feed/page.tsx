@@ -11,6 +11,7 @@ import QuickPost from '@/components/modals/QuickPost';
 import PublicationSlider from '@/components/modals/PublicationSlider';
 import StorySlider from '@/components/modals/StorySlider';
 import { getRecommendations } from '@/lib/queries/publication';
+import Sidebar from '@/components/Sidebar/Sidebar';
 
 const Feed = () => {
   const [description, setDescription] = useState<string>('');
@@ -18,14 +19,27 @@ const Feed = () => {
   return (
     <>
       <Navbar />
+      <Sidebar />
+      <section
+        className="w-full bg-slate-200 pt-2 shadow-inner
+       md:mx-auto md:w-[680px] lg:mx-auto lg:w-[1020px]"
+      >
+        <QuickPost description={description} setDescription={setDescription} />
+      </section>
 
-      <QuickPost description={description} setDescription={setDescription} />
-
-      {/* Story Section */}
-      <StorySlider />
+      <section
+        className="w-full bg-slate-200 pt-2 shadow-inner
+       lg:mx-auto lg:w-[1020px] "
+      >
+        {/* Story Section */}
+        <StorySlider />
+      </section>
 
       {/* Decoration's Section */}
-      <section className="scrollbar-sm flex w-full flex-row gap-3 overflow-x-auto bg-slate-100 px-2 pb-2.5 pt-2 text-center font-semibold shadow-inner">
+      <section
+        className="scrollbar-sm flex w-full flex-row gap-3 overflow-x-auto bg-slate-100 px-2 pb-2.5 pt-2 text-center font-semibold shadow-inner 
+      lg:mx-auto lg:w-[1020px] lg:justify-center"
+      >
         <Link
           href="/feed/short"
           className="flex flex-row gap-1.5 rounded-2xl border-t border-t-slate-200 bg-white px-4 py-1.5 drop-shadow-lg"
@@ -64,7 +78,10 @@ const Feed = () => {
       </section>
 
       {/* Publications Container */}
-      <section className="w-full bg-slate-200 pt-2 shadow-inner">
+      <section
+        className="w-full bg-slate-200 pt-2 shadow-inner
+       lg:mx-auto lg:w-[1020px] "
+      >
         {/* Each Publication */}
         <PublicationSlider dataPromise={getRecommendations()} />
       </section>

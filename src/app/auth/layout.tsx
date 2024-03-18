@@ -11,7 +11,7 @@ export default function AuthenticationLayout({ children }: T_Props) {
   };
 
   return (
-    <div className="m-0 h-screen bg-slate-100 p-0">
+    <div className="m-0 h-screen bg-slate-100 p-0 w-screen">
       <div className="w-full bg-orange-600 pt-20" style={{ height: '40vh' }}>
         <div className="mx-12 h-1/2 w-auto border-2 border-red-950" />
       </div>
@@ -23,7 +23,7 @@ export default function AuthenticationLayout({ children }: T_Props) {
           borderBottomRightRadius: '9999px',
         }}
       />
-      <section className="m-0 w-full p-0 " style={containerStyle}>
+      <section className="m-0 p-0 " style={containerStyle}>
         {children}
       </section>
     </div>

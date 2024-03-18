@@ -11,6 +11,7 @@ import { MdOutlineInsertComment } from 'react-icons/md';
 import { IoShareSocialSharp } from 'react-icons/io5';
 import { GoSearch } from 'react-icons/go';
 import { BsChevronLeft } from 'react-icons/bs';
+import Sidebar from '@/components/Sidebar/Sidebar';
 
 export default function ShortsPage() {
   const [shorts, setShorts] = useState<I_ShortPopulated[]>([]);
@@ -131,7 +132,8 @@ export default function ShortsPage() {
 
   return (
     <>
-      <nav className="absolute left-0 right-0 z-20 flex w-full justify-between p-4">
+      <nav className="absolute left-0 right-0 z-20 flex w-full justify-between p-4 md:mx-auto md:w-[768px]">
+        <Sidebar emptySpace={false} />
         <Link href="/feed">
           <BsChevronLeft className="my-auto size-8 fill-white" />
         </Link>
@@ -154,7 +156,7 @@ export default function ShortsPage() {
             className="relative h-screen w-screen object-contain"
             style={{ scrollSnapAlign: 'start' }}
           >
-            <div className="absolute bottom-0 left-0 z-30 h-1 w-full bg-slate-300">
+            <div className="absolute bottom-0 z-30 h-1 w-screen bg-slate-300 md:mx-auto">
               <div
                 className="h-full bg-red-600"
                 style={{
@@ -170,7 +172,7 @@ export default function ShortsPage() {
               ></div>
             </div>
 
-            <section className="absolute bottom-0 mb-4 flex flex-col p-4 text-xl">
+            <section className="absolute bottom-0 mb-4 flex flex-col p-4 text-xl md:left-32 md:mx-auto md:w-[768px] lg:left-64 xl:left-96">
               <div className="flex gap-3">
                 <img
                   src={short.user_picture}
@@ -188,7 +190,7 @@ export default function ShortsPage() {
               </div>
               <div></div>
             </section>
-            <section className="absolute bottom-0 right-0 z-20 mb-4 flex h-full flex-col justify-end gap-3 border-red-600 pr-3 align-middle text-sm text-gray-300">
+            <section className="absolute bottom-0 right-0 z-20 mb-4 flex h-full flex-col justify-end gap-3 border-red-600 pr-3 align-middle text-sm text-gray-300 md:right-32 lg:right-64 xl:right-96">
               <div className="flex flex-col justify-center gap-1 rounded-full bg-black bg-opacity-5 text-center align-middle">
                 <GrDislike className="mx-auto size-7" />
                 <span>24k</span>

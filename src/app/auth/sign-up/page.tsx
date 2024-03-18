@@ -83,7 +83,7 @@ export default function SignUp() {
 
   return (
     <form
-      className="mx-14 -mt-60 rounded-3xl border-2 border-slate-900 bg-white px-5 pb-12 pt-8 shadow-2xl"
+      className="mx-14 -mt-60 md:w-96 md:mx-auto rounded-3xl border-2 border-slate-900 bg-white px-5 pb-12 pt-8 shadow-2xl"
       onSubmit={handleSubmit}
     >
       {/* Info */}

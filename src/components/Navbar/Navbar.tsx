@@ -11,7 +11,7 @@ import PublishDropdown from '@/components/Navbar/PublishDropdown';
 const Navbar = () => {
   return (
     <nav className="border-b-cyan-700 bg-white px-4 py-2 shadow-md transition-all hover:bg-slate-100">
-      <div className="container mx-auto flex items-center justify-between">
+      <div className="container mx-auto flex items-center justify-between lg:w-[1080px] lg:px-10">
         {/* Logo */}
         <Link
           href="/feed/"

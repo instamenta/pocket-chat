@@ -8,27 +8,28 @@ export default async function Home() {
   return (
     <>
       <HomePageNavbar />
-      <main className="flex min-h-screen flex-col items-center justify-between">
+      <main className="flex min-h-screen flex-col items-center">
         {/* Hero Section */}
-        <section className="w-full">
-          <div
-            className="round-xxxl flex h-1/2 flex-col items-start border-t-2 bg-right bg-no-repeat object-contain p-16 shadow-md "
-            style={{
-              backgroundImage:
-                'url(https://static.velvetcache.org/pages/2018/06/13/party-gopher/dancing-gopher.gif)',
-            }}
-          >
-            <div className="w-3/5 border-t-2 border-t-gray-200">
-              <h1 className="py-8 font-serif text-4xl font-medium">
-                Wanting to keep in touch without compromising your data?
-              </h1>
+        <section className="container mx-auto w-full">
+          <div className="round-xxxl flex h-1/2 items-start border-t-2 bg-right px-4 py-16 shadow-md lg:h-screen lg:shadow-none xl:border-none lg:justify-around">
+            <div>
+              <div className="w-3/5 border-t-2 border-t-gray-200 ml-4">
+                <h1 className="py-8 font-serif text-4xl font-medium lg:text-8xl">
+                  Wanting to keep in touch without compromising your data?
+                </h1>
+              </div>
+              <button
+                className="border-2 bg-white ml-10 flex flex-nowrap text-nowrap px-11 py-4 text-gray-800 shadow-inner shadow-gray-500 transition-all
+          hover:border-slate-400 hover:bg-slate-100 lg:text-4xl lg:mt-10 lg:px-20 lg:py-8"
+              >
+                Learn more
+              </button>
             </div>
-            <button
-              className="border-2 bg-white  px-11 py-4 text-gray-800 shadow-inner shadow-gray-500 transition-all
-          hover:border-slate-400 hover:bg-slate-100"
-            >
-              Learn more
-            </button>
+
+            <img
+              src="https://static.velvetcache.org/pages/2018/06/13/party-gopher/dancing-gopher.gif"
+              alt="" className='my-auto lg:h-full w-auto lg:py-40'
+            />
           </div>
         </section>
 

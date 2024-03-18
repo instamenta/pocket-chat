@@ -191,6 +191,7 @@ const PublishDropdown = () => {
           <article
             id="publish-modal"
             className={`relative z-30 m-8 flex w-full flex-col content-center justify-center rounded-xl border-2  bg-white p-4 drop-shadow-2xl
+            md:max-w-[600px]
             ${
               state === 'live'
                 ? 'border-pink-600'

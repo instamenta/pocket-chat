@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { listFriendsByUserId } from '@/lib/queries/friend';
 import { I_UserSchema } from '@/lib/types';
 import { useUserContext } from '@/lib/context/UserContext';
+import Sidebar from '@/components/Sidebar/Sidebar';
 
 export default function Chat() {
   const [flash, setFlash] = React.useState(false);
@@ -47,8 +48,9 @@ export default function Chat() {
       </Link>
 
       <Navbar />
+      <Sidebar />
       {/* Searchbar */}
-      <div className="w-full px-6 py-1">
+      <div className="w-full px-6 py-1 md:mx-auto md:w-[420px] lg:mx-auto lg:w-[520px]">
         <div
           className={`z-20 flex w-full flex-row justify-around rounded-xl border-t border-t-gray-300 bg-blue-50 
         drop-shadow-lg transition-all ${
@@ -80,7 +82,9 @@ export default function Chat() {
       </div>
 
       {/* Side Scroll */}
-      <section className="bg-gray-white scrollbar-sm flex w-full flex-row overflow-x-auto border-b-2 px-5 py-3">
+      <section className="bg-gray-white scrollbar-sm flex w-full flex-row overflow-x-auto border-b-2 px-5 py-3
+      md:mx-auto md:w-[680px] lg:mx-auto lg:w-[1020px]
+      ">
         {/* Add Story Button */}
         <div className="mr-4 h-12 w-12 flex-none last:mr-0">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500 align-middle">
@@ -128,7 +132,8 @@ export default function Chat() {
       </section>
 
       {/* Chats Section*/}
-      <section className="scrollbar-xs max-h-[calc(100vh-257px)] w-full overflow-y-auto bg-white pt-4">
+      <section className="scrollbar-xs max-h-[calc(100vh-257px)] w-full overflow-y-auto bg-white pt-4
+      md:mx-auto md:w-[680px] lg:mx-auto lg:w-[1020px]">
         {/* Chat Box */}
         {[
           {

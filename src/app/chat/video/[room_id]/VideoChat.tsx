@@ -17,6 +17,8 @@ import {
 import { ImPhoneHangUp } from 'react-icons/im';
 import { IoReloadSharp } from 'react-icons/io5';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import SimplifiedNavbar from '@/components/Navbar/SimplifiedNavbar';
+import Sidebar from '@/components/Sidebar/Sidebar';
 
 const VideoChat = ({
   params: { room_id },
@@ -141,9 +143,13 @@ const VideoChat = ({
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-200">
-      <div className="flex w-full flex-grow flex-col">
-        <div className="aspect-square w-full flex-grow outline outline-1">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-200 md:bg-black ">
+      <section className="absolute top-0 w-full">
+        <SimplifiedNavbar />
+      </section>
+
+      <div className="flex w-full flex-grow flex-col md:grid md:grid-cols-2 md:mx-auto md:w-[768px] lg:mx-auto lg:w-[1024px] md:border-white md:gap-4 lg:gap-6 xl:gap-8">
+        <div className="aspect-square w-full flex-grow outline outline-1 md:my-auto">
           <video
             controls={true}
             controlsList="nodownload "
@@ -153,7 +159,7 @@ const VideoChat = ({
             autoPlay
           ></video>
         </div>
-        <div className="aspect-square w-full flex-grow outline outline-1">
+        <div className="aspect-square w-full flex-grow outline outline-1 md:my-auto">
           <video
             controls={true}
             controlsList="nodownload "
@@ -186,27 +192,27 @@ const VideoChat = ({
         </div>
       </div>
 
-      <div className="h-full w-full flex-row bg-black px-12 py-2 font-bold text-white">
-        <div className="flex h-full w-full justify-between rounded-3xl bg-slate-800 py-2 pl-4 pr-2">
+      <div className="h-full w-full flex-row bg-black px-12 py-2 font-bold text-white md:py-8">
+        <div className="flex h-full w-full justify-between rounded-3xl bg-slate-800 py-2 pl-4 pr-2 md:mx-auto md:w-[620px]">
           <button className="rounded-full  p-1" onClick={toggleMuteAudio}>
             {audioMuted ? (
-              <FaMicrophoneLines className="size-6 fill-white transition-all hover:fill-white" />
+              <FaMicrophoneAltSlash className="fill-red size-6 transition-all hover:fill-white md:size-10" />
             ) : (
-              <FaMicrophoneAltSlash className="fill-red size-6 transition-all hover:fill-white" />
+              <FaMicrophoneLines className="size-6 fill-white transition-all hover:fill-white md:size-10" />
             )}
           </button>
           <button className="aspect-square rounded-full" onClick={toggleVideo}>
             {videoPaused ? (
-              <BsFillCameraVideoFill className="size-6 fill-white transition-all hover:fill-white" />
+              <BsFillCameraVideoOffFill className="fill-red size-6 transition-all hover:fill-white md:size-10" />
             ) : (
-              <BsFillCameraVideoOffFill className="fill-red size-6 transition-all hover:fill-white" />
+              <BsFillCameraVideoFill className="size-6 fill-white transition-all hover:fill-white md:size-10" />
             )}
           </button>
           <button className="rounded-full  px-1" onClick={() => callPeer}>
-            <IoReloadSharp className="size-6 fill-white" />
+            <IoReloadSharp className="size-6 fill-white md:size-10" />
           </button>
           <button className="rounded-full bg-red-600 p-1" onClick={closeCall}>
-            <ImPhoneHangUp className="size-6 fill-white" />
+            <ImPhoneHangUp className="size-6 fill-white md:size-10" />
           </button>
         </div>
       </div>

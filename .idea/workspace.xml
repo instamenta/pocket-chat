@@ -5,21 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/toast/CustomToasts.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/auth/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/auth/sign-in/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/sign-in/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/auth/sign-up/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/sign-up/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/feed/post/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/feed/post/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/friends/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/friends/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/group/create/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/chat/[username]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/[username]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/chat/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/chat/video/[room_id]/VideoChat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/video/[room_id]/VideoChat.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/feed/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/feed/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/feed/short/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/feed/short/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HomePageNavbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HomePageNavbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/Navbar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Navbar/PublishDropdown.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/PublishDropdown.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modals/Publish/Group.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/Publish/Group.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modals/Publish/Live.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/Publish/Live.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modals/Publish/Post.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/Publish/Post.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modals/Publish/Short.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/Publish/Short.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modals/Publish/Story.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/Publish/Story.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/toast/CustomToast.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar/SimplifiedNavbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/SimplifiedNavbar.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +63,7 @@
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.5.0&quot;,
     &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.5.9&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/user/Desktop/myProjects/chat-app/t3-hexagots&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/user/Desktop/myProjects/chat-app/sender-chat-api&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -192,7 +193,11 @@
       <workItem from="1710106267931" duration="2518000" />
       <workItem from="1710168447878" duration="2098000" />
       <workItem from="1710186413648" duration="6829000" />
-      <workItem from="1710272328062" duration="6006000" />
+      <workItem from="1710272328062" duration="6053000" />
+      <workItem from="1710363868833" duration="339000" />
+      <workItem from="1710525610685" duration="1824000" />
+      <workItem from="1710745195565" duration="1198000" />
+      <workItem from="1710789589430" duration="9698000" />
     </task>
     <servers />
   </component>
