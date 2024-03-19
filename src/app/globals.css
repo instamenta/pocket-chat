@@ -148,6 +148,12 @@ body {
 }
 
 .white-to-transparent-bottom-gradient {
-    background: rgb(0,0,0);
-    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(75,75,79,1) 19%, rgba(75,75,79,1) 60%, rgba(75,75,79,1) 100%, rgba(255,255,255,0.4374124649859944) 100%);
+    background: rgb(0, 0, 0);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(75, 75, 79, 1) 19%, rgba(75, 75, 79, 1) 60%, rgba(75, 75, 79, 1) 100%, rgba(255, 255, 255, 0.4374124649859944) 100%);
+}
+
+.landing-page-background {
+    background-image: url('https://static.vecteezy.com/system/resources/previews/023/884/303/non_2x/abstract-background-illustration-abstract-blue-background-illustration-simple-blue-background-for-wallpaper-display-landing-page-banner-or-layout-design-graphic-for-display-free-vector.jpg');
+    background-size: cover;
+    background-position: right;
 }

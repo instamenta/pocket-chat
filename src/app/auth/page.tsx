@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function Authenticate(): React.JSX.Element {
   return (
-    <form className="mx-14 -mt-60 rounded-3xl border-2 border-slate-900 bg-white px-5 pb-6 pt-8 shadow-2xl">
+    <form className="mx-14 -mt-60 rounded-3xl border-2 border-slate-900 bg-white px-5 pb-6 pt-8 shadow-2xl md:mx-auto md:w-96">
       <h2 className="pb-1 pl-5 text-2xl font-medium text-slate-600">
         Welcome{' '}
       </h2>
