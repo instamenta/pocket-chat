@@ -29,7 +29,7 @@ const DropdownMenu: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="relative my-auto">
       <button
         id="dropdownAvatarNameButton"
         data-dropdown-toggle="dropdownAvatarName"
@@ -46,10 +46,10 @@ const DropdownMenu: React.FC = () => {
       </button>
       <div
         id="dropdownAvatarName"
-        className={`absolute z-50 w-40 divide-y divide-gray-100 rounded-lg border-t bg-white shadow drop-shadow-2xl ${
+        onMouseLeave={() => setToggle((prev) => !prev)}
+        className={`absolute right-0 top-14 z-50 w-40 divide-y divide-gray-100 rounded-lg border-t bg-white shadow drop-shadow-2xl xl:-left-14 ${
           !toggle ? 'hidden' : ''
         }`}
-        style={{ top: '65px', right: '15px' }}
       >
         <div className="px-4 py-3 text-sm text-gray-900">
           <div className="truncate">
@@ -96,7 +96,7 @@ const DropdownMenu: React.FC = () => {
           <span>Sign out</span>
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

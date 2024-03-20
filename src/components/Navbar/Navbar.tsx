@@ -7,10 +7,11 @@ import NotificationsBell from '@/components/Navbar/NotificationsBell';
 import Image from 'next/image';
 import DropdownMenu from '@/components/Navbar/DropdownMenu';
 import PublishDropdown from '@/components/Navbar/PublishDropdown';
+import GopherLogo from '../../../public/images/gopher-logo.png';
 
 const Navbar = () => {
   return (
-    <nav className="border-b-cyan-700 bg-white px-4 py-2 shadow-md transition-all hover:bg-slate-100">
+    <nav className="z-20 border-b-cyan-700 bg-white px-4 py-2 shadow-md transition-all">
       <div className="container mx-auto flex items-center justify-between lg:w-[1080px] lg:px-10">
         {/* Logo */}
         <Link
@@ -18,18 +19,19 @@ const Navbar = () => {
           className="flex gap-2 text-xl font-bold text-blue-600 transition-transform hover:translate-x-4 hover:scale-125"
         >
           <Image
-            src="https://flowbite.com/docs/images/logo.svg"
+            src={GopherLogo}
             alt="Flowbite Logo"
-            width={26}
-            height={26}
+            width={48}
+            height={48}
+            className="scale-150"
           />
-          Pocket Chat
+          <h1 className="my-auto lg:text-2xl">Pocket Chat</h1>
         </Link>
         {/* Main Navigation */}
         <div className="flex flex-row items-center space-x-4 text-gray-800">
           <div className="flex flex-row content-center justify-center align-middle">
             {/* Publish */}
-            < PublishDropdown />
+            <PublishDropdown />
 
             {/* Notifications */}
             <NotificationsBell />

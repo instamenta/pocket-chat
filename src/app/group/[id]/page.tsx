@@ -13,6 +13,7 @@ import { IoSearch } from 'react-icons/io5';
 import { BsThreeDots } from 'react-icons/bs';
 import { IoIosArrowDown } from 'react-icons/io';
 import PublicationSlider from '@/components/modals/PublicationSlider';
+import Footer from '@/components/Footer';
 
 export default function GroupDetails({
   params: { id },
@@ -30,10 +31,7 @@ export default function GroupDetails({
     <>
       <Navbar />
 
-      <section
-        className="w-full overflow-hidden rounded-b-3xl border-b shadow-md"
-        style={{ height: '60vw' }}
-      >
+      <section className="mt-4 w-full overflow-hidden rounded-b-3xl border-b shadow-md md:max-h-[30vh]">
         {group ? (
           <img
             className="overflow-hidden object-cover object-center"
@@ -42,6 +40,7 @@ export default function GroupDetails({
           />
         ) : null}
       </section>
+
       <section className="w-full border-b border-b-slate-300 px-4 pb-4 pt-4">
         {group ? (
           <>
@@ -57,52 +56,53 @@ export default function GroupDetails({
                 {group.members_count > 1 ? 's' : ''}
               </span>
             </div>
-            <section className="grid grid-cols-9 gap-2 pb-2 pt-6">
+            <section className="grid grid-cols-9 gap-2 pb-2 pt-6 md:px-10 lg:px-20 xl:px-32 2xl:px-60">
               <button
                 className="col-span-3 flex w-full flex-nowrap content-center justify-center gap-1 rounded-md
-              bg-blue-600 py-1 text-white outline outline-2 outline-blue-600 transition-all hover:bg-white hover:text-blue-600 "
+              bg-blue-600 py-1 text-white outline outline-2 outline-blue-600 transition-all hover:bg-white hover:text-blue-600"
               >
-                <FaPlus className="my-auto" />
-                <span className="font-semibold">Invite</span>
+                <FaPlus className="my-auto md:size-6" />
+                <span className="my-auto font-semibold md:text-xl">Invite</span>
               </button>
               <button
                 className="col-span-3 flex w-full content-center justify-center rounded-md bg-gray-200 py-1
                 transition-all hover:bg-slate-300"
               >
-                <HiMiniUserGroup className="my-auto size-5" />
-                <MdOutlineArrowDropDown className="my-auto size-5" />
+                <HiMiniUserGroup className="my-auto size-5 md:size-6" />
+                <MdOutlineArrowDropDown className="my-auto size-5 md:size-6" />
               </button>
               <button
                 className="col-span-1 flex w-full content-center justify-center rounded-md bg-gray-200 py-1
                 transition-all hover:bg-slate-300"
               >
-                <IoSearch className="my-auto size-5" />
+                <IoSearch className="my-auto size-5 md:size-6" />
               </button>
               <button
                 className="col-span-1 flex w-full content-center justify-center rounded-md bg-gray-200 py-1
                 transition-all hover:bg-slate-300"
               >
-                <BsThreeDots className="my-auto size-5" />
+                <BsThreeDots className="my-auto size-5 md:size-6" />
               </button>
               <button
                 className="col-span-1 flex w-full content-center justify-center rounded-md bg-gray-200 py-1
                 transition-all hover:bg-slate-300"
               >
-                <IoIosArrowDown className="my-auto size-5" />
+                <IoIosArrowDown className="my-auto size-5 md:size-6" />
               </button>
             </section>
           </>
         ) : null}
       </section>
+
       <section className="font-semi grid w-full grid-cols-3 font-semibold">
         <div className="mx-auto flex w-full justify-center border-b-2 border-b-blue-600 py-3 shadow-inner">
-          <span className="text-center text-blue-600">Featured</span>
-        </div>
-        <div className="mx-auto flex w-full justify-center border-b border-b-slate-200 py-3  shadow-inner">
-          <span className="text-center">Members</span>
+          <span className="text-center text-blue-600 md:text-md xl:text-xl">Featured</span>
         </div>
         <div className="mx-auto flex w-full justify-center border-b border-b-slate-200 py-3 shadow-inner">
-          <span className="text-center">More</span>
+          <span className="text-center md:text-md xl:text-xl">Members</span>
+        </div>
+        <div className="mx-auto flex w-full justify-center border-b border-b-slate-200 py-3 shadow-inner">
+          <span className="text-center md:text-md xl:text-xl">More</span>
         </div>
       </section>
 
@@ -114,14 +114,16 @@ export default function GroupDetails({
             setDescription={setDescription}
           />
         </div>
-        <h2 className="mx-4 py-2 text-lg font-semibold text-gray-600">
+        <h2 className="mx-4 py-2 font-semibold text-gray-600 text-xl lg:mx-auto lg:w-[1020px] lg:text-2xl mt-4">
           Recent Publications
         </h2>
       </section>
 
-      <div className="w-full bg-slate-200 pt-2 shadow-inner">
+      <section className="mb-10 w-full bg-slate-200 pt-2 shadow-inner lg:mx-auto lg:w-[1020px]">
         <PublicationSlider dataPromise={listGroupPublication(id)} />
-      </div>
+      </section>
+
+      <Footer />
     </>
   );
 }

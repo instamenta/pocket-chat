@@ -33,7 +33,7 @@ const Newsletter = () => {
                   </svg>
                 </div>
                 <input
-                  className="focus:ring-primary-500 focus:border-primary-500  block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pl-10 text-sm text-gray-900 sm:rounded-none sm:rounded-l-lg "
+                  className="focus:ring-7-500 focus:border-blue-500  block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pl-10 text-sm text-gray-900 sm:rounded-none sm:rounded-l-lg "
                   placeholder="Enter your email"
                   type="email"
                   id="email"
@@ -43,7 +43,7 @@ const Newsletter = () => {
               <div>
                 <button
                   type="submit"
-                  className="bg-primary-700 border-primary-600 hover:bg-primary-800 focus:ring-primary-300 w-full cursor-pointer rounded-lg border px-5 py-3 text-center text-sm font-medium text-white focus:ring-4 sm:rounded-none sm:rounded-r-lg"
+                  className="bg-blue-700 border-blue-600 hover:bg-blue-800 focus:ring-blue-300 w-full cursor-pointer rounded-lg border px-5 py-3 text-center text-sm font-medium text-white focus:ring-4 sm:rounded-none sm:rounded-r-lg"
                 >
                   Subscribe
                 </button>
@@ -53,7 +53,7 @@ const Newsletter = () => {
               We care about the protection of your data.{' '}
               <a
                 href="#"
-                className="text-primary-600 font-medium hover:underline"
+                className="text-blue-600 font-medium hover:underline"
               >
                 Read our Privacy Policy
               </a>

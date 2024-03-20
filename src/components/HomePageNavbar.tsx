@@ -16,8 +16,14 @@ const HomePageNavbar = () => {
           href="/"
           className="flex gap-2 text-2xl font-bold text-blue-600 transition-transform hover:translate-x-4 hover:scale-125"
         >
-          <Image src={GopherLogo} alt="Flowbite Logo" width={48} height={48} className='scale-150' />
-          <h1 className='my-auto'>Pocket Chat</h1>
+          <Image
+            src={GopherLogo}
+            alt="Flowbite Logo"
+            width={48}
+            height={48}
+            className="scale-150"
+          />
+          <h1 className="my-auto lg:text-2xl">Pocket Chat</h1>
         </Link>
         <div className="flex flex-row items-center space-x-4 text-gray-700">
           <Link

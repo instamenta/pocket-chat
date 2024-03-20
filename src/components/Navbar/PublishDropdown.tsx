@@ -33,14 +33,17 @@ const PublishDropdown = () => {
 
   return (
     <>
-      <div className="my-auto pr-2">
+      <div className="relative my-auto pr-2">
         <LuPlusCircle
           onClick={() => setToggle((prev) => !prev)}
           className=" my-auto size-7 cursor-pointer text-slate-600 transition-all hover:fill-blue-600"
         />
 
         {toggle && (
-          <div className="absolute right-20 z-20 mt-3 max-w-sm divide-y divide-gray-100 overflow-y-auto rounded-lg border bg-white px-2 shadow-xl ">
+          <div
+            className="absolute right-0 top-12 z-20 mt-3 w-60 max-w-sm divide-y divide-gray-100 overflow-y-auto rounded-lg border bg-white px-2 shadow-xl xl:-left-28"
+            onMouseLeave={() => setToggle((prev) => !prev)}
+          >
             <div className="py-2">
               <span className="px-2.5 text-lg font-semibold">Publish</span>
             </div>

@@ -2,7 +2,7 @@
 
 export const Footer = () => {
   return (
-    <footer className="border-t-4 border-cyan-800 bg-slate-200 w-screen">
+    <footer className="border-t-4 border-blue-600 bg-slate-200 w-screen">
       <div className="mx-auto w-full max-w-screen-xl pt-6">
         <div className="grid grid-cols-2 gap-8 px-4 py-6 md:grid-cols-4 lg:py-8">
           <div>
@@ -36,7 +36,7 @@ export const Footer = () => {
             <h2 className="mb-6 text-sm font-semibold uppercase text-gray-900">
               Help center
             </h2>
-            <ul className="font-medium  text-gray-500">
+            <ul className="font-medium text-gray-500">
               <li className="mb-4">
                 <a href="#" className="hover:underline">
                   Discord Server
@@ -109,7 +109,7 @@ export const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="bg-cyan-900 px-4 py-6 shadow-gray-900 md:flex md:items-center md:justify-between">
+        <div className="bg-blue-600 px-4 py-6 shadow-gray-900 md:flex md:items-center md:justify-between">
           <span className="text-sm text-gray-100  sm:text-center">
             © 2023 <a href="https://flowbite.com/">Chatter™</a>. All Rights
             Reserved.

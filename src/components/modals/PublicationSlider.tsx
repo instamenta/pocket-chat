@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { IoHeartHalfOutline } from 'react-icons/io5';
@@ -12,7 +14,7 @@ import { useUserContext } from '@/lib/context/UserContext';
 const PublicationSlider = ({
   dataPromise,
 }: {
-  dataPromise:  Promise<I_Recommendation[]>;
+  dataPromise: Promise<I_Recommendation[]>;
 }) => {
   const { user } = useUserContext();
 
@@ -80,10 +82,10 @@ const PublicationSlider = ({
               <img
                 src={publication.picture}
                 alt="profile pic"
-                className="aspect-square h-14 w-14 rounded-full border-2 border-white outline outline-blue-600"
+                className="aspect-square size-14 rounded-full border-2 border-white outline outline-blue-600 xl:size-16"
               />
             </div>
-            <div className="ml-4 flex flex-col justify-between py-1">
+            <div className="ml-4 flex flex-col justify-between py-1 xl:text-lg">
               <span className="font-semibold capitalize">
                 {publication.first_name + ' ' + publication.last_name}
               </span>
@@ -93,7 +95,7 @@ const PublicationSlider = ({
             </div>
           </Link>
           {publication.description ? (
-            <div className="text-pretty px-4 pb-2">
+            <div className="text-pretty px-4 pb-2 xl:text-lg">
               <span className="font-medium text-gray-900">
                 {publication.description}
               </span>
@@ -114,11 +116,7 @@ const PublicationSlider = ({
               .slice(0, 4)
               .map((image: string, index: number) => (
                 <div key={index} className="overflow-hidden">
-                  <img
-                    src={image}
-                    alt="image"
-                    className="object-contain"
-                  />
+                  <img src={image} alt="image" className="object-contain" />
                 </div>
               ))}
           </div>
@@ -128,11 +126,11 @@ const PublicationSlider = ({
           {/* Publication Rating */}
           <div className="flex w-full justify-between px-4 pb-2 pt-4">
             <div className="flex content-center gap-1">
-              <IoHeartHalfOutline className="size-6 fill-red-600 " />
-              <span>{publication.likes_count}</span>
+              <IoHeartHalfOutline className="size-6 fill-red-600 md:size-7 " />
+              <span className="xl:text-lg">{publication.likes_count}</span>
             </div>
             <div className="flex gap-2">
-              <div className="flex gap-2">
+              <div className="flex gap-2 xl:text-lg">
                 <span>{publication.comments_count + ' ' + 'comments'}</span>
                 <span>{24 + ' ' + 'reposts'}</span>
               </div>
@@ -147,12 +145,12 @@ const PublicationSlider = ({
                 onClick={(event) => handleLike(event, publication.id, index)}
               >
                 {publication.liked_by_user ? (
-                  <FaHeart className="h-5 w-5 fill-red-600" />
+                  <FaHeart className="size-5 fill-red-600 md:size-6 lg:size-7" />
                 ) : (
-                  <FaRegHeart className="h-5 w-5" />
+                  <FaRegHeart className="size-5 md:size-6 lg:size-7" />
                 )}
               </div>
-              <span>Like</span>
+              <span className="text-md my-auto md:text-lg">Like</span>
             </div>
 
             {/* Comment Publication */}
@@ -160,20 +158,20 @@ const PublicationSlider = ({
               onClick={() => handleOpenPublicationDetails(publication)}
               className="flex flex-row flex-nowrap gap-1"
             >
-              <FaCommentDots className="h-5 w-5 fill-gray-600" />
-              <span>Comment</span>
+              <FaCommentDots className="size-5 fill-gray-600 md:size-6 lg:size-7" />
+              <span className="text-md my-auto md:text-lg">Comment</span>
             </button>
 
             {/* Share to Conversation */}
             <button className="flex flex-row flex-nowrap gap-1">
-              <BiSend className="h-5 w-5" />
-              <span>Send</span>
+              <BiSend className="size-5 md:size-6 lg:size-7" />
+              <span className="text-md my-auto md:text-lg">Send</span>
             </button>
 
             {/* Share Button */}
             <button className="flex flex-row flex-nowrap gap-1 ">
-              <FaRegShareFromSquare className="h-5 w-5" />
-              <span>Share</span>
+              <FaRegShareFromSquare className="size-5 md:size-6 lg:size-7" />
+              <span className="text-md my-auto md:text-lg">Share</span>
             </button>
           </div>
         </article>

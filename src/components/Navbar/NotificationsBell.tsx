@@ -38,8 +38,8 @@ const NotificationsBell: React.FC = () => {
         )}
         {toggle && (
           <div
-            className="absolute right-0 z-20 mt-3 w-80 max-w-sm divide-y divide-gray-100 overflow-y-auto rounded-lg border bg-white shadow-xl "
-            style={{ maxHeight: '40vh' }}
+            className="absolute right-0 z-20 mt-3 max-h-[40vh] w-80 max-w-sm divide-y divide-gray-100 overflow-y-auto rounded-lg border bg-white shadow-xl xl:-left-36 "
+            onMouseLeave={() => setToggle((prev) => !prev)}
           >
             <div className="block rounded-t-lg bg-gray-50 px-4 py-2 text-center font-medium text-gray-700 ">
               Notifications

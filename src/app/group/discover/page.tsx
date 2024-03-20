@@ -5,6 +5,8 @@ import { I_Group } from '@/lib/types';
 import { joinGroup, listGroups } from '@/lib/queries/group';
 import Navbar from '@/components/Navbar/Navbar';
 import { IoCloseCircleOutline } from 'react-icons/io5';
+import Sidebar from '@/components/Sidebar/Sidebar';
+import Link from 'next/link';
 
 interface I_GroupExtended extends I_Group {
   joinRequested?: boolean;
@@ -32,20 +34,21 @@ export default function GroupsDiscover() {
   return (
     <>
       <Navbar />
-      <section className="px-4 pt-4">
-        <h1 className="text-xl font-semibold text-slate-700">
+      <Sidebar />
+      <section className="px-4 pt-4 lg:mx-auto lg:w-[1020px] ">
+        <h1 className="text-xl font-semibold text-slate-700 md:text-2xl">
           Suggested for you
         </h1>
-        <h2 className="text-lg font-semibold text-slate-400">
+        <h2 className="text-lg font-semibold text-slate-400 md:text-xl">
           Groups you might be interested in.
         </h2>
       </section>
-      <section className="mt-6 flex w-full flex-col gap-5 px-4">
+      <section className="mt-6  grid w-full grid-cols-1 flex-col gap-5 px-4 md:grid-cols-2 lg:mx-auto lg:w-[1020px]">
         {groups.map((group, index) => (
           <>
             <article
-              key={group.id}
-              className="w-full rounded-xl border border-slate-300 shadow-xl"
+              key={index}
+              className="flex w-full flex-col justify-between rounded-xl border border-slate-300 shadow-xl"
             >
               <div className="relative w-full overflow-hidden border-b border-b-slate-200 shadow-inner">
                 <img
@@ -85,9 +88,17 @@ export default function GroupsDiscover() {
                 </button>
               </div>
             </article>
-            <div className="border-t border-t-gray-200" />
+            <div className="visible border-t border-t-gray-200 md:hidden" />
           </>
         ))}
+        <section className="col-span-1 mt-10 flex w-full justify-center md:col-span-2">
+          <Link
+            href="/group"
+            className="mx-auto w-60 rounded-xl border-2 border-black bg-slate-300 py-4 text-center text-lg font-semibold shadow-2xl transition-all hover:bg-white md:w-80 md:text-xl xl:w-96"
+          >
+            Your Groups
+          </Link>
+        </section>
       </section>
     </>
   );

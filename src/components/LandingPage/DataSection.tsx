@@ -24,9 +24,8 @@ const DataSection = () => {
             How to quickly publish your first publication
           </h1>
           <p className="mb-6 text-lg font-normal text-gray-500">
-            Static websites are now used to bootstrap lots of websites and are
-            becoming the basis for a variety of tools that even influence both
-            web designers and developers.
+            The quickest way to save your real life accomplishments in time for
+            everyone to see.
           </p>
           <a
             href="#"
@@ -71,9 +70,8 @@ const DataSection = () => {
               Start connecting with your friends
             </h2>
             <p className="mb-4 text-lg font-normal text-gray-500">
-              Static websites are now used to bootstrap lots of websites and are
-              becoming the basis for a variety of tools that even influence both
-              web designers and developers.
+              Design that makes your accomplishments be just as impressive
+              online as they were in real live.
             </p>
             <a
               href="#"
@@ -120,12 +118,11 @@ const DataSection = () => {
               Code
             </a>
             <h2 className="mb-2 text-3xl font-extrabold text-gray-900 ">
-              Best react libraries around the web
+              What makes us the best option
             </h2>
             <p className="mb-4 text-lg font-normal text-gray-500">
-              Static websites are now used to bootstrap lots of websites and are
-              becoming the basis for a variety of tools that even influence both
-              web designers and developers.
+              Our tech stack is specially designed to support millions of users,
+              while still top performance.
             </p>
             <a
               href="#"
