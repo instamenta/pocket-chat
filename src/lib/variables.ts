@@ -227,6 +227,30 @@ export const STORY_DYNAMIC = {
     url: (username: string) => new URL(`${endpoints.story}/${username}`),
     method: 'GET',
   } as T_Rest1Param,
+
+  //* Likes
+  like_story: {
+    url: (id: string) => new URL(`${endpoints.story}/${id}/like`),
+    method: 'PUT',
+  } as T_Rest1Param,
+
+  //* Comment
+  list_comments_by_story: {
+    url: (id: string) => new URL(`${endpoints.story}/comments/${id}`),
+    method: 'GET',
+  } as T_Rest1Param,
+  create_comment: {
+    url: (id: string) => new URL(`${endpoints.story}/comments/${id}`),
+    method: 'POST',
+  } as T_Rest1Param,
+  delete_comment: {
+    url: (id: string) => new URL(`${endpoints.story}/comments/${id}`),
+    method: 'DELETE',
+  } as T_Rest1Param,
+  like_comment: {
+    url: (id: string) => new URL(`${endpoints.story}/comments/${id}`),
+    method: 'PUT',
+  } as T_Rest1Param,
 };
 
 export const NOTIFICATION = {
@@ -267,6 +291,30 @@ export const SHORT_DYNAMIC = {
   list_shorts_by_user_id: {
     url: (id: string) => new URL(`${endpoints.short}/${id}`),
     method: 'GET',
+  } as T_Rest1Param,
+
+  //* Likes
+  like_short: {
+    url: (id: string) => new URL(`${endpoints.story}/${id}/like`),
+    method: 'PUT',
+  } as T_Rest1Param,
+
+  //* Comment
+  list_comments_by_story: {
+    url: (id: string) => new URL(`${endpoints.story}/comments/${id}`),
+    method: 'GET',
+  } as T_Rest1Param,
+  create_comment: {
+    url: (id: string) => new URL(`${endpoints.story}/comments/${id}`),
+    method: 'POST',
+  } as T_Rest1Param,
+  delete_comment: {
+    url: (id: string) => new URL(`${endpoints.story}/comments/${id}`),
+    method: 'DELETE',
+  } as T_Rest1Param,
+  like_comment: {
+    url: (id: string) => new URL(`${endpoints.story}/comments/${id}`),
+    method: 'PUT',
   } as T_Rest1Param,
 };
 

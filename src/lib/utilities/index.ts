@@ -19,32 +19,37 @@ export function blob_to_json<T>(
   }
 }
 
-export function handleResponseVoid(res: Response) {
-  if (!res || !res.ok) {
+export function handleResponseVoid(r: Response) {
+  if (!r || !r.ok) {
     return console.error(
-      `Failed to send request Status: ${res?.status}`,
-      res.headers,
+      `Failed to send request Status: ${r?.status}`,
+      r.headers,
     );
   }
 }
 
-export async function handleResponse<T>(res: Response): Promise<T | void> {
-  if (!res || !res.ok) {
+export async function handleResponse<T>(r: Response): Promise<T | void> {
+  if (!r || !r.ok) {
     return console.error(
-      `Failed to send request Status: ${res?.statusText}`,
-      res.headers,
+      `Failed to send request Status: ${r?.statusText}`,
+      r.headers,
     );
   }
-  return res.json();
+  return r.json();
 }
 
-export async function handleResponseList<T>(res: Response): Promise<T[]> {
-  if (!res || !res.ok) {
-    console.error(
-      `Failed to send request Status: ${res?.statusText}`,
-      res.headers,
-    );
+export async function handleResponseList<T>(r: Response): Promise<T[]> {
+  if (!r || !r.ok) {
+    console.error(`Failed to send request Status: ${r?.statusText}`, r.headers);
     return [];
   }
-  return res.json();
+  return r.json();
+}
+
+export async function handleResponseBoolean(r: Response): Promise<boolean> {
+  if (!r || !r.ok) {
+    console.error(`Failed to send request Status: ${r?.statusText}`, r.headers);
+    return false;
+  }
+  return true;
 }

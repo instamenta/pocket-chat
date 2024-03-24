@@ -1,7 +1,7 @@
 import { PUBLICATIONS, PUBLICATIONS_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
 import { I_Publication, I_Recommendation } from '@/lib/types';
-import { handleResponse, handleResponseList } from '@/lib/utilities';
+import { handleResponse, handleResponseBoolean, handleResponseList } from '@/lib/utilities';
 
 export const listPublications = async () =>
   fetch(
@@ -77,13 +77,4 @@ export const likePublication = async (id: string) =>
       method: PUBLICATIONS_DYNAMIC.like_publication.method,
       auth: true,
     }),
-  ).then((res) => {
-    if (!res || !res.ok) {
-      console.error(
-        `Failed to send request Status: ${res?.statusText}`,
-        res.headers,
-      );
-      return false;
-    }
-    return true;
-  });
+  ).then(handleResponseBoolean);

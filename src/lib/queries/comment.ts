@@ -1,7 +1,7 @@
 import { COMMENTS_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
 import { T_Comment, T_PopulatedComment } from '@/lib/types';
-import { handleResponse } from '@/lib/utilities';
+import { handleResponse, handleResponseBoolean } from '@/lib/utilities';
 
 export const listCommentsByPublication = async (publicationId: string) =>
   fetch(
@@ -35,16 +35,7 @@ export const deleteComment = async (commentId: string) =>
       method: COMMENTS_DYNAMIC.delete_comment.method,
       auth: true,
     }),
-  ).then((res) => {
-    if (!res || !res.ok) {
-      console.error(
-        `Failed to send request Status: ${res?.statusText}`,
-        res.headers,
-      );
-      return false;
-    }
-    return true;
-  });
+  ).then(handleResponseBoolean);
 
 export const likeComment = async (commentId: string) =>
   fetch(
@@ -53,13 +44,4 @@ export const likeComment = async (commentId: string) =>
       method: COMMENTS_DYNAMIC.like_comment.method,
       auth: true,
     }),
-  ).then((res) => {
-    if (!res || !res.ok) {
-      console.error(
-        `Failed to send request Status: ${res?.statusText}`,
-        res.headers,
-      );
-      return false;
-    }
-    return true;
-  });
+  ).then(handleResponseBoolean);

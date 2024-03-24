@@ -1,6 +1,6 @@
 import { NOTIFICATION, NOTIFICATION_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
-import { handleResponse, handleResponseList } from '@/lib/utilities';
+import { handleResponse, handleResponseBoolean, handleResponseList } from '@/lib/utilities';
 import { I_PopulatedNotification } from '@/lib/types';
 
 export const createNotification = async (body: {
@@ -25,13 +25,7 @@ export const martAllNotificationsAsSeen = async () =>
       method: NOTIFICATION.mark_all_notifications_as_seen.method,
       auth: true,
     }),
-  ).then(async (res): Promise<boolean> => {
-    if (!res || !res.ok) {
-      console.log('HTTP Error', res?.statusText);
-      return false;
-    }
-    return true;
-  });
+  ).then(handleResponseBoolean);
 
 export const markNotificationAsSeen = async (id: string) =>
   fetch(
@@ -40,13 +34,7 @@ export const markNotificationAsSeen = async (id: string) =>
       method: NOTIFICATION_DYNAMIC.mark_notification_as_seen.method,
       auth: true,
     }),
-  ).then(async (res): Promise<boolean> => {
-    if (!res || !res.ok) {
-      console.log('HTTP Error', res?.statusText);
-      return false;
-    }
-    return true;
-  });
+  ).then(handleResponseBoolean);
 
 export const listNotifications = async (
   filter: 'all' | 'seen' | 'unseen' = 'all',
