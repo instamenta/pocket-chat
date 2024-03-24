@@ -57,9 +57,9 @@ export default function ShortsPage() {
         });
       },
       {
-        root: null, // Use the viewport as the root
+        root: null, //? Use the viewport as the root
         rootMargin: '0px',
-        threshold: 0.5, // Trigger when 50% of the video is visible
+        threshold: 0.5, //? Trigger when 50% of the video is visible
       },
     );
 

@@ -131,6 +131,10 @@ export const MESSAGES = {
     url: new URL(`${endpoints.message}/`),
     method: 'POST',
   } as T_Rest,
+  list_conversations: {
+    url: new URL(`${endpoints.message}/conversations`),
+    method: 'GET',
+  } as T_Rest,
 };
 
 export const MESSAGES_DYNAMIC = {

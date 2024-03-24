@@ -1,6 +1,6 @@
 import { NOTIFICATION, NOTIFICATION_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
-import { handleResponse } from '@/lib/utilities';
+import { handleResponse, handleResponseList } from '@/lib/utilities';
 import { I_PopulatedNotification } from '@/lib/types';
 
 export const createNotification = async (body: {
@@ -57,10 +57,4 @@ export const listNotifications = async (
       method: NOTIFICATION_DYNAMIC.list_notifications.method,
       auth: true,
     }),
-  ).then(async (res): Promise<I_PopulatedNotification[]> => {
-    if (!res || !res.ok) {
-      console.log('HTTP Error', res?.statusText);
-      return [];
-    }
-    return res.json();
-  });
+  ).then(r => handleResponseList<I_PopulatedNotification>(r));

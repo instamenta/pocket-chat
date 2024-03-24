@@ -2,7 +2,7 @@ import { FRIENDS, FRIENDS_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
 import { I_Friendship, I_UserSchema } from '../types';
 import { initActionRequest } from '@/lib/actions/actions';
-import { handleResponseVoid } from '@/lib/utilities';
+import { handleResponseList, handleResponseVoid } from '@/lib/utilities';
 
 export const listFriendRecommendations = () =>
   fetch(
@@ -25,13 +25,7 @@ export const listFriendRequestsOnly = async () =>
       method: FRIENDS.list_friend_requests_only.method,
       auth: true,
     }),
-  ).then(async (response: Response): Promise<T_friendRequestLists[]> => {
-    if (!response.ok) {
-      console.log('HTTP ERROR', response.status, response);
-      return [];
-    }
-    return await response.json();
-  });
+  ).then((r) => handleResponseList<T_friendRequestLists>(r));
 
 export const listFriendSentOnly = async () =>
   fetch(
@@ -40,13 +34,7 @@ export const listFriendSentOnly = async () =>
       method: FRIENDS.list_friend_sent_only.method,
       auth: true,
     }),
-  ).then(async (response: Response): Promise<T_friendRequestLists[]> => {
-    if (!response.ok) {
-      console.log('HTTP ERROR', response.status, response);
-      return [];
-    }
-    return await response.json();
-  });
+  ).then((r) => handleResponseList<T_friendRequestLists>(r));
 
 export const listFriendRequests = () =>
   fetch(
@@ -55,13 +43,7 @@ export const listFriendRequests = () =>
       method: FRIENDS.list_friend_requests.method,
       auth: true,
     }),
-  ).then(async (response: Response): Promise<I_UserSchema[]> => {
-    if (!response.ok) {
-      console.log('HTTP ERROR', response.status, response);
-      return [];
-    }
-    return await response.json();
-  });
+  ).then((r) => handleResponseList<I_UserSchema>(r));
 
 export type T_friendRequestLists = {
   id: string;
@@ -115,13 +97,7 @@ export const listFriendsByUserId = (id: string) =>
       method: FRIENDS_DYNAMIC.list_friends_by_user_id.method,
       auth: true,
     }),
-  ).then(async (response: Response): Promise<I_UserSchema[]> => {
-    if (!response.ok) {
-      console.log('HTTP ERROR', response.status, response);
-      return [];
-    }
-    return await response.json();
-  });
+  ).then((r) => handleResponseList<I_UserSchema>(r));
 
 export const getBySenderAndRecipient = (user1: string, user2: string) =>
   fetch(

@@ -1,16 +1,19 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar/Navbar';
 import Link from 'next/link';
 import { listFriendsByUserId } from '@/lib/queries/friend';
-import { I_UserSchema } from '@/lib/types';
+import { I_UserSchema, T_Conversations } from '@/lib/types';
 import { useUserContext } from '@/lib/context/UserContext';
 import Sidebar from '@/components/Sidebar/Sidebar';
+import { listConversations } from '@/lib/queries/message';
+import { timeAgo } from '@/lib/utilities/formatting';
 
-export default function Chat() {
-  const [flash, setFlash] = React.useState(false);
-  const [userList, setUserList] = React.useState<I_UserSchema[]>([]);
+export default function Conversations() {
+  const [flash, setFlash] = useState(false);
+  const [userList, setUserList] = useState<I_UserSchema[]>([]);
+  const [conversations, setConversations] = useState<T_Conversations[]>([]);
   const { user } = useUserContext();
 
   const handleClick = () => {
@@ -18,10 +21,13 @@ export default function Chat() {
     setTimeout(() => setFlash(false), 400);
   };
 
-  React.useEffect(() => {
-    listFriendsByUserId(user!.id).then((data) => {
-      setUserList(data);
-    });
+  useEffect(() => {
+    Promise.all([listFriendsByUserId(user!.id), listConversations()]).then(
+      ([userList, conversations]) => {
+        setUserList(userList);
+        setConversations(conversations);
+      },
+    );
   }, []);
 
   return (
@@ -82,9 +88,11 @@ export default function Chat() {
       </div>
 
       {/* Side Scroll */}
-      <section className="bg-gray-white scrollbar-sm flex w-full flex-row overflow-x-auto border-b-2 px-5 py-3
+      <section
+        className="bg-gray-white scrollbar-sm flex w-full flex-row overflow-x-auto border-b-2 px-5 py-3
       md:mx-auto md:w-[680px] lg:mx-auto lg:w-[1020px]
-      ">
+      "
+      >
         {/* Add Story Button */}
         <div className="mr-4 h-12 w-12 flex-none last:mr-0">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500 align-middle">
@@ -132,131 +140,48 @@ export default function Chat() {
       </section>
 
       {/* Chats Section*/}
-      <section className="scrollbar-xs max-h-[calc(100vh-257px)] w-full overflow-y-auto bg-white pt-4
-      md:mx-auto md:w-[680px] lg:mx-auto lg:w-[1020px]">
+      <section
+        className="scrollbar-xs max-h-[calc(100vh-257px)] w-full overflow-y-auto bg-white pt-4
+      md:mx-auto md:w-[680px] lg:mx-auto lg:w-[1020px]"
+      >
         {/* Chat Box */}
-        {[
-          {
-            fullName: 'Smith Richardson',
-            lastMessage: 'We should meet up soon',
-            time: '5:30 PM',
-            missedCount: 0,
-          },
-          {
-            fullName: 'John Doe',
-            lastMessage: 'How are you doing?',
-            time: '3:45 PM',
-            missedCount: 3,
-          },
-          {
-            fullName: 'Alice Johnson',
-            lastMessage: 'Great news!',
-            time: '1:20 PM',
-            missedCount: 10,
-          },
-          {
-            fullName: 'Bob Smith',
-            lastMessage: 'Where are you?',
-            time: '10:15 AM',
-            missedCount: 3,
-          },
-          {
-            fullName: 'Emily White',
-            lastMessage: 'Happy birthday!',
-            time: '8:00 AM',
-            missedCount: 1,
-          },
-          {
-            fullName: 'David Brown',
-            lastMessage: 'Let\'s grab lunch',
-            time: '6:30 AM',
-            missedCount: 2,
-          },
-          {
-            fullName: 'Sophia Taylor',
-            lastMessage: 'Thank you!',
-            time: 'Yesterday',
-            missedCount: 0,
-          },
-          {
-            fullName: 'Michael Wilson',
-            lastMessage: 'Check this out',
-            time: '2 days ago',
-            missedCount: 0,
-          },
-          {
-            fullName: 'Olivia Martin',
-            lastMessage: 'I\'m on my way',
-            time: '3 days ago',
-            missedCount: 4,
-          },
-          {
-            fullName: 'James Anderson',
-            lastMessage: 'Don\'t forget',
-            time: '4 days ago',
-            missedCount: 0,
-          },
-          {
-            fullName: 'Emma Harris',
-            lastMessage: 'See you later',
-            time: '5 days ago',
-            missedCount: 0,
-          },
-          {
-            fullName: 'William Clark',
-            lastMessage: 'It\'s urgent',
-            time: '1 week ago',
-            missedCount: 0,
-          },
-          {
-            fullName: 'Ava Lewis',
-            lastMessage: 'Missed your call',
-            time: '2 weeks ago',
-            missedCount: 1,
-          },
-          {
-            fullName: 'Ethan Turner',
-            lastMessage: 'Happy holidays!',
-            time: '3 weeks ago',
-            missedCount: 4,
-          },
-          {
-            fullName: 'Mia Adams',
-            lastMessage: 'Let\'s plan something',
-            time: '4 weeks ago',
-            missedCount: 0,
-          },
-        ].map((item, index) => (
+        {conversations.map((conversation, index) => (
           <div className="flex w-full px-5 py-3" key={index}>
-            <div className="aspect-square h-16 rounded-full border-2 border-white bg-blue-500 outline outline-blue-500" />
+            <div className="aspect-square h-16 rounded-full border-2 border-white bg-blue-500 outline outline-blue-500">
+              <img
+                src={conversation.picture}
+                alt="user-pic"
+                className="h-full w-full rounded-full"
+              />
+            </div>
             <div className="ml-4 h-full w-full pt-2">
               <label className="font-mono text-lg capitalize">
-                {item.fullName}
+                {conversation.first_name + ' ' + conversation.last_name}
               </label>
               <p
                 className={`text-sm ${
-                  item.missedCount
+                  index
                     ? 'font-normal text-gray-500'
                     : 'font-medium text-gray-800'
                 }`}
               >
-                {item.lastMessage}
+                {conversation.last_message}
               </p>
             </div>
             <div className="w-24 pt-3">
               <p className="w-full text-nowrap text-right text-xs font-light">
-                {item.time}
+                {timeAgo(conversation.created_at)}
               </p>
               <p
                 className={`font-ling w-full text-nowrap pt-2 text-right ${
-                  item.missedCount <= 4 ? 'text-blue-500' : 'text-blue-300'
+                  index <= 4 ? 'text-blue-500' : 'text-blue-300'
                 }`}
               >
-                {!item.missedCount
+                {index
                   ? ''
-                  : item.missedCount <= 4
-                    ? `${' * '.repeat(item.missedCount)}`
-                    : `${item.missedCount}*`}
+                  : index <= 4
+                    ? `${' * '.repeat(index)}`
+                    : `${index}*`}
               </p>
             </div>
           </div>

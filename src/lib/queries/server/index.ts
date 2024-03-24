@@ -1,6 +1,7 @@
 import { initActionRequest } from '@/lib/actions/actions';
 import { FRIENDS } from '@/lib/variables';
 import { T_friendRequestLists } from '@/lib/queries/friend';
+import { handleResponseList } from '@/lib/utilities';
 
 export const listFriendRequestsOnly = async () =>
   fetch(
@@ -9,13 +10,7 @@ export const listFriendRequestsOnly = async () =>
       method: FRIENDS.list_friend_requests_only.method,
       auth: true,
     }),
-  ).then(async (response: Response): Promise<T_friendRequestLists[]> => {
-    if (!response.ok) {
-      console.log('HTTP ERROR', response.status, response);
-      return [];
-    }
-    return await response.json();
-  });
+  ).then((r) => handleResponseList<T_friendRequestLists>(r));
 
 export const listFriendSentOnly = async () =>
   fetch(
@@ -24,13 +19,7 @@ export const listFriendSentOnly = async () =>
       method: FRIENDS.list_friend_sent_only.method,
       auth: true,
     }),
-  ).then(async (response: Response): Promise<T_friendRequestLists[]> => {
-    if (!response.ok) {
-      console.log('HTTP ERROR', response.status, response);
-      return [];
-    }
-    return await response.json();
-  });
+  ).then((r) => handleResponseList<T_friendRequestLists>(r));
 
 export const listFriendRecommendations = async () =>
   fetch(
@@ -39,10 +28,4 @@ export const listFriendRecommendations = async () =>
       method: FRIENDS.list_friend_recommendations.method,
       auth: true,
     }),
-  ).then(async (response: Response): Promise<T_friendRequestLists[]> => {
-    if (!response.ok) {
-      console.log('HTTP ERROR', response.status, response);
-      return [];
-    }
-    return await response.json();
-  });
+  ).then((r) => handleResponseList<T_friendRequestLists>(r));

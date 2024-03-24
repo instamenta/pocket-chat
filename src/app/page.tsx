@@ -16,8 +16,8 @@ export default async function Home() {
       <main className="flex min-h-screen flex-col items-center">
         {/* Hero Section */}
         <div className="landing-page-background w-full md:shadow-xl">
-          <section className="container mx-auto w-full ">
-            <div className="flex h-screen md:h-1/2 w-full flex-col-reverse items-start border-t-2 bg-right px-4 py-16 shadow-md md:flex-row lg:h-screen lg:justify-around lg:shadow-none xl:border-none">
+          <section className="mx-auto w-screen ">
+            <div className="flex h-screen w-full flex-col-reverse items-start border-t-2 bg-right px-4 py-16 shadow-md md:h-1/2 md:flex-row lg:h-screen lg:justify-around lg:shadow-none xl:border-none">
               <div className="lg:mt-20">
                 <div className="w-full border-y-2 border-y-gray-300 px-4 py-8 md:w-4/5">
                   <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-white md:text-5xl md:text-gray-900 lg:text-6xl xl:text-7xl 2xl:text-8xl">
