@@ -73,6 +73,22 @@ Discover and create short, engaging videos similar to YouTube Shorts. Whether fo
 ### Notifications 🔔
 Never miss an important message or update with real-time notifications. Customize your notification settings to stay informed according to your preferences.
 
+## Technologies Used 💻🛠️
+
+Pocket Chat is developed using a comprehensive and modern technology stack to provide a seamless, real-time communication experience:
+
+- **Next.js** 🖤: A React framework that enables functionality such as server-side rendering and generating static websites for React-based web applications.
+- **React** ⚛️: A JavaScript library for building user interfaces, enabling dynamic and interactive web applications with reusable components.
+- **Tailwind CSS** 🌬️: A utility-first CSS framework for rapidly building custom designs, promoting faster and more efficient styling of web pages.
+- **TypeScript** 📘: A superset of JavaScript that adds static type definitions, enhancing code quality and reliability through type safety.
+- **WebSocket** 🌐: A protocol enabling two-way interactive communication sessions between the user's browser and a server, perfect for real-time functionalities.
+- **Docker** 🐳: A tool designed to make it easier to create, deploy, and run applications by using containers, ensuring consistency across multiple development and release cycles.
+- **PeerJS** 🤝: A library that simplifies WebRTC peer-to-peer data, video, and audio calls, making it easier to add real-time communication capabilities.
+- **JWT (JSON Web Tokens)** 🔑: A compact and self-contained way for securely transmitting information between parties as a JSON object, used for authentication and information exchange.
+
+Pocket Chat leverages these technologies to deliver an engaging, scalable, and highly interactive chat application, from the backend infrastructure to the frontend user experience.
+
+
 ## Getting Started
 
 ### Installation
