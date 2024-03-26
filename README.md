@@ -51,22 +51,23 @@ Pocket Chat is an innovative messaging platform that brings a comprehensive suit
 ```
 
 ## Features
-Real-Time Messaging
-Stay connected with friends, family, and colleagues through instant text messages, enriched with emojis and media-sharing capabilities, ensuring your conversations are as lively and interactive as they can be.
 
-### Video and Voice Calls
+### Real-Time Messaging 💬
+Stay connected with friends, family, and colleagues through instant text messages, enriched with emojis 😄 and media-sharing capabilities 📸, ensuring your conversations are as lively and interactive as they can be.
+
+### Video and Voice Calls 📞🎥
 Make and receive high-quality video and voice calls with ease. Whether it's a one-on-one conversation or a group call, Pocket Chat ensures you're always just a click away from connecting with your loved ones.
 
-### Groups
+### Groups 👥
 Create or join groups to stay connected with multiple people at once. Perfect for organizing events, staying in touch with family, or collaborating with colleagues, our group feature makes collective communication effortless.
 
-### Lives
+### Lives 🎥
 Engage with a broader audience through live sessions. Whether showcasing your talents, sharing insights, or just chatting, live sessions bring your community closer together.
 
-### Shorts
+### Shorts 🎬
 Discover and create short, engaging videos similar to YouTube Shorts. Whether for entertainment, education, or just sharing moments of your day, Pocket Chat's short video feature keeps you and your network engaged and entertained.
 
-### Notifications
+### Notifications 🔔
 Never miss an important message or update with real-time notifications. Customize your notification settings to stay informed according to your preferences.
 
 ## Getting Started
@@ -89,11 +90,11 @@ npm run dev
 npm run build && npm run start
 ```
 
-## Contributing
+### Contributing 🤝
 As a solo developer, I welcome contributions and feedback to improve Pocket Chat.
 
-## Support
+### Support 🆘
 If you encounter any issues or have questions, please file an issue on GitHub.
 
-## License
+### License 📄
 Pocket Chat is released under the MIT License. Feel free to fork, modify, and use it in your projects.
