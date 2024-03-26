@@ -52,6 +52,9 @@ Pocket Chat is an innovative messaging platform that brings a comprehensive suit
 
 ## Features
 
+### Fully Responsive 📱💻🖥️
+Pocket Chat is fully responsive, adapting seamlessly to any screen size and device. Whether you're on your phone, tablet, or desktop, enjoy a flawless chat experience tailored to your device.
+
 ### Real-Time Messaging 💬
 Stay connected with friends, family, and colleagues through instant text messages, enriched with emojis 😄 and media-sharing capabilities 📸, ensuring your conversations are as lively and interactive as they can be.
 
