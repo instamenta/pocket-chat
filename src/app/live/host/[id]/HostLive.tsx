@@ -71,7 +71,7 @@ const LiveHost = ({ params: { id: liveId } }: { params: { id: string } }) => {
           localVideoRef.current.srcObject = stream;
         }
         peer.on('call', (call) => {
-          console.log("ANSWER")
+          console.log('ANSWER');
           call.answer(stream);
 
           peer.call(call.peer, stream);

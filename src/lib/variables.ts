@@ -205,6 +205,10 @@ export const COMMENTS_DYNAMIC = {
     url: (id: string) => new URL(`${endpoints.comment}/${id}`),
     method: 'PUT',
   } as T_Rest1Param,
+  get_comment_by_id: {
+    url: (id: string) => new URL(`${endpoints.comment}/${id}/details`),
+    method: 'GET',
+  } as T_Rest1Param,
 };
 
 export const STORY = {

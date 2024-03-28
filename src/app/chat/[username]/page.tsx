@@ -1,12 +1,6 @@
 'use client';
 
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { I_Friendship, I_Message, I_UserSchema } from '@/lib/types';
 import { listMessagesByUsers } from '@/lib/queries/message';
 import { FaChevronLeft } from 'react-icons/fa6';
@@ -29,8 +23,8 @@ import Sidebar from '@/components/Sidebar/Sidebar';
 import Navbar from '@/components/Navbar/Navbar';
 
 export default function Chat({
-  params: { username },
-}: {
+                               params: { username }
+                             }: {
   params: { username: string };
 }) {
   const { webSocket: ws, emitter, connectWebSocket } = useWebSocket();
@@ -53,7 +47,7 @@ export default function Chat({
     useRecipient(username, 'username', setRecipient).then(async (data) => {
       await Promise.all([
         listMessagesByUsers(user.id, data!.id).then(setMessages),
-        getBySenderAndRecipient(user.id, data!.id).then(setFriendship),
+        getBySenderAndRecipient(user.id, data!.id).then(setFriendship)
       ]);
     });
   }, []);
@@ -66,7 +60,9 @@ export default function Chat({
       setMessages((prev) => [data, ...prev]);
     }
 
+    // @ts-ignore
     emitter.on('message', handleMessage);
+    // @ts-ignore
     return () => emitter.off('message', handleMessage);
   }, [emitter]);
 
@@ -100,7 +96,7 @@ export default function Chat({
       sender: user.id,
       recipient: recipient?.id,
       content: message,
-      images: imageUrls,
+      images: imageUrls
     });
 
     setMessage('');
@@ -114,7 +110,7 @@ export default function Chat({
     if (message !== '') {
       setMessage(
         (prev) =>
-          `${prev.substring(0, cursorPos)}${emoji}${prev.substring(cursorPos)}`,
+          `${prev.substring(0, cursorPos)}${emoji}${prev.substring(cursorPos)}`
       );
     } else {
       setMessage(emoji);
@@ -128,7 +124,7 @@ export default function Chat({
       type: 'video-call-invite',
       sender: user?.id,
       recipient: recipient?.id,
-      room: friendship?.id,
+      room: friendship?.id
     };
 
     ws!.send(JSON.stringify(videoCallRequest));
@@ -150,7 +146,7 @@ export default function Chat({
 
       const response = await fetch('http://localhost:3005/upload-audio', {
         method: 'POST',
-        body: formData,
+        body: formData
       });
 
       if (!response.ok) {
@@ -167,8 +163,8 @@ export default function Chat({
           content: '',
           date: new Date().toISOString(),
           images: [],
-          files: [id],
-        }),
+          files: [id]
+        })
       );
       console.log(`Voice message send ID: ${id}`);
     } catch (error) {
@@ -193,7 +189,8 @@ export default function Chat({
           <div className="flex flex-row" style={{ width: '75%' }}>
             <div className="flex h-full flex-row content-center items-center">
               <Link href="/chat" className="flex justify-center align-middle">
-                <FaChevronLeft className="h-7 w-10 transition-all hover:scale-125 hover:scale-x-150 hover:fill-blue-600" />
+                <FaChevronLeft
+                  className="h-7 w-10 transition-all hover:scale-125 hover:scale-x-150 hover:fill-blue-600" />
               </Link>
 
               <Link href={`/profile/${username}`} className="flex flex-row">
@@ -204,7 +201,8 @@ export default function Chat({
                     src={recipient?.picture ?? ''}
                     alt="profile pic"
                   />
-                  <span className="absolute bottom-0 left-7 h-3.5 w-3.5 rounded-full border border-white bg-green-400 dark:border-gray-800"></span>
+                  <span
+                    className="absolute bottom-0 left-7 h-3.5 w-3.5 rounded-full border border-white bg-green-400 dark:border-gray-800"></span>
                 </div>
 
                 <div className="flex w-full flex-col truncate pl-4">
@@ -236,15 +234,19 @@ export default function Chat({
         >
           <article className="scrollbar-xs flex w-full flex-col-reverse overflow-y-scroll p-6">
             {messages.map((message, index) =>
-              message.sender_id !== user?.id ? (
-                <ReceivedMessage
-                  key={index}
-                  message={message}
-                  recipient={recipient}
-                />
-              ) : (
-                <SentMessage key={index} message={message} />
-              ),
+              message.sender_id !== user?.id
+                ? (
+                  <ReceivedMessage
+                    key={index}
+                    message={message}
+                    recipient={recipient}
+                  />
+                ) : (
+                  <SentMessage
+                    key={index}
+                    message={message}
+                  />
+                )
             )}
           </article>
         </section>
@@ -322,7 +324,8 @@ export default function Chat({
                 fill="currentColor"
                 viewBox="0 0 18 20"
               >
-                <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
+                <path
+                  d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
               </svg>
               <span className="sr-only">Send message</span>
             </button>

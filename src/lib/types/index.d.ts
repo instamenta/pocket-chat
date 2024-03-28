@@ -1,4 +1,4 @@
-import { group_roles, socket_events } from '@/lib/types/enumerations';
+import { group_roles, notification_types, socket_events } from '@/lib/types/enumerations';
 
 export interface I_UserSchema {
   id: string;
@@ -78,26 +78,29 @@ export interface T_VideoCallInviteResponse {
 }
 
 export interface I_Notifications {
-  id: string;
-  type: 'all' | 'seen' | 'unseen';
-  seen: boolean;
-  content: string;
-  sender_id: string;
-  created_at: string;
-  recipient_id: string;
+  id: string,
+  type: notification_types,
+  seen: boolean,
+  content: string,
+  sender_id: string,
+  created_at: string,
+  recipient_id: string,
+  reference_id?: string,
 }
 
 export interface I_PopulatedNotification {
-  id: string;
-  type: string;
-  boolean: string;
-  content: string;
-  sender_id: string;
-  created_at: string;
-  recipient_id: string;
-  picture: string;
-  first_name: string;
-  last_name: string;
+  id: string
+  boolean: string
+  content: string
+  sender_id: string
+  created_at: string
+  recipient_id: string
+  picture: string
+  first_name: string
+  last_name: string
+  seen: boolean
+  type: notification_types
+  reference_id: string
 }
 
 export interface T_Comment {
