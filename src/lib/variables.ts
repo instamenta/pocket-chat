@@ -299,25 +299,25 @@ export const SHORT_DYNAMIC = {
 
   //* Likes
   like_short: {
-    url: (id: string) => new URL(`${endpoints.story}/${id}/like`),
+    url: (id: string) => new URL(`${endpoints.short}/${id}/like`),
     method: 'PUT',
   } as T_Rest1Param,
 
   //* Comment
   list_comments_by_story: {
-    url: (id: string) => new URL(`${endpoints.story}/comments/${id}`),
+    url: (id: string) => new URL(`${endpoints.short}/comments/${id}`),
     method: 'GET',
   } as T_Rest1Param,
   create_comment: {
-    url: (id: string) => new URL(`${endpoints.story}/comments/${id}`),
+    url: (id: string) => new URL(`${endpoints.short}/comments/${id}`),
     method: 'POST',
   } as T_Rest1Param,
   delete_comment: {
-    url: (id: string) => new URL(`${endpoints.story}/comments/${id}`),
+    url: (id: string) => new URL(`${endpoints.short}/comments/${id}`),
     method: 'DELETE',
   } as T_Rest1Param,
   like_comment: {
-    url: (id: string) => new URL(`${endpoints.story}/comments/${id}`),
+    url: (id: string) => new URL(`${endpoints.short}/comments/${id}`),
     method: 'PUT',
   } as T_Rest1Param,
 };

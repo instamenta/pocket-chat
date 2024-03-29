@@ -89,18 +89,18 @@ export interface I_Notifications {
 }
 
 export interface I_PopulatedNotification {
-  id: string
-  boolean: string
-  content: string
-  sender_id: string
-  created_at: string
-  recipient_id: string
-  picture: string
-  first_name: string
-  last_name: string
-  seen: boolean
-  type: notification_types
-  reference_id: string
+  id: string;
+  boolean: string;
+  content: string;
+  sender_id: string;
+  created_at: string;
+  recipient_id: string;
+  picture: string;
+  first_name: string;
+  last_name: string;
+  seen: boolean;
+  type: notification_types;
+  reference_id: string;
 }
 
 export interface T_Comment {
@@ -182,6 +182,8 @@ export type T_FeedStory = {
   last_name: string;
   user_picture: string;
   image_url: string;
+  comments_count: number
+  likes_count: number
 };
 
 export type T_StoryFull = {
@@ -218,6 +220,7 @@ export interface I_ShortPopulated {
   created_at: string;
   likes_count: number;
   comments_count: number;
+  liked_by_user: boolean;
 }
 
 export interface I_Group {

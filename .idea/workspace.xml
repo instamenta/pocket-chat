@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/prettier.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/protoeditor.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/chat/[username]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/[username]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/live/host/[id]/HostLive.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/live/host/[id]/HostLive.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/NotificationsBell.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/NotificationsBell.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/queries/comment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/comment.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/types/enumerations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types/enumerations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/feed/short/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/feed/short/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types/index.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/variables.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/variables.ts" afterDir="false" />
     </list>
@@ -60,7 +51,7 @@
     "go.import.settings.migrated": "true",
     "javascript.nodejs.core.library.configured.version": "20.5.0",
     "javascript.nodejs.core.library.typings.version": "20.5.9",
-    "last_opened_file_path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots/src/components/Navbar/Notifications",
+    "last_opened_file_path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -228,7 +219,8 @@
       <workItem from="1711486590672" duration="672000" />
       <workItem from="1711551388873" duration="612000" />
       <workItem from="1711554242577" duration="1988000" />
-      <workItem from="1711652587554" duration="6544000" />
+      <workItem from="1711652587554" duration="6563000" />
+      <workItem from="1711732485934" duration="7933000" />
     </task>
     <servers />
   </component>
