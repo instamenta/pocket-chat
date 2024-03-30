@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdOutlineInsertComment } from 'react-icons/md';
 import { FaShare } from 'react-icons/fa6';
 import { IoShareSocialSharp } from 'react-icons/io5';
@@ -6,19 +6,24 @@ import { I_ShortPopulated } from '@/lib/types';
 import { likeShort } from '@/lib/queries/short';
 import { GoHeartFill } from 'react-icons/go';
 import { useErrorNotification } from '@/components/toast/CustomToasts';
+import { CommentSection } from '@/components/modals/CommentSection';
 
 const ActionSidebar = (
-  {
-    short, setShort, index
-  }
+  { short, setShortsList, shortIndex }
     : {
     short: I_ShortPopulated,
-    setShort: React.Dispatch<React.SetStateAction<I_ShortPopulated[]>>,
-    index: string | number
+    setShortsList: React.Dispatch<React.SetStateAction<I_ShortPopulated[]>>,
+    shortIndex: string | number
   }
 ) => {
+  const [commentSectionVisibility, setCommentSectionVisibility] = useState<'hidden' | 'visible'>('hidden');
+
   useEffect(() => {
   }, []);
+
+  const handleCommentSectionClose = () => {
+    setCommentSectionVisibility('hidden');
+  };
 
   const handleLike = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.preventDefault();
@@ -29,13 +34,13 @@ const ActionSidebar = (
       return console.error('Failed to like Short');
     }
 
-    setShort((currentShorts) => {
-      const updatedPublications = [...currentShorts];
-      const short = { ...updatedPublications[+index] };
+    setShortsList((currentShorts) => {
+      const update = [...currentShorts];
+      const short = { ...update[+shortIndex] };
       short.liked_by_user = !short.liked_by_user;
       short.liked_by_user ? short.likes_count++ : short.likes_count--;
-      updatedPublications[+index] = short;
-      return updatedPublications;
+      update[+shortIndex] = short;
+      return update;
     });
   };
 
@@ -52,8 +57,19 @@ const ActionSidebar = (
       </div>
       <div
         className="flex flex-col justify-center gap-1 rounded-full bg-black bg-opacity-5 text-center align-middle">
-        <MdOutlineInsertComment className="mx-auto size-7 fill-white bg-opacity-100" />
+        <MdOutlineInsertComment
+          onClick={() => setCommentSectionVisibility('visible')}
+          className="mx-auto size-7 fill-white bg-opacity-100" />
         <span className="bg-opacity-100">{short.comments_count}</span>
+
+        {/* Comment Section */}
+        <CommentSection
+          short={short}
+          setShortsList={setShortsList}
+          shortIndex={shortIndex}
+          onClose={handleCommentSectionClose}
+          visibility={commentSectionVisibility}
+        />
       </div>
       <div
         className="flex flex-col justify-center gap-1 rounded-full bg-black bg-opacity-5 text-center align-middle">

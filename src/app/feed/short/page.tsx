@@ -3,45 +3,43 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { I_ShortPopulated } from '@/lib/types';
 import { listShorts } from '@/lib/queries/short';
-import { FaShare } from 'react-icons/fa6';
 import Link from 'next/link';
 import DropdownMenu from '@/components/Navbar/DropdownMenu';
-import { GrDislike, GrLike } from 'react-icons/gr';
-import { MdOutlineInsertComment } from 'react-icons/md';
-import { IoShareSocialSharp } from 'react-icons/io5';
 import { GoSearch } from 'react-icons/go';
 import { BsChevronLeft } from 'react-icons/bs';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import ActionSidebar from '@/components/Short/ActionSidebar';
 
 export default function ShortsPage() {
-  const [shorts, setShorts] = useState<I_ShortPopulated[]>([]);
-  const [shortIndex, setShortIndex] = useState<number>(0);
+  const ON_SCROLL_COOLDOWN_DURATION = 500; //? MS
+
+  const [shortsList, setShortsList] = useState<I_ShortPopulated[]>([]);
+  const [currentShortIndex, setCurrentShortIndex] = useState<number>(0);
+  const [videoBarProgress, setVideoBarProgress] = useState(
+    shortsList.map(() => ({ currentTime: 0, duration: 1 }))
+  );
+  const [isVideoScrollOnCooldown, setIsVideoScrollOnCooldown] = useState(false);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
-  const [videoProgress, setVideoProgress] = useState(
-    shorts.map(() => ({ currentTime: 0, duration: 1 }))
-  );
 
-  const [isCooldownActive, setIsCooldownActive] = useState(false);
-  const cooldownDuration = 500; //? MS
 
   useEffect(() => {
     const fetchShorts = async () => {
       const data: I_ShortPopulated[] = await listShorts();
-      setShorts(data);
+      setShortsList(data);
       videoRefs.current = data.map(() => null);
     };
     fetchShorts().then();
   }, []);
 
   useEffect(() => {
-    const currentVideo: HTMLVideoElement | null = videoRefs.current[shortIndex];
-    if (currentVideo) {
-      currentVideo.play().catch((error) => console.error('Error playing video:', error));
+    const currentVideoRef: HTMLVideoElement | null = videoRefs.current[currentShortIndex];
+    if (currentVideoRef) {
+      currentVideoRef.play().catch((error) => console.error('Error playing video:', error));
     }
-    containerRef.current?.children[shortIndex]?.scrollIntoView({ behavior: 'smooth' });
-  }, [shortIndex]);
+    containerRef.current?.children[currentShortIndex]?.scrollIntoView({ behavior: 'smooth' });
+  }, [currentShortIndex]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -72,19 +70,21 @@ export default function ShortsPage() {
         if (video) observer.unobserve(video);
       });
     };
-  }, [shorts]);
+  }, [shortsList]);
 
   type T_XY_Point = { x: number; y: number } | null;
 
   const [startPoint, setStartPoint] = useState<T_XY_Point>(null);
   const [endPoint, setEndPoint] = useState<T_XY_Point>(null);
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setStartPoint({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement | HTMLVideoElement>) => {
+    if (event.target !== event.currentTarget) return;
+    setStartPoint({ x: event.touches[0].clientX, y: event.touches[0].clientY });
   };
 
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    setEndPoint({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement | HTMLVideoElement>) => {
+    if (event.target !== event.currentTarget) return;
+    setEndPoint({ x: event.touches[0].clientX, y: event.touches[0].clientY });
   };
 
   const pauseAllExceptCurrent = (currentIndex: number) => {
@@ -98,12 +98,13 @@ export default function ShortsPage() {
   };
 
   useEffect(() => {
-    pauseAllExceptCurrent(shortIndex);
-    containerRef.current?.children[shortIndex]?.scrollIntoView({ behavior: 'smooth' });
-  }, [shortIndex]);
+    pauseAllExceptCurrent(currentShortIndex);
+    containerRef.current?.children[currentShortIndex]?.scrollIntoView({ behavior: 'smooth' });
+  }, [currentShortIndex]);
 
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement | HTMLVideoElement>) => {
+    if (event.target !== event.currentTarget) return;
     if (!startPoint || !endPoint) return;
 
     const distanceMoved = Math.sqrt(
@@ -114,18 +115,18 @@ export default function ShortsPage() {
     let newIndex = null;
 
     if (distanceMoved < 20) {
-      const videoElement = videoRefs.current[shortIndex];
+      const videoElement = videoRefs.current[currentShortIndex];
 
       if (videoElement) videoElement.paused
         ? videoElement.play().then()
         : videoElement.pause();
     } else {
       if (startPoint.y - endPoint.y > 50) {
-        newIndex = Math.min(shortIndex + 1, shorts.length - 1);
+        newIndex = Math.min(currentShortIndex + 1, shortsList.length - 1);
       } else if (endPoint.y - startPoint.y > 50) {
-        newIndex = Math.max(shortIndex - 1, 0);
+        newIndex = Math.max(currentShortIndex - 1, 0);
       }
-      if (newIndex !== null) setShortIndex(newIndex);
+      if (newIndex !== null) setCurrentShortIndex(newIndex);
     }
 
     setStartPoint(null);
@@ -142,40 +143,41 @@ export default function ShortsPage() {
 
   const handleTimeUpdate =
     (index: number) =>
-      (event: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+      (event: React.SyntheticEvent<HTMLDivElement | HTMLVideoElement, Event>) => {
         const { currentTime, duration } = event.target as unknown as {
           currentTime: number;
           duration: number;
         };
-        setVideoProgress((prevProgress) => {
-          const newProgress = [...prevProgress];
-          newProgress[index] = { currentTime, duration };
-          return newProgress;
+        setVideoBarProgress((prevVideoProgress) => {
+          const newVideoProgress = [...prevVideoProgress];
+          newVideoProgress[index] = { currentTime, duration };
+          return newVideoProgress;
         });
       };
 
-  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    if (isCooldownActive) return;
+  const handleWheel = (event: React.WheelEvent<HTMLDivElement | HTMLVideoElement>) => {
+    if (event.target !== event.currentTarget) return;
+    if (isVideoScrollOnCooldown) return;
 
-    const isVerticalScroll = Math.abs(e.deltaY) > Math.abs(e.deltaX);
+    const isVerticalScroll = Math.abs(event.deltaY) > Math.abs(event.deltaX);
 
     if (isVerticalScroll) {
       //? Activate
-      setIsCooldownActive(true);
+      setIsVideoScrollOnCooldown(true);
 
       //? Deactivate cooldown after duration
-      setTimeout(() => setIsCooldownActive(false), cooldownDuration);
+      setTimeout(() => setIsVideoScrollOnCooldown(false), ON_SCROLL_COOLDOWN_DURATION);
 
       let newIndex = null;
 
-      if (e.deltaY > 0) {
+      if (event.deltaY > 0) {
         //? on Scrolling down
-        newIndex = Math.min(shortIndex + 1, shorts.length - 1);
-      } else if (e.deltaY < 0) {
+        newIndex = Math.min(currentShortIndex + 1, shortsList.length - 1);
+      } else if (event.deltaY < 0) {
         //? on Scrolling up
-        newIndex = Math.max(shortIndex - 1, 0);
+        newIndex = Math.max(currentShortIndex - 1, 0);
       }
-      if (newIndex !== null) setShortIndex(newIndex);
+      if (newIndex !== null) setCurrentShortIndex(newIndex);
     }
   };
 
@@ -200,7 +202,7 @@ export default function ShortsPage() {
         className="white-to-transparent-bottom-gradient flex h-screen flex-col items-center overflow-hidden"
         style={{ scrollSnapType: 'y mandatory' }}
       >
-        {shorts.map((short, index) => (
+        {shortsList.map((short, index) => (
           <article
             key={short.id}
             className="relative h-screen w-screen object-contain"
@@ -212,8 +214,8 @@ export default function ShortsPage() {
                   className="h-full bg-red-600"
                   style={{
                     width: `${
-                      videoProgress[index]?.currentTime && videoProgress[index]?.duration
-                        ? (videoProgress[index].currentTime / videoProgress[index].duration) * 100
+                      videoBarProgress[index]?.currentTime && videoBarProgress[index]?.duration
+                        ? (videoBarProgress[index].currentTime / videoBarProgress[index].duration) * 100
                         : 0
                     }%`
                   }}
@@ -242,9 +244,14 @@ export default function ShortsPage() {
               <div></div>
             </section>
 
-            <ActionSidebar short={short} setShort={setShorts} index={shortIndex} />
+            <ActionSidebar short={short} setShortsList={setShortsList} shortIndex={currentShortIndex} />
 
             <video
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onWheel={handleWheel}
+
               ref={(el) => (videoRefs.current[index] = el)}
               data-index={index}
               loop

@@ -9,8 +9,8 @@ export const createShort = async (videoUrl: string, description: string = '') =>
     initRequest({
       method: SHORT.create_short.method,
       auth: true,
-      body: { videoUrl, description },
-    }),
+      body: { videoUrl, description }
+    })
   ).then((r) => handleResponse<{ id: string }>(r));
 
 export const listShorts = async () =>
@@ -18,8 +18,8 @@ export const listShorts = async () =>
     SHORT.list_shorts.url,
     initRequest({
       method: SHORT.list_shorts.method,
-      auth: true,
-    }),
+      auth: true
+    })
   ).then((r) => handleResponseList<I_ShortPopulated>(r));
 
 export const listShortsByUserId = async (id: string) =>
@@ -27,8 +27,8 @@ export const listShortsByUserId = async (id: string) =>
     SHORT_DYNAMIC.list_shorts_by_user_id.url(id),
     initRequest({
       method: SHORT_DYNAMIC.list_shorts_by_user_id.method,
-      auth: true,
-    }),
+      auth: true
+    })
   ).then((r) => handleResponseList<I_ShortPopulated>(r));
 
 export const likeShort = async (id: string) =>
@@ -36,13 +36,13 @@ export const likeShort = async (id: string) =>
     SHORT_DYNAMIC.like_short.url(id),
     initRequest({
       method: SHORT_DYNAMIC.like_short.method,
-      auth: true,
-    }),
+      auth: true
+    })
   ).then((res) => {
     if (!res || !res.ok) {
       console.error(
         `Failed to send request Status: ${res?.statusText}`,
-        res.headers,
+        res.headers
       );
       return false;
     }
@@ -54,24 +54,24 @@ export const listCommentsByShort = async (shortId: string) =>
     SHORT_DYNAMIC.list_comments_by_story.url(shortId),
     initRequest({
       method: SHORT_DYNAMIC.list_comments_by_story.method,
-      auth: true,
-    }),
-  ).then((r) => handleResponse<T_PopulatedComment[]>(r));
+      auth: true
+    })
+  ).then((r) => handleResponseList<T_PopulatedComment>(r));
 
 export const createShortComment = async (
   shortId: string,
   body: {
     userId: string;
     content: string;
-  },
+  }
 ) =>
   fetch(
     SHORT_DYNAMIC.create_comment.url(shortId),
     initRequest({
       method: SHORT_DYNAMIC.create_comment.method,
       auth: true,
-      body,
-    }),
+      body
+    })
   ).then((r) => handleResponse<T_Comment>(r));
 
 export const deleteShortComment = async (commentId: string) =>
@@ -79,13 +79,13 @@ export const deleteShortComment = async (commentId: string) =>
     SHORT_DYNAMIC.delete_comment.url(commentId),
     initRequest({
       method: SHORT_DYNAMIC.delete_comment.method,
-      auth: true,
-    }),
+      auth: true
+    })
   ).then((res) => {
     if (!res || !res.ok) {
       console.error(
         `Failed to send request Status: ${res?.statusText}`,
-        res.headers,
+        res.headers
       );
       return false;
     }
@@ -97,13 +97,13 @@ export const likeShortComment = async (commentId: string) =>
     SHORT_DYNAMIC.like_comment.url(commentId),
     initRequest({
       method: SHORT_DYNAMIC.like_comment.method,
-      auth: true,
-    }),
+      auth: true
+    })
   ).then((res) => {
     if (!res || !res.ok) {
       console.error(
         `Failed to send request Status: ${res?.statusText}`,
-        res.headers,
+        res.headers
       );
       return false;
     }
