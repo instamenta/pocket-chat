@@ -7,17 +7,11 @@ import { MdReport } from 'react-icons/md';
 import { useUserContext } from '@/lib/context/UserContext';
 
 export function CommentSection(
-  {
-    onClose,
-    visibility,
-    short,
-    setShortsList,
-    shortIndex
-  }
+  { short, onClose, visibility, shortIndex, setShortsList }
     : {
-    onClose: () => void;
-    visibility: 'hidden' | 'visible';
     short: I_ShortPopulated
+    visibility: 'hidden' | 'visible';
+    onClose: () => void;
     shortIndex: number | string
     setShortsList: React.Dispatch<React.SetStateAction<I_ShortPopulated[]>>,
   }
@@ -35,7 +29,8 @@ export function CommentSection(
   }, [visibility, shortIndex]);
 
   useEffect(() => {
-    if (visibility === 'visible' && commentsContainerRef?.current) {
+    if (visibility === 'visible' && commentsContainerRef?.current)
+    {
       const { current: container } = commentsContainerRef;
       //? Scroll to the bottom of the comment section
       container.scrollTop = container.scrollHeight;
@@ -45,21 +40,23 @@ export function CommentSection(
 
   const handleLikeComment = (
     event: React.MouseEvent<SVGElement, MouseEvent>,
-    id: string
+    commentId: string
   ) => {
     event.preventDefault();
-    const index = comments.findIndex((data) => data.id === id);
+    const index = comments.findIndex((comment) => comment.id === commentId);
 
-    likeShortComment(id).then((status) => {
+    likeShortComment(commentId).then((status) => {
       if (!status) {
-        return console.log('Failed to like or dislike post');
+        return console.log('Failed to like or dislike comment');
       }
-      setComments((prev) => {
-        const updatedComments = [...prev];
-        const comm = { ...updatedComments[index] };
-        comm.liked_by_user = !comm.liked_by_user;
-        comm.liked_by_user ? comm.likes_count++ : comm.likes_count--;
-        updatedComments[index] = comm;
+      setComments((currentComments) => {
+        const updatedComments = [...currentComments];
+        const newComment = { ...updatedComments[index] };
+
+        newComment.liked_by_user = !newComment.liked_by_user;
+        newComment.liked_by_user ? newComment.likes_count++ : newComment.likes_count--;
+
+        updatedComments[index] = newComment;
         return updatedComments;
       });
     });
@@ -76,10 +73,12 @@ export function CommentSection(
     if (!newComment.trim()) {
       return console.log('Empty comment');
     }
-    const createdComment = await createShortComment(short.id, {
-      userId: user.id,
-      content: newComment
-    });
+    const createdComment = await createShortComment(
+      short.id, {
+        userId: user.id,
+        content: newComment
+      }
+    );
     if (!createdComment) return console.log('No Comment');
 
     setComments((currentComments) => [
@@ -97,9 +96,11 @@ export function CommentSection(
 
     setShortsList((currentShorts) => {
       const updatedShorts = [...currentShorts];
-      const short = { ...updatedShorts[+shortIndex] };
-      short.comments_count++;
-      updatedShorts[+shortIndex] = short;
+
+      const newShort = { ...updatedShorts[+shortIndex] };
+      newShort.comments_count++;
+      updatedShorts[+shortIndex] = newShort;
+
       return updatedShorts;
     });
 
@@ -108,15 +109,17 @@ export function CommentSection(
 
   const handleDeleteComment = (commentId: string) => {
     deleteShortComment(commentId).then((success) => {
-      if (!success) return console.error('Failed to delete Comment');
+      if (!success) return console.error('Failed to delete Comment', commentId);
 
       setComments((prev) => prev.filter((c) => c.id !== commentId));
 
       setShortsList((currentShorts) => {
         const updatedShorts = [...currentShorts];
-        const short = { ...updatedShorts[+shortIndex] };
-        short.comments_count--;
-        updatedShorts[+shortIndex] = short;
+        const newShort = { ...updatedShorts[+shortIndex] };
+
+        newShort.comments_count--;
+        updatedShorts[+shortIndex] = newShort;
+
         return updatedShorts;
       });
     });
@@ -132,22 +135,31 @@ export function CommentSection(
   };
 
   return (
-    <section className={`fixed top-0 left-0 h-screen w-screen bg-white bg-opacity-30 flex justify-center align-middle
-                    ${visibility === 'visible' ? 'block' : 'hidden'}`}
-             onClick={(event) => {
-               if (event.target === event.currentTarget) onClose();
-             }}
+    <section
+      className={`fixed top-0 left-0 h-screen w-screen bg-white bg-opacity-30 flex justify-center align-middle ${
+        visibility === 'visible' ? 'block' : 'hidden'
+      }`}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) {
+          onClose();
+        }
+      }}
     >
       <div
         className="fixed bottom-0 bg-slate-200 text-black w-full lg:max-w-[1024px] h-[60vh] justify-end flex flex-col">
 
-        <section className="flex flex-col gap-4 scrollbar-xs scroll-smooth border-y px-4 py-2 overflow-y-scroll"
-                 ref={commentsContainerRef}>
+        <section
+          className="flex flex-col gap-4 scrollbar-xs scroll-smooth border-y px-4 py-2 overflow-y-scroll"
+          ref={commentsContainerRef}
+        >
+          {/* TODO Pagination */}
           {comments.length === 100 ? (
             <div className="w-full text-center text-slate-500">
               Load more...
             </div>
           ) : null}
+
+          {/* Comments */}
           {comments.map((comment, index) => (
             <div key={index} className="mt-2 flex w-full flex-col">
               <div className="flex w-full flex-row gap-2">
@@ -182,9 +194,7 @@ export function CommentSection(
                               <>
                                 <li
                                   className="flex content-center cursor-pointer justify-start gap-1 pb-1 text-sm"
-                                  onClick={() =>
-                                    handleDeleteComment(comment.id)
-                                  }
+                                  onClick={() => handleDeleteComment(comment.id)}
                                 >
                                   <FaRegTrashAlt className="my-auto" />
                                   <span>Delete</span>
@@ -215,9 +225,7 @@ export function CommentSection(
                   <div className="mt-2 flex flex-row content-center gap-2 text-sm text-black">
                     <span>{comment.likes_count}</span>
                     <FaRegHeart
-                      onClick={(event) =>
-                        handleLikeComment(event, comment.id)
-                      }
+                      onClick={(event) => handleLikeComment(event, comment.id)}
                       className={`h-4 w-4 ${comment.liked_by_user ? 'fill-red-600' : ''}`}
                     />
                   </div>
@@ -294,7 +302,7 @@ export function CommentSection(
               id="comment"
               rows={1}
               value={newComment}
-              onChange={(e) => setNewComment(() => e.target.value)}
+              onChange={(event) => setNewComment(() => event.target.value)}
               className="mx-4 block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 outline-none transition-all focus:border-blue-500 focus:ring-blue-500"
               placeholder="Your message..."
             ></textarea>

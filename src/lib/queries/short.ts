@@ -1,4 +1,4 @@
-import { SHORT, SHORT_DYNAMIC } from '@/lib/variables';
+import { COMMENTS_DYNAMIC, SHORT, SHORT_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
 import { handleResponse, handleResponseList } from '@/lib/utilities';
 import { I_ShortPopulated, T_Comment, T_PopulatedComment } from '@/lib/types';
@@ -108,4 +108,32 @@ export const likeShortComment = async (commentId: string) =>
       return false;
     }
     return true;
+  });
+
+export const getShortCommentById = (id: string) =>
+  fetch(
+    SHORT_DYNAMIC.get_comment_by_id.url(id),
+    initRequest({
+      method: SHORT_DYNAMIC.get_comment_by_id.method
+    })
+  ).then(async (response: Response): Promise<T_Comment & { likes_count: number } | null> => {
+    if (!response.ok) {
+      console.log('HTTP ERROR', response.status, response);
+      return null;
+    }
+    return await response.json();
+  });
+
+export const getShortById = (id: string) =>
+  fetch(
+    SHORT_DYNAMIC.get_short_by_id.url(id),
+    initRequest({
+      method: SHORT_DYNAMIC.get_short_by_id.method
+    })
+  ).then(async (response: Response): Promise<I_ShortPopulated | null> => {
+    if (!response.ok) {
+      console.log('HTTP ERROR', response.status, response);
+      return null;
+    }
+    return await response.json();
   });

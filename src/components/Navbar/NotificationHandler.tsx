@@ -3,9 +3,13 @@
 import React from 'react';
 import { I_PopulatedNotification } from '@/lib/types';
 import { notification_types } from '@/lib/types/enumerations';
-import MessageNotification from '@/components/Navbar/Notifications/MessageNotification';
 import LikeNotification from '@/components/Navbar/Notifications/LikeNotification';
+import MessageNotification from '@/components/Navbar/Notifications/MessageNotification';
 import CommentNotification from '@/components/Navbar/Notifications/CommentNotification';
+import LikeCommentNotification from '@/components/Navbar/Notifications/LikeCommentNotification';
+import LikeShortCommentNotification from '@/components/Navbar/Notifications/LikeShortCommentNotification';
+import LikeShortNotification from '@/components/Navbar/Notifications/LikeShortNotification';
+import CommentShortNotification from '@/components/Navbar/Notifications/CommentShortNotification';
 
 const NotificationHandler = ({ notification, index }: {
   notification: I_PopulatedNotification, index: number
@@ -13,14 +17,26 @@ const NotificationHandler = ({ notification, index }: {
 
   const buildMessage = (notification: I_PopulatedNotification) => {
     switch (notification.type) {
-      case notification_types.MESSAGE: {
-        return <MessageNotification notification={notification} />;
-      }
       case notification_types.LIKE: {
         return <LikeNotification notification={notification} />;
       }
+      case notification_types.MESSAGE: {
+        return <MessageNotification notification={notification} />;
+      }
       case notification_types.COMMENT: {
         return <CommentNotification notification={notification} />;
+      }
+      case notification_types.LIKE_COMMENT: {
+        return <LikeCommentNotification notification={notification} />;
+      }
+      case notification_types.LIKE_SHORT: {
+        return <LikeShortNotification notification={notification} />;
+      }
+      case notification_types.COMMENT_SHORT: {
+        return <CommentShortNotification notification={notification} />;
+      }
+      case notification_types.LIKE_SHORT_COMMENT: {
+        return <LikeShortCommentNotification notification={notification} />;
       }
       default: {
         console.error(`Notification with Unknown type ${notification.type}`);
