@@ -99,6 +99,18 @@ export const FRIENDS_DYNAMIC = {
     url: (id: string) => new URL(`${endpoints.friend}/${id}`),
     method: 'GET'
   } as T_Rest1Param,
+  list_friends_by_username: {
+    url: (username: string) => new URL(`${endpoints.friend}/username/${username}`),
+    method: 'GET'
+  } as T_Rest1Param,
+  get_friends_count_by_user_id: {
+    url: (id: string) => new URL(`${endpoints.friend}/${id}/count`),
+    method: 'GET'
+  } as T_Rest1Param,
+  list_mutual_friends_by_user: {
+    url: (id: string) => new URL(`${endpoints.friend}/${id}/mutual`),
+    method: 'GET'
+  } as T_Rest1Param,
   get_by_id: {
     url: (id: string) => new URL(`${endpoints.friend}/one/${id}`),
     method: 'GET'
@@ -174,6 +186,10 @@ export const PUBLICATIONS_DYNAMIC = {
   } as T_Rest1Param,
   get_publications_by_user_id: {
     url: (userId: string) => new URL(`${endpoints.publication}/user/${userId}`),
+    method: 'GET'
+  } as T_Rest1Param,
+  get_publications_count_by_user_id: {
+    url: (userId: string) => new URL(`${endpoints.publication}/user/${userId}/count`),
     method: 'GET'
   } as T_Rest1Param,
   update_publication: {

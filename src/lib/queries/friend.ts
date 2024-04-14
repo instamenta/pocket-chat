@@ -1,8 +1,8 @@
 import { FRIENDS, FRIENDS_DYNAMIC } from '@/lib/variables';
 import { initRequest } from '@/lib';
-import { I_Friendship, I_UserSchema } from '../types';
+import { I_Friendship, I_UserSchema, T_MutualFriend } from '../types';
 import { initActionRequest } from '@/lib/actions/actions';
-import { handleResponseList, handleResponseVoid } from '@/lib/utilities';
+import { handleResponse, handleResponseList, handleResponseVoid } from '@/lib/utilities';
 
 export const listFriendRecommendations = () =>
   fetch(
@@ -98,6 +98,33 @@ export const listFriendsByUserId = (id: string) =>
       auth: true,
     }),
   ).then((r) => handleResponseList<I_UserSchema>(r));
+
+export const listFriendsByUsername = (username: string) =>
+  fetch(
+    FRIENDS_DYNAMIC.list_friends_by_username.url(username),
+    initRequest({
+      method: FRIENDS_DYNAMIC.list_friends_by_username.method,
+      auth: true,
+    }),
+  ).then((r) => handleResponseList<I_UserSchema>(r));
+
+export const getFriendsCountByUserId = (id: string) =>
+  fetch(
+    FRIENDS_DYNAMIC.get_friends_count_by_user_id.url(id),
+    initRequest({
+      method: FRIENDS_DYNAMIC.get_friends_count_by_user_id.method,
+      auth: true,
+    }),
+  ).then((r) => handleResponse<{ count: number }>(r));
+
+export const listMutualFriendsByUsers = (id: string) =>
+  fetch(
+    FRIENDS_DYNAMIC.list_mutual_friends_by_user.url(id),
+    initRequest({
+      method: FRIENDS_DYNAMIC.list_mutual_friends_by_user.method,
+      auth: true,
+    }),
+  ).then((r) => handleResponseList<T_MutualFriend>(r));
 
 export const getBySenderAndRecipient = (user1: string, user2: string) =>
   fetch(

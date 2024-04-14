@@ -6,11 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="491fc99d-a4b2-4f07-8827-a0982efacf0b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/NotificationHandler.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/NotificationHandler.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/Notifications/LikeCommentNotification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/Notifications/LikeCommentNotification.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/Notifications/MessageNotification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/Notifications/MessageNotification.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modals/CommentSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/CommentSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/queries/short.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/short.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/profile/[username]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/[username]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar/DropdownMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/DropdownMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar/SimplifiedNavbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/SimplifiedNavbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/queries/friend.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/friend.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/queries/publication.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/queries/publication.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/utilities/formatting.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/utilities/formatting.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/variables.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/variables.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,6 +33,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;instamenta&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/instamenta/t3-hexagots.git&quot;,
+    &quot;accountId&quot;: &quot;238d1deb-0745-4195-9d59-6173165af05d&quot;
+  }
+}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
@@ -54,7 +70,7 @@
     "go.import.settings.migrated": "true",
     "javascript.nodejs.core.library.configured.version": "20.5.0",
     "javascript.nodejs.core.library.typings.version": "20.5.9",
-    "last_opened_file_path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots/src/components/Navbar/Notifications",
+    "last_opened_file_path": "/home/user/Desktop/myProjects/chat-app/t3-hexagots",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -102,6 +118,14 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -225,6 +249,20 @@
       <workItem from="1711652587554" duration="6563000" />
       <workItem from="1711732485934" duration="7933000" />
       <workItem from="1711911682386" duration="5939000" />
+      <workItem from="1712211600205" duration="232000" />
+      <workItem from="1712416559914" duration="1501000" />
+      <workItem from="1712553767783" duration="8000" />
+      <workItem from="1712608365448" duration="647000" />
+      <workItem from="1712643649481" duration="66000" />
+      <workItem from="1712689494387" duration="3264000" />
+      <workItem from="1712775308025" duration="6628000" />
+      <workItem from="1712819710991" duration="119000" />
+      <workItem from="1712830874984" duration="2547000" />
+      <workItem from="1712839092390" duration="2615000" />
+      <workItem from="1712843856772" duration="1870000" />
+      <workItem from="1712859667453" duration="2173000" />
+      <workItem from="1712902948461" duration="116000" />
+      <workItem from="1713127848600" duration="3017000" />
     </task>
     <servers />
   </component>

@@ -312,3 +312,10 @@ export type T_Conversations = {
   username: string;
   picture: string;
 };
+
+export type T_MutualFriend = {
+  user_id: string
+  first_name: string
+  last_name: string
+  username: string
+}

@@ -51,7 +51,16 @@ export const getPublicationsByUserId = async (userId: string) =>
       method: PUBLICATIONS_DYNAMIC.get_publications_by_user_id.method,
       auth: true,
     }),
-  ).then((r) => handleResponse<I_Publication[]>(r));
+  ).then((r) => handleResponse<I_Recommendation[]>(r));
+
+export const getPublicationsCountByUserId = async (userId: string) =>
+  fetch(
+    PUBLICATIONS_DYNAMIC.get_publications_count_by_user_id.url(userId),
+    initRequest({
+      method: PUBLICATIONS_DYNAMIC.get_publications_count_by_user_id.method,
+      auth: true,
+    }),
+  ).then((r) => handleResponse<{count: number}>(r));
 
 export const updatePublication = async (
   id: string,

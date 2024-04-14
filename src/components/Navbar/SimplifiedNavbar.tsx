@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'lucide-react';
 import { GoChevronLeft, GoGear } from 'react-icons/go';
+import Link from 'next/link';
 
 const SimplifiedNavbar = ({ title }: { title?: string }) => {
   return (

@@ -14,7 +14,7 @@ const DropdownMenu: React.FC = () => {
   const [toggle, setToggle] = React.useState<boolean>(false);
 
   const handleSignOut = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
     useUser.getState().logout();
@@ -22,7 +22,7 @@ const DropdownMenu: React.FC = () => {
   };
 
   const toggleDropdown = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
     setToggle((prev) => !prev);
@@ -62,7 +62,7 @@ const DropdownMenu: React.FC = () => {
         >
           <li className="odd:bg-slate-100">
             <Link
-              href="/profile"
+              href={`/profile/${user.username}`}
               className="flex gap-2 px-4 py-2 text-left transition-all hover:bg-gray-100 hover:text-gray-900 hover:underline "
             >
               <CgProfile className="size-5" />
@@ -85,6 +85,15 @@ const DropdownMenu: React.FC = () => {
             >
               <PiUsersBold className="size-5" />
               <strong>Discover</strong>
+            </Link>
+          </li>
+          <li className="odd:bg-slate-100">
+            <Link
+              href="/profile"
+              className="flex gap-2 px-4 py-2 text-left transition-all hover:bg-gray-100 hover:text-gray-900 hover:underline "
+            >
+              <CgProfile className="size-5" />
+              <strong>Edit Profile</strong>
             </Link>
           </li>
         </ul>
